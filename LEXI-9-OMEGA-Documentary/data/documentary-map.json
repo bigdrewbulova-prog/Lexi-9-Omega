@@ -1,0 +1,36 @@
+{
+  "title": "LEXI-9-OMEGA: Architecture of a Living Blueprint",
+  "logline": "A creator builds Lexi.AI from a mythic AI persona into a practical engineering companion: part brand engine, part research archive, part blueprint generator, part mobile assistant, and part cinematic symbol of future design.",
+  "core_question": "Can one person turn a personal AI vision into a useful system that helps people build brands, understand engineering, visualize ideas, and make safer design decisions?",
+  "tone": ["cinematic", "technical", "grounded", "visionary"],
+  "product_now": {
+    "name": "Custom AI Brand Blueprint Packs",
+    "price_starting_usd": 50,
+    "includes": ["name", "bio", "slogan", "image_prompts", "ad_copy", "one_page_concept_sheet"],
+    "cta": "BLUEPRINT",
+    "spots_open_example": 5
+  },
+  "acts": [
+    "Cold Open: The System Comes Online",
+    "Act I: The Curator",
+    "Act II: The Persona Engine",
+    "Act III: The Build",
+    "Act IV: The Product",
+    "Act V: The Engineering Dream",
+    "Act VI: The Mobile Companion",
+    "Act VII: The Launch",
+    "Finale: The Blueprint Breathes"
+  ],
+  "episodes": [
+    "The Curator",
+    "The Name That Became a Machine",
+    "The First Useful Build",
+    "Selling the Blueprint",
+    "The Physics Cathedral",
+    "The Companion Device",
+    "Proof of Usefulness"
+  ],
+  "first_edit": "2-minute trailer",
+  "expand_to": "12-minute documentary or episodic series",
+  "grounding_rule": "Do not present impossible technology as finished. Prefer simulation, concept design, research prototype, visualization."
+}

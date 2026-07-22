@@ -1,0 +1,67 @@
+{
+  "curvature_report": {
+    "density": 16.5,
+    "curvature": 2.436872968974171,
+    "regime": "transitional",
+    "softness": 0.10494219614900084,
+    "step_scale": 0.6916546548347018,
+    "noise_scale": 0.036729768652150295,
+    "notes": "Abstract density\u2192curvature control map. Not a physical gravitational field solver."
+  },
+  "optimization": {
+    "classification": "SIMULATION / RESEARCH PROTOTYPE ONLY",
+    "disclaimer": "Density/curvature are abstract control scores for optimizer behavior, not physical gravitational fields.",
+    "timestamp": "2026-07-21T16:25:11+00:00",
+    "density": 16.5,
+    "curvature_report": {
+      "density": 16.5,
+      "curvature": 2.436872968974171,
+      "regime": "transitional",
+      "softness": 0.10494219614900084,
+      "step_scale": 0.6916546548347018,
+      "noise_scale": 0.036729768652150295,
+      "notes": "Abstract density\u2192curvature control map. Not a physical gravitational field solver."
+    },
+    "x0": [
+      0.0,
+      0.0
+    ],
+    "x_best": [
+      1.5000013601137083,
+      -0.5000067725089997
+    ],
+    "f_best": 4.771678745085863e-11,
+    "f_final": 7.151975641517485e-10,
+    "steps_run": 60,
+    "loss_trajectory": [
+      0.25458332316395327,
+      0.22526712099056637,
+      0.19781700532613236,
+      0.17215124957792752,
+      0.14827216468747406,
+      0.12612891268505194,
+      0.10582560369786997,
+      0.08728987687028739,
+      0.07050305190268175,
+      0.055471768126450195,
+      0.04226316875875485,
+      0.030842789017067083,
+      0.02122832163626686,
+      0.013419343559321012,
+      0.007380409097135133,
+      0.003139813621047425,
+      0.0006827031652275973,
+      1.4592794190968623e-05,
+      1.3387307392211243e-05,
+      8.264501766449108e-09,
+      7.052832907963684e-10,
+      4.8962183813442556e-11,
+      7.150380650308856e-10,
+      4.771678745085863e-11,
+      7.151975641517485e-10
+    ],
+    "step_scale": 0.6916546548347018,
+    "noise_scale": 0.036729768652150295
+  },
+  "classification": "SIMULATION ONLY"
+}

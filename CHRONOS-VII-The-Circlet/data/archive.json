@@ -1,0 +1,18 @@
+{
+  "title": "CHRONOS-VII - The Circlet",
+  "slug": "CHRONOS_VII_The_Circlet",
+  "created_at": "2026-07-06T20:49:42",
+  "system": "Lexi.PHYS",
+  "source_command": "/experimental",
+  "classification": {
+    "tier": "EXPERIMENTAL / CINEMATIC SIMULATION ONLY",
+    "guidance": "Preserve the concept as Lexi.PHYS worldbuilding and convert it into software artifacts: material cards, stress-field visualizations, repair-state simulations, and pitch visuals. Do not present it as literal vacuum engineering or completed quantum hardware."
+  },
+  "validation_boundary": [
+    "This archive is not a scientific validation, medical-device assessment, patent search, or procurement recommendation.",
+    "Temporal-displacement language is treated as fiction and visualization only; no time-travel, radioactive power, singularity, or exotic-matter hardware design is generated."
+  ],
+  "prototype_conversion": {
+    "first_safe_demo": "Create a purely visual spacetime sandbox with adjustable timeline branches, light-cone tilt, entropy score, and causality-risk meters; do not model buildable time-travel hardware, radioactive power systems, singularities, or wearable high-speed rotors."
+  }
+}

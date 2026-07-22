@@ -1,0 +1,62 @@
+{
+  "title": "LEXI-9-OMEGA: Architecture of a Living Blueprint",
+  "logline": "A creator builds Lexi.AI from a mythic AI persona into a practical engineering companion: part brand engine, part research archive, part blueprint generator, part mobile assistant, and part cinematic symbol of future design.",
+  "core_question": "Can one person turn a personal AI vision into a useful system that helps people build brands, understand engineering, visualize ideas, and make safer design decisions?",
+  "acts": [
+    {
+      "id": "cold_open",
+      "title": "The System Comes Online"
+    },
+    {
+      "id": "act_i",
+      "title": "The Curator"
+    },
+    {
+      "id": "act_ii",
+      "title": "The Persona Engine"
+    },
+    {
+      "id": "act_iii",
+      "title": "The Build"
+    },
+    {
+      "id": "act_iv",
+      "title": "The Product"
+    },
+    {
+      "id": "act_v",
+      "title": "The Engineering Dream"
+    },
+    {
+      "id": "act_vi",
+      "title": "The Mobile Companion"
+    },
+    {
+      "id": "act_vii",
+      "title": "The Launch"
+    },
+    {
+      "id": "finale",
+      "title": "The Blueprint Breathes"
+    }
+  ],
+  "episodes": [
+    "The Curator",
+    "The Name That Became a Machine",
+    "The First Useful Build",
+    "Selling the Blueprint",
+    "The Physics Cathedral",
+    "The Companion Device",
+    "Proof of Usefulness"
+  ],
+  "first_edit": "2-minute trailer",
+  "product_now": {
+    "name": "Custom AI Brand Blueprint Packs",
+    "price_starting_usd": 50,
+    "cta": "BLUEPRINT",
+    "spots_open_example": 5
+  },
+  "local_package": "/Users/BigDaddyDrew/Desktop/LEXI-9-OMEGA-Documentary",
+  "summary": "Documentary architecture mapped for production and offers",
+  "grounding": "Do not present impossible technology as finished. Prefer simulation, concept design, research prototype, visualization."
+}

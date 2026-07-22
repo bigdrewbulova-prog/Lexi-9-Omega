@@ -1,0 +1,2 @@
+# Lexi.AI Desktop Companion uses only the Python standard library.
+# Python 3.10+ recommended.

@@ -1,0 +1,29 @@
+{
+  "forge": "Blueprint Forge",
+  "version": "1.0.0",
+  "title": "NOVA THREAD",
+  "brand_name": "NOVA THREAD",
+  "price_starting_usd": 50,
+  "cta": "BLUEPRINT",
+  "paths": {
+    "markdown": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260719-143446-NOVA_THREAD.md",
+    "json": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260719-143446-NOVA_THREAD.json",
+    "html": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260719-143446-NOVA_THREAD.html",
+    "code_python": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260719-143446-NOVA_THREAD/brand_pack.py",
+    "code_landing": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260719-143446-NOVA_THREAD/landing.html",
+    "code_readme": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260719-143446-NOVA_THREAD/README.md",
+    "code_dir": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260719-143446-NOVA_THREAD"
+  },
+  "includes_code": true,
+  "review_gate": [
+    "Customer reviews name/slogan/bio",
+    "Confirm vibe and audience",
+    "Export HTML or PDF for delivery",
+    "Starter code is optional template only"
+  ],
+  "boundaries": [
+    "Customer-facing identity pack only",
+    "Not a claim of finished AGI or exotic hardware"
+  ],
+  "summary": "Blueprint Forge pack for NOVA THREAD"
+}

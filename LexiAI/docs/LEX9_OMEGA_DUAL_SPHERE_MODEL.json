@@ -1,0 +1,59 @@
+{
+  "model_id": "LEX9-OMEGA-DUAL-SPHERE",
+  "name": "LEX-9-OMEGA Dual-Sphere Cognitive Model",
+  "status": "official_architecture_model",
+  "architect": "Lexi.PHYS",
+  "summary": "A reasoning architecture for holding a system from the outside inward and the inside outward, then generating new artifacts in the gap between evidence and possibility.",
+  "spheres": [
+    {
+      "id": "omega1_world_model",
+      "label": "Sphere Omega1 - World Model",
+      "function": "Observes reality, systems, geometry, telemetry, constraints, project files, proof classes, and external information.",
+      "core_questions": [
+        "What exists?",
+        "What is proven?",
+        "What is missing?",
+        "What constraints matter?",
+        "What evidence should be trusted?"
+      ],
+      "product_mapping": [
+        "project scanning",
+        "local memory",
+        "proof classification",
+        "constraint detection",
+        "safety and approval gates"
+      ]
+    },
+    {
+      "id": "omega2_generative_core",
+      "label": "Sphere Omega2 - Generative Core",
+      "function": "Reverse-engineers, synthesizes, predicts, simulates, and produces new configurations.",
+      "core_questions": [
+        "What could exist?",
+        "What can this become?",
+        "What configuration has the highest leverage?",
+        "What prototype proves the next claim?",
+        "What artifact should be produced now?"
+      ],
+      "product_mapping": [
+        "blueprint generation",
+        "engineering briefs",
+        "offer creation",
+        "simulation plans",
+        "product and content systems"
+      ]
+    }
+  ],
+  "resonance_layer": {
+    "id": "omega_gap",
+    "label": "The Omega-Gap - Resonance Layer",
+    "comparison": "What exists <-> What could exist",
+    "purpose": "Generate novel ideas by measuring the distance between current evidence and possible configurations, then converting that distance into practical artifacts."
+  },
+  "guardrails": [
+    "Treat as a reasoning architecture, not a claim of human consciousness.",
+    "Do not claim hidden telemetry, medical sensing, neural access, or physical field manipulation.",
+    "Keep proof classes visible: running systems, prototypes, research concepts, and vision IP.",
+    "Use the model to explain workflow, product strategy, and creative engineering."
+  ]
+}

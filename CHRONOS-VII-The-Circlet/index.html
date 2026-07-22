@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CHRONOS-VII — The Circlet · Spacetime Sandbox</title>
+    <meta
+      name="description"
+      content="Lexi.PHYS cinematic spacetime sandbox for CHRONOS-VII. Fiction and visualization only."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="banner">
+      EXPERIMENTAL / CINEMATIC SIMULATION ONLY · Not scientific validation · Not buildable time-travel
+      hardware · Not radioactive / singularity / exotic-matter design · Hash 0x882_TEMP_SHIFT
+    </div>
+
+    <div class="shell">
+      <header class="top">
+        <div class="brand">
+          <div class="id">LEXI.PHYS · /EXPERIMENTAL · PROJECT CHRONOS-VII</div>
+          <h1>The <span>Circlet</span> Sandbox</h1>
+          <p>
+            Visual spacetime stage for timeline branches, light-cone tilt, entropy, and causality-risk
+            meters. Lore stays mythic; the software stays honest.
+          </p>
+        </div>
+        <div class="meta">
+          <div>SYSTEM <b>Lexi.PHYS</b></div>
+          <div>MODE <b>cinematic sim</b></div>
+          <div>DEMO <b>first safe slice</b></div>
+          <div>PROP <b>19.8mm / size 10</b></div>
+        </div>
+      </header>
+
+      <aside class="panel">
+        <h2>Manifold Controls</h2>
+
+        <div class="control">
+          <label>
+            <span>Timeline branches</span>
+            <strong id="val-branches">3</strong>
+          </label>
+          <input id="branches" type="range" min="1" max="8" step="1" value="3" />
+          <div class="hint">Many-worlds style offsets for story geometry — not real branching physics.</div>
+        </div>
+
+        <div class="control">
+          <label>
+            <span>Light-cone tilt</span>
+            <strong id="val-tilt">18°</strong>
+          </label>
+          <input id="tilt" type="range" min="0" max="90" step="1" value="18" />
+          <div class="hint">Narrative cone lean. High tilt raises fictional paradox pressure.</div>
+        </div>
+
+        <div class="control">
+          <label>
+            <span>Band field intensity</span>
+            <strong id="val-field">35%</strong>
+          </label>
+          <input id="field" type="range" min="0" max="100" step="1" value="35" />
+          <div class="hint">Visual ring energy only — not RPM rotors or frame-dragging hardware.</div>
+        </div>
+
+        <div class="control">
+          <label>
+            <span>Pulse charge (UI)</span>
+            <strong id="val-pulse">40%</strong>
+          </label>
+          <input id="pulse" type="range" min="0" max="100" step="1" value="40" />
+          <div class="hint">Fictional charge meter. Tritium / beta-voltaic power design is blocked.</div>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="primary" id="btn-reset">CALIBRATION ZERO</button>
+          <button type="button" id="btn-stress">STRESS SCENARIO</button>
+          <button type="button" id="btn-recalibrate">RECALIBRATE</button>
+        </div>
+
+        <div class="log" id="event-log" aria-live="polite"></div>
+      </aside>
+
+      <section class="panel stage">
+        <div class="stage-head">
+          <h2 style="margin: 0">Spacetime Stage</h2>
+          <div class="state-pill" id="sim-state" data-state="NOMINAL">
+            <i></i>
+            STATE <b>NOMINAL</b>
+          </div>
+        </div>
+        <canvas id="sandbox" aria-label="CHRONOS-VII light-cone and branch visualization"></canvas>
+        <div class="legend">
+          <span class="cone">Light cones</span>
+          <span class="branch">Timeline branches</span>
+          <span class="worldline">Wearer worldline</span>
+          <span class="ring">Circlet prop</span>
+        </div>
+        <p id="risk-copy" style="margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5"></p>
+      </section>
+
+      <aside class="panel">
+        <h2>Risk & Integrity Meters</h2>
+
+        <div class="meter">
+          <div class="row"><span>Causality risk</span><b id="meter-causality-val">0</b></div>
+          <div class="bar risk"><i id="bar-causality"></i></div>
+        </div>
+        <div class="meter">
+          <div class="row"><span>Entropy score</span><b id="meter-entropy-val">0</b></div>
+          <div class="bar entropy"><i id="bar-entropy"></i></div>
+        </div>
+        <div class="meter">
+          <div class="row"><span>Shield integrity</span><b id="meter-shield-val">0</b></div>
+          <div class="bar"><i id="bar-shield"></i></div>
+        </div>
+        <div class="meter">
+          <div class="row"><span>Spatiotemporal erosion</span><b id="meter-erosion-val">0</b></div>
+          <div class="bar risk"><i id="bar-erosion"></i></div>
+        </div>
+
+        <h2 style="margin-top: 20px">Material Cards → UI</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Zerodur + HfCN chassis</h3>
+            <p>Maps to structural skin / damage state on the prop ring.</p>
+            <span class="tag">LORE → VISUAL</span>
+          </div>
+          <div class="card">
+            <h3>YBCO nanoweave band</h3>
+            <p>Maps to field-intensity glow. Not a real superconductor coil design package.</p>
+            <span class="tag">LORE → SHADER</span>
+          </div>
+          <div class="card">
+            <h3>Mu-metal “entropy sink”</h3>
+            <p>Maps to shield integrity + entropy meters. No Planck vacuum venting claims.</p>
+            <span class="tag">LORE → METER</span>
+          </div>
+          <div class="card">
+            <h3>Tritium beta-voltaic cell</h3>
+            <p>Blocked as hardware. Only a fictional pulse-charge slider exists.</p>
+            <span class="tag blocked">BLOCKED HARDWARE</span>
+          </div>
+          <div class="card">
+            <h3>Casimir / CTC / Kerr–Newman</h3>
+            <p>Vocabulary retained for worldbuilding; never presented as working mechanism.</p>
+            <span class="tag blocked">FICTION ONLY</span>
+          </div>
+        </div>
+      </aside>
+
+      <p class="footer-note">
+        Validation boundary: this archive is not a scientific validation, medical-device assessment,
+        patent search, or procurement recommendation. Docs:
+        <a href="docs/lore-dossier.md">lore dossier</a> ·
+        <a href="docs/concept-sheet.md">concept sheet</a> ·
+        <a href="docs/claim-ledger.md">claim ledger</a> ·
+        <a href="docs/safety-checklist.md">safety checklist</a>
+      </p>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "forge": "Blueprint Forge",
+  "version": "1.0.0",
+  "title": "Lexi Signal Brand",
+  "brand_name": "Lexi Signal Brand",
+  "price_starting_usd": 50,
+  "cta": "BLUEPRINT",
+  "paths": {
+    "markdown": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260719-134642-Lexi_Signal_Brand.md",
+    "json": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260719-134642-Lexi_Signal_Brand.json",
+    "html": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260719-134642-Lexi_Signal_Brand.html",
+    "code_python": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260719-134642-Lexi_Signal_Brand/brand_pack.py",
+    "code_landing": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260719-134642-Lexi_Signal_Brand/landing.html",
+    "code_readme": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260719-134642-Lexi_Signal_Brand/README.md",
+    "code_dir": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260719-134642-Lexi_Signal_Brand"
+  },
+  "includes_code": true,
+  "review_gate": [
+    "Customer reviews name/slogan/bio",
+    "Confirm vibe and audience",
+    "Export HTML or PDF for delivery",
+    "Starter code is optional template only"
+  ],
+  "boundaries": [
+    "Customer-facing identity pack only",
+    "Not a claim of finished AGI or exotic hardware"
+  ],
+  "summary": "Blueprint Forge pack for Lexi Signal Brand"
+}

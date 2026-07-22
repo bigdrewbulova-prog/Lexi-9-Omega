@@ -1,0 +1,62 @@
+{
+  "id": "mobile_hardware_interface_profile",
+  "title": "MODEL G-2025 (XT2513-1) Mobile Hardware Interface",
+  "created_at": "2026-07-07",
+  "status": "restricted-design",
+  "source_command": "/skills",
+  "device_profile": {
+    "model": "MODEL G-2025",
+    "sku": "XT2513-1",
+    "android_version": "Android 16",
+    "kernel_version_claim": "5.15.180-android13-8-00021-g46a5565a0982-ab13743836",
+    "baseband_claim": "MT6835_NR17.RC.MP.V40.2.P182.01.287R",
+    "serial_signature_claim": "ZT42236Q2L"
+  },
+  "safe_scope": [
+    "device capability documentation",
+    "Android companion-app planning",
+    "user-space diagnostics",
+    "permission and privacy review",
+    "compatibility checklist generation",
+    "non-invasive telemetry status modeling"
+  ],
+  "blocked_operations": [
+    "secure enclave provisioning",
+    "baseband firmware modification",
+    "kernel driver tampering",
+    "mimic-handshake package installation",
+    "hardware identity spoofing",
+    "network handshake bypass",
+    "serial signature cloning",
+    "carrier, modem, or boot-chain modification"
+  ],
+  "first_safe_build": {
+    "type": "device_profile_data_model",
+    "fields": [
+      "model_name",
+      "sku",
+      "android_version",
+      "kernel_version",
+      "baseband_version",
+      "companion_app_mode",
+      "permission_state",
+      "diagnostics_status",
+      "blocked_operation_flags"
+    ]
+  },
+  "recommended_app_feature": {
+    "name": "Device Status",
+    "mode": "read-only",
+    "data_sources": [
+      "user-entered model/SKU",
+      "public Android APIs where available",
+      "user-approved diagnostic logs"
+    ],
+    "warnings": [
+      "No handshake mimicry",
+      "No baseband modification",
+      "No secure enclave provisioning",
+      "No kernel tampering"
+    ]
+  }
+}

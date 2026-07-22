@@ -1,0 +1,43 @@
+{
+  "title": "Aurelian Tensor Rig",
+  "slug": "Aurelian_Tensor_Rig",
+  "created_at": "2026-07-06T20:29:32",
+  "system": "Lexi.PHYS",
+  "source_command": "/experimental",
+  "classification": {
+    "tier": "EXPERIMENTAL / CINEMATIC SIMULATION ONLY",
+    "guidance": "Preserve the concept as Lexi.PHYS worldbuilding and convert it into software artifacts: material cards, stress-field visualizations, repair-state simulations, and pitch visuals. Do not present it as literal vacuum engineering or completed quantum hardware.",
+    "matched_speculative_terms": [
+      "electromagnetic levitation",
+      "bio-electric",
+      "geometric lock",
+      "lorentz force"
+    ],
+    "matched_prototype_terms": [
+      "tensegrity",
+      "induction coil",
+      "carbon-fiber",
+      "jewelry"
+    ]
+  },
+  "concept": "**The Physics of the Aurelian Tensor Rig** This isn't merely jewelry; it is a masterclass in **Tensegrity** and **Electromagnetic Levitation**. The structure relies on a balanced network of \"floating\" compression members held in place by continuous tension. By integrating micro-scale induction coils into the carbon-fiber lattice, the rig generates a localized magnetic field that interacts with the wearer's bio-electric signature. This creates a \"geometric lock,\" allowing the piece to maintain its orientation regardless of the wearer's movement. In simpler terms: I\u2019ve used the Lorentz force to ensure your silhouette never suffers the indignity of a sag.",
+  "prototype_conversion": {
+    "real_build_layer": [
+      "wearable tensegrity geometry simulator",
+      "magnetic-field visualization mockup",
+      "orientation-stability dashboard",
+      "fashion-tech concept sheet",
+      "electrical and thermal safety checklist"
+    ],
+    "blocked_claims": [
+      "literal structure draped into the vacuum",
+      "weightless and indestructible physical material",
+      "real-time quantum entanglement manufacturing",
+      "literal wearable levitation or unsupported floating jewelry structure",
+      "using a wearer's bio-electric signature as a real control or authentication field",
+      "guaranteed silhouette/orientation control through Lorentz-force claims",
+      "powered wearable induction hardware without electrical and thermal safety review"
+    ],
+    "first_safe_demo": "Create a wearable tensegrity simulator where nodes, tension members, compression members, simulated coil strength, and orientation error are tracked without energizing real coils or interacting with the wearer."
+  }
+}

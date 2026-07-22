@@ -1,0 +1,54 @@
+{
+  "title": "Lexi.AI Paid Offer Map",
+  "offers": [
+    {
+      "id": "brand_blueprint_pack",
+      "name": "Custom AI Brand Blueprint Pack",
+      "price_starting_usd": 50,
+      "includes": [
+        "Custom AI/brand name",
+        "Short bio",
+        "Slogan",
+        "Image prompts",
+        "Ad copy",
+        "One-page concept sheet"
+      ],
+      "cta": "BLUEPRINT",
+      "customers": [
+        "Small businesses",
+        "Music pages",
+        "Gaming brands",
+        "Clothing ideas",
+        "AI characters",
+        "Personal projects",
+        "Creators seeking futuristic identity"
+      ],
+      "delivery_formats": [
+        "Markdown",
+        "JSON",
+        "HTML",
+        "PDF export later"
+      ]
+    },
+    {
+      "id": "documentary_trailer_assist",
+      "name": "Documentary Trailer Assist Pack",
+      "price_starting_usd": 100,
+      "includes": [
+        "2-minute trailer VO",
+        "Shot list",
+        "On-screen stamp kit",
+        "Proof-of-usefulness checklist"
+      ],
+      "cta": "TRAILER",
+      "status": "secondary_offer"
+    }
+  ],
+  "proof_tests": [
+    "Can Lexi help someone name their brand?",
+    "Can Lexi make an ad?",
+    "Can Lexi create a one-page concept sheet?",
+    "Can Lexi help deliver paid work this week?"
+  ],
+  "summary": "Revenue map for Lexi-9-Omega product layer"
+}

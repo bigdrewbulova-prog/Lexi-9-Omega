@@ -1,0 +1,97 @@
+{
+  "target_name": "Demo Target",
+  "mass_density": 16.5,
+  "grav_curvature": 2.436872968974171,
+  "status": "CONSTRAINT_SURFACE_HARD",
+  "overall_yield": 0.013288359747173198,
+  "constraints_scanned": 3,
+  "vectors": [
+    {
+      "constraint": {
+        "name": "public_trust",
+        "type": "social",
+        "strength": 0.7,
+        "description": "",
+        "tags": []
+      },
+      "status": "HOLD",
+      "yield_score": 0.039865079241519594,
+      "resistance": 0.385,
+      "applied_pressure": 0.28890123862029854,
+      "mass_density": 16.5,
+      "grav_curvature": 2.436872968974171,
+      "social_pull": 0.5,
+      "escalation_tier": "operator",
+      "interpretation": "Constraint 'public_trust' (social) is estimated to HOLD under simulated pressure \u2014 not a network/system compromise."
+    },
+    {
+      "constraint": {
+        "name": "export_control",
+        "type": "regulatory",
+        "strength": 1.2,
+        "description": "",
+        "tags": []
+      },
+      "status": "HOLD",
+      "yield_score": 0.0,
+      "resistance": 0.9839999999999999,
+      "applied_pressure": 0.27551576906364483,
+      "mass_density": 16.5,
+      "grav_curvature": 2.436872968974171,
+      "social_pull": 0.5,
+      "escalation_tier": "operator",
+      "interpretation": "Constraint 'export_control' (regulatory) is estimated to HOLD under simulated pressure \u2014 not a network/system compromise."
+    },
+    {
+      "constraint": {
+        "name": "thermal_limit",
+        "type": "physical",
+        "strength": 1.5,
+        "description": "",
+        "tags": []
+      },
+      "status": "HOLD",
+      "yield_score": 0.0,
+      "resistance": 1.0,
+      "applied_pressure": 0.3921186837445784,
+      "mass_density": 16.5,
+      "grav_curvature": 2.436872968974171,
+      "social_pull": 0.5,
+      "escalation_tier": "operator",
+      "interpretation": "Constraint 'thermal_limit' (physical) is estimated to HOLD under simulated pressure \u2014 not a network/system compromise."
+    }
+  ],
+  "social_realignment": {
+    "intent": "adoption",
+    "mass_density": 16.5,
+    "pull": 0.4074963964504106,
+    "curvature": 2.436872968974171,
+    "before": {
+      "stakeholder_1": 0.5,
+      "stakeholder_2": 0.5,
+      "stakeholder_3": 0.5
+    },
+    "after": {
+      "stakeholder_1": 0.6411133857567061,
+      "stakeholder_2": 0.6377170539274865,
+      "stakeholder_3": 0.6401187458448063
+    },
+    "deltas": {
+      "stakeholder_1": 0.14111338575670607,
+      "stakeholder_2": 0.13771705392748645,
+      "stakeholder_3": 0.14011874584480632
+    },
+    "mean_delta": 0.13964972850966628,
+    "note": "Social vector realignment is a planning simulation for messaging and stakeholder design \u2014 not covert influence tooling."
+  },
+  "blocked_operations": [
+    "network host scanning / port scanning of third-party systems",
+    "real privilege escalation on OS/accounts",
+    "exploit generation or payload delivery",
+    "security control bypass / unauthorized access",
+    "credential theft or surveillance"
+  ],
+  "classification": "SIMULATION / GOVERNANCE ONLY \u2014 NOT OFFENSIVE SECURITY",
+  "timestamp": "2026-07-21T16:33:08+00:00",
+  "notes": "Simulated constraint pressure on 'Demo Target'. No hosts scanned, no privileges escalated, no exploits run."
+}

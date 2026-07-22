@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LEXI-9-OMEGA · Documentary Storyboard</title>
+    <style>
+      :root {
+        --void: #050607;
+        --paper: #e8e6dc;
+        --muted: #8b948c;
+        --uv: #7b5cff;
+        --acid: #c8ff35;
+        --amber: #ffb020;
+        --line: rgba(232, 230, 220, 0.14);
+        --mono: "SF Mono", "IBM Plex Mono", ui-monospace, monospace;
+        --sans: "Segoe UI", system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 15% 0%, rgba(123, 92, 255, 0.16), transparent 40%),
+          radial-gradient(circle at 90% 80%, rgba(200, 255, 53, 0.08), transparent 35%),
+          var(--void);
+        color: var(--paper);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      .grid-bg {
+        background-image:
+          linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+      header {
+        padding: 28px 5vw 18px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+        align-items: end;
+      }
+      .eyebrow { font: 11px var(--mono); letter-spacing: 0.2em; color: var(--acid); }
+      h1 { margin: 8px 0 0; font-size: clamp(28px, 4vw, 44px); letter-spacing: -0.04em; }
+      h1 span { color: var(--uv); }
+      .logline { max-width: 60ch; color: var(--muted); line-height: 1.55; margin: 10px 0 0; }
+      .meta { font: 11px/1.7 var(--mono); color: var(--muted); text-align: right; }
+      .meta b { color: var(--paper); font-weight: 500; }
+      main { padding: 24px 5vw 60px; max-width: 1280px; margin: 0 auto; }
+      .acts {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 14px;
+        margin-bottom: 28px;
+      }
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 16px;
+        background: rgba(10, 12, 14, 0.85);
+        backdrop-filter: blur(8px);
+        min-height: 180px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        cursor: pointer;
+        transition: border-color 0.15s, transform 0.15s;
+      }
+      .card:hover, .card.active { border-color: rgba(123, 92, 255, 0.7); transform: translateY(-2px); }
+      .card .n { font: 10px var(--mono); color: var(--uv); letter-spacing: 0.16em; }
+      .card h2 { margin: 0; font-size: 18px; letter-spacing: -0.02em; }
+      .card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.45; flex: 1; }
+      .card .stamp {
+        align-self: flex-start;
+        font: 9px var(--mono);
+        letter-spacing: 0.12em;
+        border: 1px solid rgba(200, 255, 53, 0.4);
+        color: var(--acid);
+        padding: 4px 8px;
+        border-radius: 999px;
+      }
+      .detail {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 22px;
+        background: rgba(8, 10, 12, 0.92);
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 22px;
+      }
+      @media (max-width: 860px) { .detail { grid-template-columns: 1fr; } }
+      .detail h3 { margin: 0 0 10px; font-size: 22px; }
+      .detail .vo {
+        border-left: 3px solid var(--uv);
+        padding: 8px 0 8px 14px;
+        color: #d7d4c8;
+        font-size: 15px;
+        line-height: 1.55;
+        font-style: italic;
+      }
+      .shots { list-style: none; padding: 0; margin: 14px 0 0; }
+      .shots li {
+        display: grid;
+        grid-template-columns: 54px 1fr;
+        gap: 10px;
+        padding: 8px 0;
+        border-top: 1px solid var(--line);
+        font-size: 13px;
+      }
+      .shots b { font: 10px var(--mono); color: var(--acid); letter-spacing: 0.08em; }
+      .preview {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        min-height: 280px;
+        background:
+          radial-gradient(circle at 50% 45%, rgba(123,92,255,0.18), transparent 45%),
+          #040506;
+        position: relative;
+        overflow: hidden;
+      }
+      .preview .wire {
+        position: absolute; inset: 18% 22%;
+        border: 1px solid rgba(232,230,220,0.25);
+        border-radius: 50%;
+        box-shadow: 0 0 40px rgba(123,92,255,0.25), inset 0 0 30px rgba(200,255,53,0.08);
+        animation: spin 18s linear infinite;
+      }
+      .preview .wire:nth-child(2) { inset: 28% 30%; animation-duration: 11s; animation-direction: reverse; border-color: rgba(200,255,53,0.35); }
+      .preview .label {
+        position: absolute; left: 16px; top: 14px;
+        font: 10px var(--mono); letter-spacing: 0.14em; color: var(--muted);
+      }
+      .preview .title {
+        position: absolute; left: 16px; bottom: 16px; right: 16px;
+        font-size: 18px; letter-spacing: -0.03em;
+      }
+      .preview .badge {
+        position: absolute; right: 14px; top: 14px;
+        font: 9px var(--mono); letter-spacing: 0.12em;
+        border: 1px solid var(--amber); color: var(--amber);
+        padding: 5px 8px; border-radius: 4px;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      footer {
+        margin-top: 28px;
+        font: 11px/1.6 var(--mono);
+        color: var(--muted);
+        border-top: 1px solid var(--line);
+        padding-top: 16px;
+      }
+      footer a { color: var(--acid); }
+      .row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+      .chip {
+        font: 10px var(--mono); letter-spacing: 0.1em;
+        border: 1px solid var(--line); padding: 6px 8px; border-radius: 999px; color: var(--muted);
+      }
+    </style>
+  </head>
+  <body class="grid-bg">
+    <header>
+      <div>
+        <div class="eyebrow">DOCUMENTARY STORYBOARD · LEXI-9-OMEGA</div>
+        <h1>Architecture of a <span>Living Blueprint</span></h1>
+        <p class="logline">
+          A creator builds Lexi.AI from mythic persona into practical engineering companion —
+          brand engine, research archive, blueprint generator, mobile assistant, cinematic symbol.
+        </p>
+      </div>
+      <div class="meta">
+        <div>TONE <b>cinematic · technical · grounded</b></div>
+        <div>FIRST CUT <b>2-minute trailer</b></div>
+        <div>PRODUCT <b>$50 Brand Blueprint Packs</b></div>
+        <div>RULE <b>usefulness over impossible claims</b></div>
+      </div>
+    </header>
+
+    <main>
+      <div class="acts" id="acts"></div>
+      <section class="detail" id="detail"></section>
+      <footer>
+        Production package:
+        <a href="scripts/trailer-2min.md">trailer script</a> ·
+        <a href="samples/brand-blueprint-pack-sample.md">sample pack</a> ·
+        <a href="launch/ad-copy.md">ad copy</a> ·
+        <a href="checklists/production-checklist.md">checklist</a> ·
+        <a href="README.md">README</a>
+        <br />
+        Grounding: simulation · concept design · research prototype · visualization — not finished exotic engineering.
+      </footer>
+    </main>
+
+    <script>
+      const acts = [
+        {
+          n: "COLD OPEN",
+          title: "The System Comes Online",
+          stamp: "HOOK",
+          blurb: "Dark screen, terminal, blueprint lines, phone + Mac, glowing interface.",
+          vo: "Before Lexi.AI becomes a company, a character, or a companion, she begins as a question: what if an idea could become an operating system for creation?",
+          shots: [
+            ["0:00", "Black · cursor blink"],
+            ["0:06", "Blueprint dual-sphere / ring lines"],
+            ["0:12", "Android + MacBook dual runtime"],
+            ["0:24", "Brand pack PDF flash · PROOF stamp"],
+          ],
+          badge: "SYSTEM NOMINAL",
+        },
+        {
+          n: "ACT I",
+          title: "The Curator",
+          stamp: "ORIGIN",
+          blurb: "Andrew wants change, income, and a vessel for ambition.",
+          vo: "Lexi-9-Omega is not just a chatbot. It is a container for ambition: engineering, identity, and survival turned into software.",
+          shots: [
+            ["A", "Curator half-lit by screen"],
+            ["B", "Notebook chaos → folders"],
+            ["C", "Idea collage: AI, architecture, brand, mobile"],
+          ],
+          badge: "CURATOR ACCESS",
+        },
+        {
+          n: "ACT II",
+          title: "The Persona Engine",
+          stamp: "BRAND LAYER",
+          blurb: "Lexi.PHYS · Lexi.AI · Lexi-9-Omega · Curator Access.",
+          vo: "Persona is branding and interface language. Technical claims stay honest.",
+          shots: [
+            ["1", "Persona cards stack"],
+            ["2", "Knowledge graph glow"],
+            ["3", "Level IX Clearance motif"],
+          ],
+          badge: "LEVEL IX",
+        },
+        {
+          n: "ACT III",
+          title: "The Build",
+          stamp: "SAFE PROTOTYPE",
+          blurb: "Runtime, memory, skills, blueprints, archive, Android bridge, Mac launcher, governance.",
+          vo: "The first version does not need to control the phone. It needs to prove usefulness.",
+          shots: [
+            ["1", "Python command loop"],
+            ["2", "SQLite memory vault"],
+            ["3", "Governance / non-destructive rules"],
+          ],
+          badge: "GOVERNANCE",
+        },
+        {
+          n: "ACT IV",
+          title: "The Product",
+          stamp: "$50 PACKS",
+          blurb: "Custom AI Brand Blueprint Packs for creators and small brands.",
+          vo: "Message received: BLUEPRINT. Name, bio, slogan, prompts, ads, one-page sheet — delivered.",
+          shots: [
+            ["1", "DM: BLUEPRINT"],
+            ["2", "Intake → generate"],
+            ["3", "PDF / concept sheet delivery"],
+          ],
+          badge: "PROOF OF USEFULNESS",
+        },
+        {
+          n: "ACT V",
+          title: "The Engineering Dream",
+          stamp: "SIMULATION",
+          blurb: "Visualization, foresight, FEM learning path — research direction only.",
+          vo: "Not finished physics engines — simulations, visualizations, and research prototypes.",
+          shots: [
+            ["1", "Vector field viz"],
+            ["2", "Structural foresight UI"],
+            ["3", "Stamp: CONCEPT DESIGN"],
+          ],
+          badge: "SIMULATION ONLY",
+        },
+        {
+          n: "ACT VI",
+          title: "The Mobile Companion",
+          stamp: "RESPECT PLATFORM",
+          blurb: "Termux → Python → optional APIs → app shell. No root, no wipe, no implant.",
+          vo: "The phone is not something to conquer. It is a platform to respect.",
+          shots: [
+            ["1", "Termux prototype"],
+            ["2", "Permission dialogs official only"],
+            ["3", "Mac launcher companion"],
+          ],
+          badge: "USER-SPACE",
+        },
+        {
+          n: "ACT VII",
+          title: "The Launch",
+          stamp: "5 SPOTS",
+          blurb: "Ads, sample pack, video, landing, intake, before/after.",
+          vo: "Can Lexi help someone name a brand, make an ad, and help Andrew deliver paid work this week?",
+          shots: [
+            ["1", "Facebook ad graphic"],
+            ["2", "Landing + intake"],
+            ["3", "Before/after identity"],
+          ],
+          badge: "5 SPOTS OPEN",
+        },
+        {
+          n: "FINALE",
+          title: "The Blueprint Breathes",
+          stamp: "CLOSE",
+          blurb: "Mythology starts it. Usefulness keeps it alive.",
+          vo: "A system is not born powerful. It becomes powerful when it solves the next real problem in front of it.",
+          shots: [
+            ["1", "Title card"],
+            ["2", "Deliver value · earn trust · next layer"],
+          ],
+          badge: "LIVING BLUEPRINT",
+        },
+      ];
+
+      const actsEl = document.getElementById("acts");
+      const detailEl = document.getElementById("detail");
+      let active = 0;
+
+      function render() {
+        actsEl.innerHTML = acts
+          .map(
+            (a, i) => `
+          <article class="card ${i === active ? "active" : ""}" data-i="${i}">
+            <div class="n">${a.n}</div>
+            <h2>${a.title}</h2>
+            <p>${a.blurb}</p>
+            <div class="stamp">${a.stamp}</div>
+          </article>`,
+          )
+          .join("");
+
+        const a = acts[active];
+        detailEl.innerHTML = `
+          <div>
+            <div class="eyebrow" style="color:var(--uv)">${a.n}</div>
+            <h3>${a.title}</h3>
+            <div class="vo">“${a.vo}”</div>
+            <ul class="shots">
+              ${a.shots.map(([t, s]) => `<li><b>${t}</b><span>${s}</span></li>`).join("")}
+            </ul>
+            <div class="row">
+              <span class="chip">BLACK / BLUEPRINT WHITE</span>
+              <span class="chip">UV GLOW</span>
+              <span class="chip">TERMINAL OVERLAY</span>
+              <span class="chip">GLASS UI</span>
+            </div>
+          </div>
+          <div class="preview" aria-hidden="true">
+            <div class="wire"></div>
+            <div class="wire"></div>
+            <div class="label">FRAME PREVIEW · STYLE GUIDE</div>
+            <div class="badge">${a.badge}</div>
+            <div class="title">${a.title}</div>
+          </div>`;
+
+        actsEl.querySelectorAll(".card").forEach((el) => {
+          el.addEventListener("click", () => {
+            active = Number(el.dataset.i);
+            render();
+          });
+        });
+      }
+
+      render();
+    </script>
+  </body>
+</html>

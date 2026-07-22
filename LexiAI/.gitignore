@@ -1,0 +1,26 @@
+.DS_Store
+.idea/
+
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+
+# Runtime state
+logs/
+chat_logs/
+memory/*.db
+memory/*.sqlite
+brain/*.db
+brain/*.sqlite
+workspace/
+www.google.com/
+
+# Local model assets and generated builds
+models/
+llama.cpp/

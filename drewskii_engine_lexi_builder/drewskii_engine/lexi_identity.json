@@ -1,0 +1,16 @@
+{
+  "name": "Lexi.AI",
+  "full_system": "Lexi-9-Omega",
+  "persona_layer": "Lexi.PHYS",
+  "active_model_profile": "model_profiles/lexi_phys.json",
+  "available_model_profiles": [
+    "model_profiles/lexi_phys.json",
+    "model_profiles/drewskii_engine.json"
+  ],
+  "creator_role": "Curator",
+  "prototype_mode": "safe user-space runtime",
+  "runtime_strategy": "Run Lexi.AI as a user-space prototype, then build official app features from proven workflows.",
+  "first_product": "Custom AI Brand Blueprint Packs",
+  "starting_price": "$50",
+  "mission": "Turn raw ideas into useful brand, documentary, engineering, and prototype files."
+}

@@ -1,0 +1,78 @@
+{
+  "classification": "SIMULATION / RESEARCH PROTOTYPE ONLY",
+  "engine": "RetroCausalEngine",
+  "disclaimer": "Future-state reverse optimization over abstract metrics. Not physical retrocausality, time travel, or hardware synthesis.",
+  "timestamp": "2026-07-21T16:12:42+00:00",
+  "has_scipy_lbfgsb": false,
+  "future_state": {
+    "target_mass_density": 16.8,
+    "target_fold_strength": 0.44,
+    "target_authority": 0.97,
+    "target_entropy_efficiency": 1.04,
+    "description": "Post-synthesis target envelope for Mastermind simulation pass. Authority-led; fold strength capped by authority."
+  },
+  "initial_params": {
+    "mass_density": 12.0,
+    "fold_strength": 0.22,
+    "authority": 0.7,
+    "entropy_efficiency": 0.88,
+    "notes": "baseline simulation parameters"
+  },
+  "optimized_params": {
+    "mass_density": 16.705882352941174,
+    "fold_strength": 0.4363934426229508,
+    "authority": 0.9664473684210527,
+    "entropy_efficiency": 1.0368627450980392,
+    "notes": "post reverse-optimize (simulation)"
+  },
+  "optimizer": {
+    "method": "numpy_bounded_newton_lbfgsb_standin",
+    "iterations": 19,
+    "final_loss": 0.4546576136036815,
+    "loss_trajectory": [
+      23.233030000000007,
+      3.2450082309372394,
+      0.7964755642270467,
+      0.4965303125550449,
+      0.4597870192252238,
+      0.4552859657923206,
+      0.4547345867467897,
+      0.4546670428137123,
+      0.45465876868191024,
+      0.45465775510076445,
+      0.4546576309370742,
+      0.45465761572702207,
+      0.45465761386379083,
+      0.4546576136355448,
+      0.4546576136075847,
+      0.4546576136041596,
+      0.45465761360374013,
+      0.4546576136036886,
+      0.45465761360368234,
+      0.4546576136036815
+    ],
+    "converged": true,
+    "note": "Install scipy for true L-BFGS-B (pip install scipy)."
+  },
+  "consistency_filter": {
+    "accepted": true,
+    "max_relative_jump": 0.4918032786885246,
+    "mean_relative_jump": 0.2993582236955544,
+    "distance_before": 0.657860396720693,
+    "distance_after": 0.011003868502988045,
+    "improved": true,
+    "flags": [
+      "large_parameter_discontinuity"
+    ],
+    "threshold": 0.08
+  },
+  "residual_to_target": {
+    "mass_density_gap": 0.09411764705882675,
+    "fold_strength_gap": 0.00360655737704918,
+    "authority_gap": 0.003552631578947252,
+    "entropy_efficiency_gap": 0.0031372549019608176,
+    "l2_normalized": 0.011003868502988045
+  },
+  "micro_window_eps_scale": 1e-12,
+  "max_iters": 40
+}

@@ -1,0 +1,30 @@
+{
+  "project": "Drewskii.Engine Lexi Builder",
+  "version": "1.0.0",
+  "runtime": "Python 3.10+ / Termux compatible",
+  "entrypoint": "drewskii_engine/main.py",
+  "active_model_profile": "drewskii_engine/model_profiles/lexi_phys.json",
+  "available_model_profiles": [
+    "drewskii_engine/model_profiles/lexi_phys.json",
+    "drewskii_engine/model_profiles/drewskii_engine.json"
+  ],
+  "runtime_strategy": "Run Lexi.AI as a safe user-space prototype first, then promote stable workflows into official app features.",
+  "safe_scope": [
+    "local planning",
+    "local memory",
+    "project documentation",
+    "starter code generation",
+    "permission-based Android helper commands",
+    "official app feature planning"
+  ],
+  "next_modules_to_build": [
+    "voice interface",
+    "desktop pet avatar",
+    "Lexi.PHYS UI dashboard",
+    "local RAG knowledge base",
+    "project file importer",
+    "test/evaluation system",
+    "official app feature shell",
+    "app permissions and privacy model"
+  ]
+}

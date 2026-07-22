@@ -1,0 +1,115 @@
+{
+  "skills": [
+    {
+      "id": "brand_blueprint_generator",
+      "name": "AI Brand Blueprint Generator",
+      "status": "prototype",
+      "inputs": [
+        "project_type",
+        "name",
+        "vibe",
+        "audience",
+        "offer",
+        "colors"
+      ],
+      "outputs": [
+        "bio",
+        "slogan",
+        "image_prompt",
+        "ad_copy",
+        "concept_sheet"
+      ]
+    },
+    {
+      "id": "documentary_mapper",
+      "name": "Documentary Mapper",
+      "status": "documented",
+      "artifact": "docs/lexi_documentary_map.md",
+      "top_layer_artifact": "docs/drewskii_engine_documentary_top_layer.md",
+      "outputs": [
+        "logline",
+        "act_structure",
+        "episode_list",
+        "voiceover_lines"
+      ]
+    },
+    {
+      "id": "local_memory",
+      "name": "Local Memory Vault",
+      "status": "prototype",
+      "storage": "SQLite"
+    },
+    {
+      "id": "android_termux_runtime",
+      "name": "Android Termux Runtime",
+      "status": "prototype",
+      "boundary": "user-space only"
+    },
+    {
+      "id": "official_app_feature_builder",
+      "name": "Official App Feature Builder",
+      "status": "roadmap",
+      "boundary": "platform APIs and explicit permissions only",
+      "promotion_gate": [
+        "clear user value",
+        "stable prototype workflow",
+        "explicit permission model",
+        "local validation notes",
+        "privacy and safety review"
+      ],
+      "outputs": [
+        "native screen spec",
+        "permission checklist",
+        "data model",
+        "test plan",
+        "release notes"
+      ]
+    },
+    {
+      "id": "experimental_concept_archiver",
+      "name": "Lexi.PHYS Experimental Concept Archiver",
+      "status": "prototype",
+      "command": "/experimental <concept>",
+      "boundary": "simulation-only for speculative physics and high-concept materials",
+      "outputs": [
+        "in-universe concept document",
+        "structured JSON metadata",
+        "safe prototype conversion notes",
+        "blocked literal-claim list"
+      ]
+    },
+    {
+      "id": "mobile_hardware_interface_profile",
+      "name": "MODEL G-2025 Mobile Hardware Interface Profile",
+      "status": "restricted-design",
+      "artifact": "docs/skills/MODEL_G_2025_XT2513_1.md",
+      "metadata": "workspace/skills/MODEL_G_2025_XT2513_1.json",
+      "boundary": "user-space diagnostics, documentation, compatibility notes, and Android companion planning only",
+      "blocked_operations": [
+        "secure enclave provisioning",
+        "baseband firmware modification",
+        "kernel driver tampering",
+        "mimic-handshake package installation",
+        "hardware identity spoofing",
+        "network handshake bypass"
+      ],
+      "outputs": [
+        "device capability profile",
+        "safe companion-app requirements",
+        "diagnostic checklist",
+        "blocked-operation ledger",
+        "permission and privacy review notes"
+      ]
+    },
+    {
+      "id": "engineering_visualization",
+      "name": "Engineering Visualization Direction",
+      "status": "research roadmap",
+      "examples": [
+        "vector fields",
+        "micro-fracture heatmap",
+        "blueprint documentation"
+      ]
+    }
+  ]
+}

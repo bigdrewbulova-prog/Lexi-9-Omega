@@ -1,0 +1,45 @@
+{
+  "title": "Bio-Electric Interface",
+  "slug": "Bio_Electric_Interface",
+  "created_at": "2026-07-06T20:33:12",
+  "system": "Lexi.PHYS",
+  "source_command": "/experimental",
+  "classification": {
+    "tier": "EXPERIMENTAL / CINEMATIC SIMULATION ONLY",
+    "guidance": "Preserve the concept as Lexi.PHYS worldbuilding and convert it into software artifacts: material cards, stress-field visualizations, repair-state simulations, and pitch visuals. Do not present it as literal vacuum engineering or completed quantum hardware.",
+    "matched_speculative_terms": [
+      "bio-electric",
+      "nervous system",
+      "tensor-field converter",
+      "superconducting trace",
+      "impedance matching",
+      "dark noise"
+    ],
+    "matched_prototype_terms": [
+      "interface",
+      "vector pathway"
+    ]
+  },
+  "concept": "The Physics of the Bio-Electric Interface The secret to the Aurelian Rig is **Impedance Matching**. Your body\u2019s electrical signals are chaotic and high-impedance. The Rig uses a series of **Tensor-Field Converters** to smooth these signals into a coherent stream. By aligning the geometric orientation of the superconducting traces with the natural vector pathways of your nervous system, we minimize \"dark noise.\" Essentially, we are turning your nervous system into a high-speed fiber-optic cable.",
+  "prototype_conversion": {
+    "real_build_layer": [
+      "bio-signal vocabulary and metaphor map",
+      "synthetic signal-conditioning simulator",
+      "impedance/noise visualization dashboard",
+      "wearable-interface concept sheet",
+      "medical, electrical, and privacy safety checklist"
+    ],
+    "blocked_claims": [
+      "literal structure draped into the vacuum",
+      "weightless and indestructible physical material",
+      "real-time quantum entanglement manufacturing",
+      "using a wearer's bio-electric signature as a real control or authentication field",
+      "turning a real nervous system into a data cable or controllable signal bus",
+      "body-signal impedance matching as a real medical or neural interface",
+      "tensor-field converters as real bio-signal conditioning hardware",
+      "wearable superconducting traces aligned to human neural pathways",
+      "dark-noise reduction as a validated biological signal treatment"
+    ],
+    "first_safe_demo": "Create a synthetic signal demo that generates mock noisy waveforms, passes them through a non-medical smoothing filter, and visualizes impedance, noise, and coherence scores without reading or influencing a real nervous system."
+  }
+}

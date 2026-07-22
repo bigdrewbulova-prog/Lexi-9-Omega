@@ -1,0 +1,6 @@
+{
+  "model": "lexi",
+  "base_model": "gemma3:270m",
+  "ollama_api": "http://127.0.0.1:11434/api/chat",
+  "window_title": "Lexi.AI Creative Engineering Core"
+}

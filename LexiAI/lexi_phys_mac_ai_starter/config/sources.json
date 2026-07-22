@@ -1,0 +1,23 @@
+{
+  "folders": [
+    "~/LexiAI",
+    "~/Documents/LexiAI",
+    "~/Downloads"
+  ],
+  "extensions": [
+    ".txt",
+    ".md",
+    ".py",
+    ".js",
+    ".ts",
+    ".html",
+    ".css",
+    ".json",
+    ".java",
+    ".kt",
+    ".xml",
+    ".yaml",
+    ".yml",
+    ".csv"
+  ]
+}

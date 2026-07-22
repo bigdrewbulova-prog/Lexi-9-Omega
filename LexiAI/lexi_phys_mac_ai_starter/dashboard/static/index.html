@@ -1,0 +1,1435 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Lexi.PHYS reverse-engineering dashboard for concept deconstruction, inverse content synthesis, visual artifact planning, sales tracking, and local-first Lexi.AI operations."
+  />
+  <title>Lexi.PHYS - Reverse Engineering Dashboard</title>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+      }
+    }
+  </script>
+  <script type="module" src="/static/main.js?v=20260703-phys-dashboard"></script>
+  <style>
+    :root {
+      --bg: #050711;
+      --bg-2: #080916;
+      --panel: rgba(8, 10, 24, .92);
+      --panel-2: rgba(12, 14, 31, .88);
+      --ink: #f4f7ff;
+      --muted: #858ba8;
+      --soft: rgba(244, 247, 255, .72);
+      --line: rgba(129, 111, 255, .32);
+      --line-strong: rgba(129, 111, 255, .58);
+      --violet: #6757ff;
+      --violet-hot: #9587ff;
+      --teal: #52ead8;
+      --amber: #f5b95a;
+      --rose: #ff6f91;
+      --green: #63d58b;
+      --shadow: rgba(0, 0, 0, .42);
+    }
+
+    * {
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        linear-gradient(rgba(103, 87, 255, .08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(103, 87, 255, .08) 1px, transparent 1px),
+        radial-gradient(circle at 76% 12%, rgba(82, 234, 216, .16), transparent 25rem),
+        radial-gradient(circle at 12% 86%, rgba(245, 185, 90, .13), transparent 26rem),
+        linear-gradient(140deg, #050711 0%, #080916 46%, #110d18 100%);
+      background-size: 34px 34px, 34px 34px, auto, auto, auto;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Arial, sans-serif;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    a.button {
+      min-height: 42px;
+      border: 0;
+      border-radius: 8px;
+      padding: 0 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--ink);
+      background: rgba(244, 247, 255, .08);
+      border: 1px solid rgba(244, 247, 255, .12);
+      font-weight: 850;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+
+    button:hover,
+    a.button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(244, 247, 255, .28);
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: .68;
+      transform: none;
+    }
+
+    .button.primary,
+    button.primary {
+      background: linear-gradient(135deg, var(--violet), #4c42d8);
+      box-shadow: 0 18px 38px rgba(103, 87, 255, .28);
+      border-color: rgba(149, 135, 255, .62);
+    }
+
+    .button.signal,
+    button.signal {
+      background: linear-gradient(135deg, var(--teal), var(--green));
+      color: #041114;
+      border-color: rgba(82, 234, 216, .52);
+    }
+
+    .button.warning,
+    button.warning {
+      background: linear-gradient(135deg, var(--amber), var(--rose));
+      color: #160910;
+      border-color: rgba(245, 185, 90, .44);
+    }
+
+    .button.secondary,
+    button.secondary {
+      background: rgba(244, 247, 255, .06);
+      color: var(--ink);
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid rgba(129, 111, 255, .22);
+      border-radius: 7px;
+      background: rgba(3, 5, 14, .74);
+      color: var(--ink);
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(82, 234, 216, .72);
+      box-shadow: 0 0 0 3px rgba(82, 234, 216, .12);
+    }
+
+    input,
+    select {
+      min-height: 42px;
+      padding: 0 12px;
+    }
+
+    select {
+      color-scheme: dark;
+    }
+
+    textarea {
+      min-height: 98px;
+      padding: 12px;
+      resize: vertical;
+      line-height: 1.45;
+    }
+
+    label {
+      display: grid;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    label span {
+      overflow-wrap: anywhere;
+    }
+
+    #avatar {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      opacity: .38;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 62% 18%, rgba(82, 234, 216, .13), transparent 18rem),
+        linear-gradient(180deg, rgba(5, 7, 17, .4), rgba(5, 7, 17, .96));
+    }
+
+    #avatar canvas {
+      width: 100% !important;
+      height: 100% !important;
+      opacity: .38;
+    }
+
+    .page {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .reverse-console {
+      min-height: 100vh;
+      padding: 20px 24px 28px;
+    }
+
+    .command-bar,
+    .console-grid,
+    .signal-strip,
+    .operations {
+      width: min(1280px, 100%);
+      margin: 0 auto;
+    }
+
+    .command-bar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: 16px;
+      align-items: center;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(129, 111, 255, .2);
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-glyph {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      color: #041114;
+      background: linear-gradient(135deg, var(--teal), var(--violet-hot));
+      font-weight: 950;
+      box-shadow: 0 18px 44px rgba(82, 234, 216, .18);
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 27px;
+      line-height: 1;
+      letter-spacing: 0;
+      font-style: italic;
+      text-transform: uppercase;
+    }
+
+    .brand-title span {
+      color: var(--violet-hot);
+    }
+
+    .brand-subtitle {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .mode-row,
+    .equation-card,
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mode-pill,
+    .status-pill {
+      min-height: 30px;
+      padding: 0 11px;
+      border: 1px solid rgba(129, 111, 255, .26);
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      background: rgba(3, 5, 14, .58);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .mode-pill.active,
+    .status-pill.active {
+      color: var(--ink);
+      background: linear-gradient(135deg, var(--violet), #5147d7);
+      border-color: rgba(149, 135, 255, .56);
+    }
+
+    .equation-card {
+      min-height: 42px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(17, 18, 42, .8);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .equation-card strong {
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    .nav-links {
+      grid-column: 1 / -1;
+      flex-wrap: wrap;
+      padding-top: 2px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    .console-grid {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1.42fr) minmax(300px, .96fr);
+      gap: 16px;
+      padding-top: 24px;
+      align-items: stretch;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(13, 15, 34, .92), rgba(6, 7, 17, .92)),
+        var(--panel);
+      box-shadow: 0 24px 70px var(--shadow);
+      min-width: 0;
+    }
+
+    .identity-panel,
+    .engine-panel,
+    .hub-panel,
+    .side-panel,
+    .operator-panel,
+    .waitlist {
+      padding: 18px;
+    }
+
+    .identity-panel {
+      display: flex;
+      flex-direction: column;
+      min-height: 604px;
+    }
+
+    .avatar-orbit {
+      width: 106px;
+      height: 106px;
+      margin: 10px auto 14px;
+      border: 1px solid rgba(149, 135, 255, .88);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle, rgba(82, 234, 216, .2), transparent 30%),
+        linear-gradient(135deg, rgba(103, 87, 255, .28), transparent);
+      box-shadow: 0 0 36px rgba(103, 87, 255, .38);
+      position: relative;
+    }
+
+    .avatar-orbit::before,
+    .avatar-orbit::after {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px solid rgba(82, 234, 216, .2);
+      border-radius: 50%;
+    }
+
+    .avatar-orbit::after {
+      inset: 30px;
+      border-color: rgba(245, 185, 90, .24);
+    }
+
+    .avatar-core {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--teal), var(--violet-hot));
+      color: #02050b;
+      font-weight: 950;
+      z-index: 1;
+    }
+
+    .identity-title {
+      margin: 0;
+      text-align: center;
+      font-size: 18px;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .identity-role {
+      margin: 8px 0 18px;
+      color: var(--violet-hot);
+      text-align: center;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .cortex {
+      border-top: 1px solid rgba(129, 111, 255, .18);
+      border-bottom: 1px solid rgba(129, 111, 255, .18);
+      padding: 14px 0;
+      margin-bottom: 14px;
+    }
+
+    .cortex-head,
+    .panel-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .module-label {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .ref-code {
+      color: rgba(149, 135, 255, .8);
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .bio-text {
+      margin: 0;
+      color: var(--soft);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .comm-block {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    #log,
+    .companion-log {
+      flex: 1;
+      min-height: 178px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      line-height: 1.45;
+      padding: 12px;
+      border: 1px solid rgba(129, 111, 255, .17);
+      border-radius: 8px;
+      background: rgba(2, 4, 11, .56);
+      color: rgba(244, 247, 255, .78);
+      font-size: 12px;
+    }
+
+    .inputrow {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .engine-stack,
+    .side-stack {
+      display: grid;
+      gap: 16px;
+      align-content: start;
+    }
+
+    .panel-heading h2,
+    .panel-title-row h3 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.12;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      font-style: italic;
+    }
+
+    .panel-heading h2 span {
+      color: var(--teal);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .wide {
+      grid-column: 1 / -1;
+    }
+
+    .segmented {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 6px;
+      margin: 12px 0;
+    }
+
+    .segmented button {
+      min-height: 34px;
+      padding: 0 7px;
+      font-size: 10px;
+      color: var(--muted);
+      background: rgba(3, 5, 14, .52);
+      border-color: rgba(129, 111, 255, .18);
+      white-space: normal;
+    }
+
+    .segmented button.active {
+      color: var(--ink);
+      background: linear-gradient(135deg, var(--violet), #5147d7);
+      border-color: rgba(149, 135, 255, .72);
+      box-shadow: 0 0 22px rgba(103, 87, 255, .32);
+    }
+
+    .primary-action {
+      width: 100%;
+      margin-top: 2px;
+    }
+
+    .blueprintout {
+      min-height: 196px;
+      max-height: 348px;
+      overflow-y: auto;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(129, 111, 255, .18);
+      color: rgba(244, 247, 255, .86);
+      font-size: 13px;
+    }
+
+    .blueprintout:empty::before {
+      content: "Synthesized posts, deconstruction notes, blueprint artifacts, and render plans will appear here.";
+      display: block;
+      color: rgba(244, 247, 255, .48);
+      line-height: 1.5;
+    }
+
+    .blueprint-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+      margin-bottom: 8px;
+    }
+
+    .blueprint-head strong {
+      display: block;
+      font-size: 17px;
+      line-height: 1.25;
+    }
+
+    .blueprint-head span,
+    .pathline {
+      color: rgba(244, 247, 255, .56);
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .blueprint-section {
+      border-top: 1px solid rgba(129, 111, 255, .14);
+      padding: 12px 0;
+    }
+
+    .blueprint-section:first-child {
+      border-top: 0;
+    }
+
+    .blueprint-section h2 {
+      margin: 0 0 7px;
+      color: var(--teal);
+      font-size: 12px;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .blueprint-section ul {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.45;
+    }
+
+    .blueprint-section li {
+      margin: 5px 0;
+    }
+
+    .hub-controls {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 10px;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .toggle {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: none;
+    }
+
+    .toggle input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--teal);
+    }
+
+    .hub-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .side-panel {
+      min-height: 0;
+    }
+
+    .side-panel textarea {
+      min-height: 72px;
+    }
+
+    .render-options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .detail-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .detail-row button {
+      min-height: 34px;
+      padding: 0 8px;
+      color: var(--muted);
+      font-size: 10px;
+      background: rgba(3, 5, 14, .52);
+      border-color: rgba(129, 111, 255, .18);
+    }
+
+    .detail-row button.active {
+      color: var(--ink);
+      background: linear-gradient(135deg, var(--violet), #5147d7);
+    }
+
+    .artifact-frame {
+      margin-top: 12px;
+      border: 1px solid rgba(129, 111, 255, .18);
+      border-radius: 8px;
+      overflow: hidden;
+      background: rgba(2, 4, 11, .74);
+    }
+
+    #artifact-canvas {
+      display: block;
+      width: 100%;
+      height: 170px;
+    }
+
+    .artifact-caption {
+      min-height: 34px;
+      padding: 9px 11px;
+      color: var(--muted);
+      border-top: 1px solid rgba(129, 111, 255, .14);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .signal-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 18px;
+      border: 1px solid rgba(129, 111, 255, .18);
+      border-radius: 8px;
+      overflow: hidden;
+      background: rgba(129, 111, 255, .18);
+    }
+
+    .signal-item {
+      min-height: 112px;
+      padding: 16px;
+      background: rgba(7, 9, 22, .94);
+    }
+
+    .signal-item strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .signal-item span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .operations {
+      padding: 34px 0 56px;
+    }
+
+    .workspace-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 22px;
+      margin-bottom: 16px;
+    }
+
+    .workspace-head h2 {
+      margin: 0;
+      font-size: 26px;
+      line-height: 1.08;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .workspace-head p {
+      max-width: 560px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .operator-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(310px, .82fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .sales-grid {
+      grid-template-columns: minmax(0, 1.2fr) minmax(320px, .8fr);
+    }
+
+    .operator-panel,
+    .waitlist {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(8, 10, 24, .88);
+      box-shadow: 0 24px 70px var(--shadow);
+    }
+
+    .panel-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .compact-button {
+      min-height: 34px;
+      padding: 0 11px;
+      font-size: 12px;
+    }
+
+    .finance-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .finance-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .metric-tile {
+      min-height: 82px;
+      padding: 12px;
+      border: 1px solid rgba(129, 111, 255, .16);
+      border-radius: 8px;
+      background: rgba(3, 5, 14, .48);
+    }
+
+    .metric-tile span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .metric-tile strong {
+      display: block;
+      margin-top: 8px;
+      color: var(--ink);
+      font-size: 23px;
+      line-height: 1.05;
+      overflow-wrap: anywhere;
+    }
+
+    #sales-chart {
+      width: 100%;
+      height: 240px;
+      border: 1px solid rgba(129, 111, 255, .16);
+      border-radius: 8px;
+      background: rgba(2, 4, 11, .62);
+    }
+
+    .sale-form {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .sale-form button {
+      width: 100%;
+    }
+
+    .sales-table-wrap {
+      max-height: 280px;
+      overflow: auto;
+      margin-top: 14px;
+      border: 1px solid rgba(129, 111, 255, .16);
+      border-radius: 8px;
+    }
+
+    .sales-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 620px;
+      font-size: 13px;
+    }
+
+    .sales-table th,
+    .sales-table td {
+      padding: 10px 11px;
+      border-bottom: 1px solid rgba(129, 111, 255, .12);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .sales-table th {
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 900;
+      background: rgba(3, 5, 14, .78);
+      position: sticky;
+      top: 0;
+    }
+
+    .sales-table td:last-child,
+    .sales-table th:last-child {
+      text-align: right;
+    }
+
+    .growth-panel textarea {
+      min-height: 114px;
+      margin-bottom: 10px;
+    }
+
+    .automation-output {
+      min-height: 260px;
+      max-height: 520px;
+      overflow-y: auto;
+      margin-top: 14px;
+      padding-top: 2px;
+      border-top: 1px solid rgba(129, 111, 255, .16);
+      color: rgba(244, 247, 255, .86);
+    }
+
+    .automation-output:empty::before {
+      content: "Growth stages, social sales boosters, approval gates, and next actions will appear here.";
+      display: block;
+      color: rgba(244, 247, 255, .48);
+      line-height: 1.5;
+      padding-top: 12px;
+    }
+
+    .waitlist {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1fr minmax(280px, 420px);
+      align-items: center;
+      gap: 18px;
+    }
+
+    .waitlist h2 {
+      margin: 0 0 6px;
+      font-size: 20px;
+      letter-spacing: 0;
+    }
+
+    .waitlist p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .waitlist form {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+    }
+
+    .lead-panel {
+      margin-top: 16px;
+    }
+
+    .lead-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .lead-table-wrap {
+      margin-top: 12px;
+      max-height: 280px;
+    }
+
+    .lead-table td:nth-child(3),
+    .lead-table th:nth-child(3) {
+      min-width: 190px;
+    }
+
+    .status {
+      min-height: 20px;
+      margin-top: 8px;
+      color: var(--green);
+      font-size: 12px;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 1100px) {
+      .command-bar,
+      .console-grid,
+      .operator-grid,
+      .sales-grid,
+      .waitlist {
+        grid-template-columns: 1fr;
+      }
+
+      .mode-row,
+      .equation-card {
+        justify-self: start;
+      }
+
+      .identity-panel {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 740px) {
+      .reverse-console {
+        padding: 16px 14px 22px;
+      }
+
+      .brand-title {
+        font-size: 22px;
+      }
+
+      .form-grid,
+      .hub-controls,
+      .hub-actions,
+      .render-options,
+      .metrics-row,
+      .signal-strip,
+      .sale-form,
+      .waitlist form {
+        grid-template-columns: 1fr;
+      }
+
+      .segmented {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .workspace-head {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .equation-card {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr auto;
+      }
+
+      .equation-card .mode-pill {
+        grid-column: 1 / -1;
+        width: 100%;
+      }
+
+      .inputrow {
+        grid-template-columns: 1fr;
+      }
+
+      button,
+      a.button {
+        width: 100%;
+        white-space: normal;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="avatar" aria-hidden="true"></div>
+  <main class="page">
+    <section class="reverse-console" id="top" aria-label="Lexi.PHYS reverse engineering dashboard">
+      <header class="command-bar">
+        <div class="brand-mark">
+          <div class="brand-glyph">L</div>
+          <div>
+            <h1 class="brand-title">Reverse Engineering <span>V5.1</span></h1>
+            <p class="brand-subtitle">Lead physics engineer: Lexi.PHYS</p>
+          </div>
+        </div>
+        <div class="mode-row" aria-label="Operating mode">
+          <span class="mode-pill active">Engineering</span>
+          <span class="mode-pill">Sovereign Syndicate</span>
+        </div>
+        <div class="equation-card" aria-label="Mass energy equivalence">
+          <span>Mass-energy equivalence</span>
+          <strong>E = MC^2</strong>
+          <span class="mode-pill active">Inverse calculation</span>
+        </div>
+        <nav class="nav-links" aria-label="Dashboard navigation">
+          <a href="#blueprint-lab">Blueprint Lab</a>
+          <a href="#operator-suite">Sales Ops</a>
+          <a href="#waitlist">Waitlist</a>
+          <a href="#lead-pipeline">Leads</a>
+          <a href="https://www.andrewqwestrum.com/" target="_blank" rel="noopener">AndrewQwestrum.com</a>
+          <button class="secondary compact-button" id="primary-blueprint" type="button">Focus Blueprint</button>
+        </nav>
+      </header>
+
+      <div class="console-grid" id="blueprint-lab">
+        <aside class="panel identity-panel">
+          <div class="avatar-orbit" aria-hidden="true">
+            <div class="avatar-core">L</div>
+          </div>
+          <h2 class="identity-title">Lexi.PHYS</h2>
+          <p class="identity-role">Quantum Architect</p>
+
+          <div class="cortex">
+            <div class="cortex-head">
+              <p class="module-label">Cortex blueprint</p>
+              <button class="primary compact-button" id="demo-btn" type="button">Synthesize Bio</button>
+            </div>
+            <p class="bio-text">
+              Operates at the jagged intersection of topological grace, thermal stress, creator economics, and system deconstruction.
+            </p>
+          </div>
+
+          <div class="comm-block">
+            <p class="module-label">Direct comm-link</p>
+            <div id="log">Channel open. Awaiting input...</div>
+            <div class="inputrow">
+              <input id="msg" placeholder="Transmit command..." />
+              <button class="primary" id="send" type="button">Send</button>
+            </div>
+          </div>
+        </aside>
+
+        <div class="engine-stack">
+          <section class="panel engine-panel" aria-label="Inverse content engine">
+            <div class="panel-heading">
+              <h2>Inverse Content <span>Engine</span></h2>
+              <span class="ref-code">Ref: ST-09</span>
+            </div>
+            <div class="form-grid">
+              <label>
+                <span>Keywords</span>
+                <input id="content-keywords" value="0, vector, mass..." />
+              </label>
+              <label>
+                <span>Target audience</span>
+                <input id="target-audience" value="Physics grads, tech-elite..." />
+              </label>
+              <label>
+                <span>Hashtags (#)</span>
+                <input id="content-hashtags" value="#geometry #physicscore" />
+              </label>
+              <label>
+                <span>Call to action (CTA)</span>
+                <input id="content-cta" value="Solve the equation..." />
+              </label>
+              <label>
+                <span>Geometric theme</span>
+                <input id="content-theme" placeholder="Diamond lattice, torus, impossible gear..." />
+              </label>
+              <label>
+                <span>Objective</span>
+                <input id="content-objective" value="Viral Reach" />
+              </label>
+            </div>
+            <p class="module-label" style="margin-top: 12px;">Resonance tone</p>
+            <div class="segmented" id="tone-selector" aria-label="Resonance tone">
+              <button type="button" data-tone="Analytical">Analytical</button>
+              <button type="button" data-tone="Mysterious">Mysterious</button>
+              <button class="active" type="button" data-tone="Provocative">Provocative</button>
+              <button type="button" data-tone="Symmetric">Symmetric</button>
+              <button type="button" data-tone="Chaotic">Chaotic</button>
+            </div>
+            <button class="primary primary-action" id="execute-post-synthesis" type="button">Execute Post Synthesis</button>
+            <div id="blueprint-output" class="blueprintout"></div>
+          </section>
+
+          <section class="panel hub-panel" aria-label="Reverse engineering hub">
+            <div class="panel-heading">
+              <h2>Reverse Engineering <span>Hub</span></h2>
+              <span class="ref-code">Ref: REV-ENG</span>
+            </div>
+            <label class="wide">
+              <span>Subject for analysis</span>
+              <textarea id="idea" placeholder="e.g. A classic wristwatch, a skyscraper, an offer, a machine, an impossible blueprint..."></textarea>
+            </label>
+            <div class="hub-controls">
+              <select id="depth" aria-label="Blueprint depth">
+                <option value="prototype">Prototype</option>
+                <option value="product">Product</option>
+                <option value="automation">Automation</option>
+                <option value="research">Research</option>
+              </select>
+              <label class="toggle"><input id="save-artifacts" type="checkbox" checked /> Save artifacts</label>
+            </div>
+            <div class="hub-actions">
+              <button class="primary" id="build-blueprint" type="button">Deconstruct</button>
+              <button class="warning" id="build-cash-system" type="button">Package Cash System</button>
+            </div>
+          </section>
+        </div>
+
+        <div class="side-stack">
+          <section class="panel side-panel" aria-label="Temporal flux renderer">
+            <div class="panel-heading">
+              <h2>Temporal Flux <span>Renderer</span></h2>
+              <span class="ref-code">Ref: FLX-85</span>
+            </div>
+            <label>
+              <span>Kinetic vector description</span>
+              <textarea id="flux-description">Lexi deconstructing a diamond structure into light...</textarea>
+            </label>
+            <div class="render-options">
+              <label>
+                <span>Resolution</span>
+                <select id="flux-resolution">
+                  <option>1280x720 (Fast)</option>
+                  <option>1920x1080 (Sharp)</option>
+                  <option>3840x2160 (Quantum)</option>
+                </select>
+              </label>
+              <label>
+                <span>Aspect ratio</span>
+                <select id="flux-aspect">
+                  <option>16:9 (Widescreen)</option>
+                  <option>1:1 (Square)</option>
+                  <option>9:16 (Story)</option>
+                </select>
+              </label>
+            </div>
+            <p class="module-label">Schematic detail</p>
+            <div class="detail-row" aria-label="Schematic detail">
+              <button type="button" data-detail="Basic">Basic</button>
+              <button class="active" type="button" data-detail="Advanced">Advanced</button>
+              <button type="button" data-detail="Quantum">Quantum</button>
+            </div>
+            <button class="primary primary-action" id="execute-kinetic-render" type="button">Execute Kinetic Render</button>
+            <div class="status" id="flux-status">Awaiting temporal coordinates.</div>
+          </section>
+
+          <section class="panel side-panel" aria-label="Visual synthesis">
+            <div class="panel-heading">
+              <h2>Visual <span>Synthesis</span></h2>
+              <span class="ref-code">Ref: IMG-GEN</span>
+            </div>
+            <label>
+              <span>Visual prompt</span>
+              <textarea id="visual-prompt" placeholder="Describe the visual artifact..."></textarea>
+            </label>
+            <label style="margin-top: 10px;">
+              <span>Aesthetic style</span>
+              <select id="visual-style">
+                <option value="photorealistic">Photorealistic</option>
+                <option value="anime">Anime</option>
+                <option value="blueprint" selected>Blueprint</option>
+                <option value="cyberpunk">Cyberpunk</option>
+                <option value="art deco">Art Deco</option>
+                <option value="surrealism">Surrealism</option>
+              </select>
+            </label>
+            <button class="primary primary-action" id="generate-artifact" type="button">Generate Artifact</button>
+            <div class="artifact-frame" aria-label="Generated artifact preview">
+              <canvas id="artifact-canvas" width="620" height="300"></canvas>
+              <div class="artifact-caption" id="artifact-caption">Artifact preview will render locally from the prompt and style selector.</div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <section class="signal-strip" aria-label="Lexi.PHYS proof points">
+        <div class="signal-item">
+          <strong>Cash system packs</strong>
+          <span>Turn a rough concept into hooks, offers, products, services, and buyer-signal checks.</span>
+        </div>
+        <div class="signal-item">
+          <strong>System maps</strong>
+          <span>Translate invention logic into components, flows, dependencies, and validation gates.</span>
+        </div>
+        <div class="signal-item">
+          <strong>Prototype plans</strong>
+          <span>Break speculative systems into ranked queues and sprint-ready build notes.</span>
+        </div>
+        <div class="signal-item">
+          <strong>Visual prompts</strong>
+          <span>Package the render intent with style, resolution, audience, and output constraints.</span>
+        </div>
+      </section>
+
+      <section class="operations" id="operator-suite" aria-label="Lexi.AI sales operator dashboard">
+        <div class="workspace-head">
+          <div>
+            <p class="module-label">Company operator</p>
+            <h2>Companion chat, sales tracking, payout references, and growth automation.</h2>
+          </div>
+          <p>
+            Build from ground zero to a scaled sales system with approval-gated automation, local sales records, and platform-safe social campaigns.
+          </p>
+        </div>
+
+        <div class="operator-grid">
+          <div class="operator-panel companion-panel">
+            <div class="panel-title-row">
+              <div>
+                <p class="module-label">Companion model</p>
+                <h3>Direct-neural-link chat</h3>
+              </div>
+              <span class="status-pill active">Focus channel</span>
+            </div>
+            <div id="companion-log" class="companion-log">Lexi Companion online. This is a focused chat interface, not a medical neural device.</div>
+            <div class="inputrow">
+              <input id="companion-msg" placeholder="Talk to Lexi Companion..." />
+              <button class="secondary" id="companion-send" type="button">Send</button>
+            </div>
+          </div>
+
+          <div class="operator-panel finance-panel">
+            <div class="panel-title-row">
+              <div>
+                <p class="module-label">Payout links</p>
+                <h3>Chime + wallet references</h3>
+              </div>
+              <a class="button secondary compact-button" href="https://app.chime.com/login" target="_blank" rel="noopener">Open Chime</a>
+            </div>
+            <div class="finance-grid">
+              <label>
+                <span>Chime label</span>
+                <input id="finance-chime-label" placeholder="Business payout account" />
+              </label>
+              <label>
+                <span>Wallet link</span>
+                <input id="finance-wallet-link" placeholder="https://..." />
+              </label>
+            </div>
+            <div class="finance-actions">
+              <button class="warning" id="save-finance-links" type="button">Save Links</button>
+              <a class="button secondary" id="open-wallet-link" href="#" target="_blank" rel="noopener">Open Wallet</a>
+            </div>
+            <div class="status" id="finance-status" role="status">References are saved locally in this browser. No bank passwords or account numbers.</div>
+          </div>
+        </div>
+
+        <div class="operator-grid sales-grid">
+          <div class="operator-panel sales-panel">
+            <div class="panel-title-row">
+              <div>
+                <p class="module-label">Sales command</p>
+                <h3>Sales chart and ledger</h3>
+              </div>
+              <span class="status-pill active" id="sales-count">0 records</span>
+            </div>
+            <div class="metrics-row">
+              <div class="metric-tile">
+                <span>Total sales</span>
+                <strong id="metric-revenue">$0</strong>
+              </div>
+              <div class="metric-tile">
+                <span>Paid orders</span>
+                <strong id="metric-paid">0</strong>
+              </div>
+              <div class="metric-tile">
+                <span>Pipeline</span>
+                <strong id="metric-pipeline">$0</strong>
+              </div>
+              <div class="metric-tile">
+                <span>Average sale</span>
+                <strong id="metric-average">$0</strong>
+              </div>
+            </div>
+            <canvas id="sales-chart" width="720" height="240" aria-label="Sales chart"></canvas>
+            <form class="sale-form" id="sale-form">
+              <input id="sale-product" placeholder="Product or service" required />
+              <input id="sale-channel" placeholder="Channel" required />
+              <input id="sale-amount" type="number" min="0" step="0.01" placeholder="Amount" required />
+              <select id="sale-status" aria-label="Sale status">
+                <option value="Lead">Lead</option>
+                <option value="Offer Sent">Offer Sent</option>
+                <option value="Paid">Paid</option>
+                <option value="Delivered">Delivered</option>
+              </select>
+              <input id="sale-date" type="date" required />
+              <button class="signal" id="add-sale" type="button" onclick="globalThis.lexiAddSale && globalThis.lexiAddSale(event)">Add Sale</button>
+            </form>
+            <div class="status" id="sales-form-status" role="status"></div>
+            <div class="sales-table-wrap">
+              <table class="sales-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Offer</th>
+                    <th>Channel</th>
+                    <th>Status</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody id="sales-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="operator-panel growth-panel">
+            <div class="panel-title-row">
+              <div>
+                <p class="module-label">Social sales automation</p>
+                <h3>Ground zero to large company</h3>
+              </div>
+              <span class="status-pill active">Approval-gated</span>
+            </div>
+            <textarea id="growth-goal">Build Lexi.AI from ground zero to a large company sales machine across Facebook and other social media sites.</textarea>
+            <input id="growth-channels" value="Facebook, Instagram, TikTok, YouTube, X, LinkedIn" aria-label="Social media channels" />
+            <button class="warning primary-action" id="generate-growth-plan" type="button">Generate Growth Automation</button>
+            <div id="growth-output" class="automation-output"></div>
+          </div>
+        </div>
+
+        <div class="waitlist" id="waitlist">
+          <div>
+            <h2>Join the Lexi.AI waitlist</h2>
+            <p>Get early access notes for cash-system generation, blueprint reports, prototype planning, and creator tooling. Submissions are captured into the server-side lead pipeline.</p>
+          </div>
+          <div>
+            <form id="waitlist-form">
+              <input id="waitlist-email" type="email" placeholder="you@example.com" aria-label="Email address" required />
+              <button class="warning" type="submit">Join Waitlist</button>
+            </form>
+            <div class="status" id="waitlist-status" role="status"></div>
+          </div>
+        </div>
+
+        <div class="operator-panel lead-panel" id="lead-pipeline" aria-label="Lexi.AI lead pipeline">
+          <div class="panel-title-row">
+            <div>
+              <p class="module-label">Proof-page pipeline</p>
+              <h3>Waitlist leads and exports</h3>
+            </div>
+            <span class="status-pill active" id="lead-count">0 leads</span>
+          </div>
+          <div class="lead-actions">
+            <a class="button secondary compact-button" href="/leads/export.csv" target="_blank" rel="noopener">CSV Export</a>
+            <a class="button secondary compact-button" href="/leads/export.json" target="_blank" rel="noopener">JSON Export</a>
+            <button class="warning compact-button" id="refresh-leads" type="button">Refresh Leads</button>
+          </div>
+          <div class="status" id="lead-export-status" role="status">Server exports are ready after the first captured lead.</div>
+          <div class="sales-table-wrap lead-table-wrap">
+            <table class="sales-table lead-table">
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Stage</th>
+                  <th>Offer</th>
+                  <th>Source</th>
+                  <th>Touches</th>
+                  <th>Updated</th>
+                </tr>
+              </thead>
+              <tbody id="lead-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+</body>
+</html>

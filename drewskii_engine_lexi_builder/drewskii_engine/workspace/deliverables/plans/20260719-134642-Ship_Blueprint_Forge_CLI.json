@@ -1,0 +1,31 @@
+{
+  "title": "Ship Blueprint Forge CLI",
+  "goal": "Turn \u201cShip Blueprint Forge CLI\u201d into a working Lexi-9-Omega prototype slice.",
+  "reality_check": "Build the safe, testable version first. Advanced autonomy, deep Android integration, or physics concepts stay separated from what can run today.",
+  "prototype_path": [
+    "Define the feature in one sentence.",
+    "Create a local file/template for it.",
+    "Add memory/logging if it needs to learn from past use.",
+    "Add a permission gate if it touches phone tools, files, camera, location, contacts, messages, or accounts.",
+    "Test it manually.",
+    "Save results in the project log and evaluation log.",
+    "Improve one version at a time."
+  ],
+  "stack": [
+    "Python local engine",
+    "SQLite project memory",
+    "Markdown / JSON / HTML artifacts",
+    "Termux:API helpers (user-approved only)",
+    "Web dashboard shell"
+  ],
+  "safety": [
+    "No hidden control",
+    "No account bypassing",
+    "No password collection",
+    "No unauthorized surveillance",
+    "No OS-level control outside official APIs",
+    "Speculative physics = simulation / lore / visualization only"
+  ],
+  "next_action": "Write the first module file or deliverable for: Ship Blueprint Forge CLI",
+  "summary": "Safe prototype plan for Ship Blueprint Forge CLI"
+}
