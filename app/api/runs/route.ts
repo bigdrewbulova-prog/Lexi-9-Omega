@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { synthesizeRun } from "../../lib/run-engine";
+import {
+  BrightDataConfigurationError,
+  brightDataConfigFromEnv,
+  searchBrightData,
+} from "../../lib/bright-data";
+import { attachLiveEvidence, synthesizeRun } from "../../lib/run-engine";
 
 export const dynamic = "force-dynamic";
 
@@ -26,8 +31,22 @@ export async function POST(request: Request) {
       : 0;
 
   try {
-    const run = synthesizeRun(objective, { existingCount });
-    return NextResponse.json({ run }, { status: 201 });
+    const localRun = synthesizeRun(objective, { existingCount });
+    let run = localRun;
+    let liveStatus: "connected" | "not-configured" | "unavailable" = "not-configured";
+
+    try {
+      const evidence = await searchBrightData(objective, brightDataConfigFromEnv());
+      run = attachLiveEvidence(localRun, evidence);
+      liveStatus = run.mode === "bright-data-live" ? "connected" : "unavailable";
+    } catch (error) {
+      if (!(error instanceof BrightDataConfigurationError)) {
+        liveStatus = "unavailable";
+        console.error("Bright Data live search unavailable", error);
+      }
+    }
+
+    return NextResponse.json({ run, liveStatus }, { status: 201 });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unable to create run.";
     return NextResponse.json({ error: message }, { status: 400 });
@@ -37,7 +56,7 @@ export async function POST(request: Request) {
 export async function GET() {
   return NextResponse.json({
     service: "lexi-9-omega-runs",
-    mode: "local-live",
+    mode: process.env.BRIGHT_DATA_API_TOKEN ? "bright-data-live" : "local-live",
     methods: ["POST"],
     body: {
       objective: "string (required, max 220)",
