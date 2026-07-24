@@ -1,98 +1,69 @@
-# vinext-starter
+# LEXI-9/OMEGA
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+LEXI-9/OMEGA is an evidence-to-action decision-support demo built for the
+HackerNoon Proof of Usefulness hackathon. It converts a bounded research
+objective into an explicit recommendation, confidence label, evidence ledger,
+approval-gated actions, and a locally retained run history.
 
-## Prerequisites
+## What works
 
-- Node.js `>=22.13.0`
+- Objective-specific synthesis for industrial maintenance, observability,
+  defensive security, product-launch, and general decision workflows
+- Server API with an offline browser fallback
+- Evidence and uncertainty labels
+- Human approval controls for proposed actions
+- Device-local proof ledger and usefulness metrics
+- Responsive judge-facing interface
 
-## Quick Start
+## Truth boundary
+
+The included engine is a deterministic local demonstration. Its evidence cards
+are clearly labeled fixtures, not live web results. It does not claim to have
+scraped, verified, or executed external actions. A production integration must
+attach real source URLs and timestamps, enforce policy in code, and record
+execution receipts separately from model proposals.
+
+## Run locally
+
+Requirements: Node.js 22.13 or newer.
 
 ```bash
 npm install
+npm test
 npm run dev
-npm run build
 ```
 
-This starter does not use `wrangler.jsonc`.
+The production build is Cloudflare Workers-compatible through vinext.
 
-## Included Shape
+## API
 
-- edit site code under `app/`
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
+Create a run:
 
-## Workspace Auth Headers
-
-OpenAI workspace sites can read the current user's email from
-`oai-authenticated-user-email`.
-
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
-
-Treat the full name as optional and fall back to email when it is absent:
-
-```tsx
-import { headers } from "next/headers";
-
-export default async function Home() {
-  const requestHeaders = await headers();
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
-
-  const displayName = fullName ?? email;
-  // ...
-}
+```bash
+curl -X POST http://localhost:3000/api/runs \
+  -H 'content-type: application/json' \
+  -d '{"objective":"Which industrial AI pilot has measurable 30-day ROI?"}'
 ```
 
-## Optional Dispatch-Owned ChatGPT Sign-In
+The endpoint validates the objective and returns a decision brief, evidence
+cards, confidence metadata, proposed actions, and a truth-boundary statement.
 
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
+## Validation
 
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
+```bash
+npm test
+```
 
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
+This runs the engine and rendered-interface tests, followed by a production
+build.
 
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
+## Roadmap
 
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
+1. Connect Bright Data for timestamped public-web evidence.
+2. Persist consented run telemetry and outcome confirmations.
+3. Separate proposal, approval, execution, and verification receipts.
+4. Publish anonymized adoption metrics for the Proof of Usefulness report.
 
-## Useful Commands
+## Hackathon tags
 
-- `npm run dev`: start local development
-- `npm run build`: verify the vinext build output
-- `npm test`: build the starter and verify its rendered loading skeleton
-- `npm run db:generate`: generate Drizzle migrations after schema changes
-
-## Learn More
-
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+`#proof-of-usefulness` `#ai` `#ai-agents` `#data` `#automation`
