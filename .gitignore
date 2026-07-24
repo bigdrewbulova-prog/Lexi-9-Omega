@@ -30,6 +30,12 @@ models/
 llama.cpp/
 *.gguf
 
+# CORTANA-PHYS local secrets
+**/master.secret
+**/key_vault.json
+workspace/cortana_phys/master.secret
+workspace/cortana_phys/key_vault.json
+
 # OS / IDE
 .DS_Store
 .idea/
@@ -40,8 +46,3 @@ llama.cpp/
 *.log
 .pytest_cache/
 .mypy_cache/
-
-# CORTANA-PHYS local secrets
-**/master.secret
-**/key_vault.json
-workspace/cortana_phys/

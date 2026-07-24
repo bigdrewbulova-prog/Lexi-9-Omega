@@ -13,11 +13,12 @@ Owner: [bigdrewbulova-prog](https://github.com/bigdrewbulova-prog)
 | Path | Description |
 |---|---|
 | `drewskii_engine_lexi_builder/` | Drewskii.Engine CLI, Blueprint Forge, Mastermind sim cycle |
-| `LEXI-9-OMEGA-Documentary/` | Documentary production package + trailer scripts |
+| `LEXI-9-OMEGA-Documentary/` | Documentary production package + trailer scripts + HackerNoon kits |
 | `CHRONOS-VII-The-Circlet/` | Cinematic spacetime sandbox (fiction/sim only) |
 | `lexi_ai_desktop_companion/` | Local Tk desktop companion |
 | `LEXI-9-OMEGA-HACKATHON/` | Evidence-to-action web demo (live-run engine) |
 | `LexiAI/` | Lexi.AI creative engineering core (subset; secrets excluded) |
+| `docs/` | GitHub Pages public landing |
 
 ## Safety
 
@@ -31,12 +32,12 @@ Owner: [bigdrewbulova-prog](https://github.com/bigdrewbulova-prog)
 ```bash
 cd drewskii_engine_lexi_builder/drewskii_engine
 python3 main.py
-# help
-# forge My Brand
-# mastermind 17.4 0.97
+# forge "Your Brand"
+# autonomy 2.0
+# cortana status
 ```
 
-## Quick start — Hackathon demo
+## Quick start — Hackathon app
 
 ```bash
 cd LEXI-9-OMEGA-HACKATHON
@@ -44,6 +45,12 @@ npm install
 npm run dev
 ```
 
+## HackerNoon
+
+- Proof of Usefulness: measure real utility  
+- Decentralize AI: local-first sovereignty narrative  
+- Drafts under `LEXI-9-OMEGA-Documentary/launch/`
+
 ## Note on history
 
-This monorepo was assembled as a clean publish snapshot. Individual package git histories (where they existed) were not rewritten into a single lineage; new history starts at the initial publish commit unless rebased later.
+Monorepo merged with earlier hosted hackathon app history. Secrets, `node_modules`, and local model weights excluded.
