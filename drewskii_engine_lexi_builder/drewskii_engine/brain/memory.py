@@ -29,7 +29,7 @@ class Memory:
             CREATE TABLE IF NOT EXISTS memory (
                 key TEXT PRIMARY KEY,
                 value TEXT NOT NULL,
-                updated_at TEXT NOT NULL
+                updated_at TEXT NOT NULL DEFAULT ''
             );
             CREATE TABLE IF NOT EXISTS plans (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -56,6 +56,10 @@ class Memory:
             );
             """
         )
+        # Migrate legacy memory table (key,value only)
+        cols = {row[1] for row in cur.execute("PRAGMA table_info(memory)").fetchall()}
+        if "updated_at" not in cols:
+            cur.execute("ALTER TABLE memory ADD COLUMN updated_at TEXT NOT NULL DEFAULT ''")
         self.conn.commit()
 
     def set(self, key: str, value: str) -> None:

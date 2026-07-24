@@ -71,6 +71,11 @@ Commands:
   cocoon [spin] [energize]     Transcendent Cocoon V3 inverse-physics sim
   cocoon-resonance             Neural Resonance Test (design sweep)
   autonomy [seconds]           Autonomy OS control-loop simulation
+  stack                        Local-first Intelligence Model Stack (Stage 1)
+  stack run                    Full Stage-1 automation pipeline
+  stack brand <name|vibe|aud|offer>
+  stack rules                  Operating rules + promotion gate
+  stack promote <feature>      Promotion gate checklist
   blueprint [name]             Quick Brand Blueprint Pack (MD/JSON/HTML)
   forge [name]                 Blueprint Forge (+ starter code templates)
   forge name | vibe | audience | offer
@@ -571,6 +576,55 @@ def main() -> None:
                 f"autonomy_os ticks={summary.get('ticks')} "
                 f"safe={summary.get('safe')} reason={summary.get('stop_reason')}"
             )
+
+        elif command == "stack" or command.startswith("stack "):
+            from brain.intelligence_stack import BrandIntake, LocalFirstIntelligenceStack
+
+            stack = LocalFirstIntelligenceStack(memory=memory)
+            rest = command.removeprefix("stack").strip()
+            if not rest or rest in {"status", "rules"}:
+                print(json.dumps(stack.operating_rules(), indent=2))
+            elif rest == "run" or rest.startswith("run "):
+                brand = rest.removeprefix("run").strip() or "Lexi Local-First Intelligence"
+                print("Running Stage-1 full automation pipeline...")
+                result = stack.full_stage1_run(brand_name=brand, mint_key=True)
+                # redact key for console (still shown truncated)
+                if "cortana_key" in result.get("steps", {}):
+                    once = result["steps"]["cortana_key"].pop("api_key_once", None)
+                    if once:
+                        print(f"\n[one-time API key — store now]\n{once}\n")
+                print(json.dumps(result, indent=2, default=str))
+            elif rest.startswith("brand "):
+                raw = rest.removeprefix("brand").strip()
+                parts = [p.strip() for p in raw.split("|")]
+                while len(parts) < 4:
+                    parts.append("")
+                intake = BrandIntake(
+                    name=parts[0] or "Custom AI Brand Blueprint Pack",
+                    vibe=parts[1] or "dark, clean, futuristic",
+                    audience=parts[2] or "creators and small businesses",
+                    offer=parts[3] or "identity pack starting at $50",
+                )
+                out = stack.brand_pack(intake)
+                print(json.dumps({
+                    "quality_checklist": out["quality_checklist"],
+                    "paths": out["pack"]["paths"],
+                    "brand_name": out["pack"]["data"].get("brand_name"),
+                    "promotion_ready_checklist": out["promotion_ready"],
+                }, indent=2))
+            elif rest.startswith("promote "):
+                feature = rest.removeprefix("promote").strip() or "brand_pack"
+                # empty evidence shows what's missing
+                print(json.dumps(stack.promotion_review(feature), indent=2))
+            else:
+                print(
+                    "Usage:\n"
+                    "  stack\n"
+                    "  stack run [brand name]\n"
+                    "  stack brand <name> | <vibe> | <audience> | <offer>\n"
+                    "  stack rules\n"
+                    "  stack promote <feature>\n"
+                )
 
         elif command == "blueprint" or command.startswith("blueprint "):
             name = command.removeprefix("blueprint").strip() or "Custom AI Brand Blueprint Pack"
