@@ -32,6 +32,8 @@ MODEL_PROFILE_PATH = PROJECT_ROOT / "model_profiles" / "lexi_phys.json"
 MODEL_DOC_PATH = PROJECT_ROOT / "docs" / "models" / "Lexi_PHYS.md"
 DREWSKII_MODEL_PROFILE_PATH = PROJECT_ROOT / "model_profiles" / "drewskii_engine.json"
 DREWSKII_MODEL_DOC_PATH = PROJECT_ROOT / "docs" / "models" / "Drewskii_Engine.md"
+CORTANA_MODEL_PROFILE_PATH = PROJECT_ROOT / "model_profiles" / "cortana_phys.json"
+CORTANA_MODEL_DOC_PATH = PROJECT_ROOT / "docs" / "models" / "CORTANA_PHYS.md"
 PROTOTYPE_PATH = PROJECT_ROOT / "docs" / "user_space_to_official_app.md"
 DOCUMENTARY_PATH = PROJECT_ROOT / "docs" / "lexi_documentary_map.md"
 TOP_LAYER_PATH = PROJECT_ROOT / "docs" / "drewskii_engine_documentary_top_layer.md"
@@ -48,7 +50,8 @@ Commands:
   help                         Show this menu
   manifest                     Show the project manifest
   identity                     Show the Lexi identity contract
-  model [name]                 Show a model profile: Lexi.PHYS or Drewskii.Engine
+  model [name]                 Profile: Lexi.PHYS | Drewskii.Engine | CORTANA-PHYS
+  cortana status|mint|keys|models|invent|ask   CORTANA-PHYS model layer
   skills                       Show the Lexi skill catalog
   prototype                    Show the user-space to official app path
   documentary                  Show the LEXI-9-OMEGA documentary map (docs)
@@ -62,6 +65,12 @@ Commands:
   grav [density]               GravitationalProcessor sim (curvature/logic/opt)
   kali [density]               Constraint-pressure sim (NOT network attacks)
   mastermind [mass] [auth]     Full cycle: retro → grav → kali
+  kinetic [profile]            Cognitive→kinetic wellness flow sim
+  resonator [profile] [arch]   Space as emotional resonator (floor plan sim)
+  manifold [profile] [arch] [society]  Full kineto-cognitive manifold
+  cocoon [spin] [energize]     Transcendent Cocoon V3 inverse-physics sim
+  cocoon-resonance             Neural Resonance Test (design sweep)
+  autonomy [seconds]           Autonomy OS control-loop simulation
   blueprint [name]             Quick Brand Blueprint Pack (MD/JSON/HTML)
   forge [name]                 Blueprint Forge (+ starter code templates)
   forge name | vibe | audience | offer
@@ -177,13 +186,15 @@ def model_paths(name: str) -> tuple[Path, Path] | None:
         return MODEL_DOC_PATH, MODEL_PROFILE_PATH
     if normalized in {"drewskii", "drewskii.engine"}:
         return DREWSKII_MODEL_DOC_PATH, DREWSKII_MODEL_PROFILE_PATH
+    if normalized in {"cortana", "cortana.phys", "cortanaphys"}:
+        return CORTANA_MODEL_DOC_PATH, CORTANA_MODEL_PROFILE_PATH
     return None
 
 
 def show_model_profile(name: str) -> str:
     paths = model_paths(name)
     if not paths:
-        return "Unknown model profile. Available: Lexi.PHYS, Drewskii.Engine"
+        return "Unknown model profile. Available: Lexi.PHYS, Drewskii.Engine, CORTANA-PHYS"
     doc_path, profile_path = paths
     return (
         read_text_file(doc_path, "Model profile")
@@ -247,6 +258,59 @@ def main() -> None:
         elif command in {"model", "/model"} or command.startswith("model ") or command.startswith("/model "):
             model_name = command.split(" ", 1)[1].strip() if " " in command else "Drewskii.Engine"
             print(show_model_profile(model_name))
+
+        elif command == "cortana" or command.startswith("cortana "):
+            from brain.cortana_phys import CortanaPhysCore
+
+            core = CortanaPhysCore()
+            rest = command.removeprefix("cortana").strip()
+            if not rest or rest == "status":
+                print(json.dumps(core.status(), indent=2))
+            elif rest == "mint" or rest.startswith("mint "):
+                label = rest.removeprefix("mint").strip() or "cortana-local"
+                print(json.dumps(core.mint_key(label=label), indent=2))
+                log_event(f"cortana_key_minted label={label}")
+            elif rest == "keys":
+                print(json.dumps(core.list_keys(), indent=2))
+            elif rest == "models":
+                print(json.dumps(core.list_models(), indent=2))
+            elif rest.startswith("invent "):
+                # invent Name [| family | description]
+                raw = rest.removeprefix("invent").strip()
+                parts = [p.strip() for p in raw.split("|")]
+                name = parts[0] if parts else "Custom Module"
+                family = parts[1] if len(parts) > 1 and parts[1] else "custom"
+                desc = parts[2] if len(parts) > 2 else ""
+                spec = core.invent_model(name, family=family, description=desc)
+                print(json.dumps(spec, indent=2))
+                log_event(f"cortana_model_invented id={spec['model_id']}")
+            elif rest.startswith("ask "):
+                body = rest.removeprefix("ask").strip()
+                model_id = None
+                prompt = body
+                if "|" in body:
+                    left, right = body.split("|", 1)
+                    # if left looks like a model id, treat as model|prompt
+                    if left.strip().startswith("cortana-") or left.strip() in {
+                        m["model_id"] for m in core.list_models()
+                    }:
+                        model_id = left.strip()
+                        prompt = right.strip()
+                resp = core.complete(prompt, model_id=model_id)
+                print(resp["output"])
+                print("\n---")
+                print(json.dumps({k: v for k, v in resp.items() if k != "output"}, indent=2))
+            else:
+                print(
+                    "Usage:\n"
+                    "  cortana status\n"
+                    "  cortana mint [label]\n"
+                    "  cortana keys\n"
+                    "  cortana models\n"
+                    "  cortana invent <name> [| family | description]\n"
+                    "  cortana ask <prompt>\n"
+                    "  cortana ask <model_id> | <prompt>\n"
+                )
 
         elif command == "skills":
             print(read_json_file(SKILLS_PATH, "Skills"))
@@ -365,6 +429,148 @@ def main() -> None:
             )
             print(core.format_report(report))
             log_event(f"mastermind_cycle status={report.status} mass={mass} auth={auth}")
+
+        elif command == "kinetic" or command.startswith("kinetic "):
+            from brain.cognitive_kinetic import CognitiveKineticFlow, DEMO_PROFILES
+
+            parts = command.split()
+            profile = parts[1] if len(parts) > 1 else "anxious_arrival"
+            if profile not in DEMO_PROFILES:
+                print(f"Unknown profile. Available: {', '.join(DEMO_PROFILES)}")
+            else:
+                flow = CognitiveKineticFlow()
+                report = flow.run(
+                    profile=profile,
+                    title=f"Cognitive→Kinetic · {profile}",
+                    write_artifacts=True,
+                )
+                print(flow.format_report(report))
+                log_event(f"cognitive_kinetic profile={profile} mode={report.kinetic['mode']}")
+
+        elif command == "resonator" or command.startswith("resonator "):
+            from brain.cognitive_kinetic import DEMO_PROFILES
+            from brain.space_resonator import SpaceEmotionalResonator, SpaceArchetype
+
+            parts = command.split()
+            profile = parts[1] if len(parts) > 1 else "deep_focus"
+            arch = parts[2] if len(parts) > 2 else "deep_work"
+            if profile not in DEMO_PROFILES:
+                print(f"Unknown profile. Available: {', '.join(DEMO_PROFILES)}")
+            else:
+                try:
+                    SpaceArchetype(arch)
+                except ValueError:
+                    print(
+                        "Unknown archetype. Available: "
+                        + ", ".join(a.value for a in SpaceArchetype)
+                    )
+                else:
+                    engine = SpaceEmotionalResonator()
+                    report = engine.run(
+                        profile=profile,
+                        archetype=arch,
+                        title=f"Resonator · {arch} · {profile}",
+                        write_artifacts=True,
+                    )
+                    print(engine.format_report(report))
+                    log_event(
+                        f"space_resonator profile={profile} arch={arch} "
+                        f"mode={report.envelope['resonance_mode']}"
+                    )
+
+        elif command == "manifold" or command.startswith("manifold "):
+            from brain.cognitive_kinetic import DEMO_PROFILES
+            from brain.kineto_cognitive_manifold import (
+                KinetoCognitiveManifold,
+                SocietalContext,
+            )
+            from brain.space_resonator import SpaceArchetype
+
+            parts = command.split()
+            profile = parts[1] if len(parts) > 1 else "deep_focus"
+            arch = parts[2] if len(parts) > 2 else "deep_work"
+            society = parts[3] if len(parts) > 3 else "solo_deep_work"
+            if profile not in DEMO_PROFILES:
+                print(f"Unknown profile. Available: {', '.join(DEMO_PROFILES)}")
+            else:
+                try:
+                    SpaceArchetype(arch)
+                    SocietalContext(society)
+                except ValueError as exc:
+                    print(
+                        f"Bad archetype or society ({exc}).\n"
+                        f"Archetypes: {', '.join(a.value for a in SpaceArchetype)}\n"
+                        f"Society: {', '.join(s.value for s in SocietalContext)}"
+                    )
+                else:
+                    engine = KinetoCognitiveManifold()
+                    report = engine.full_flow(
+                        profile=profile,
+                        space_archetype=arch,
+                        societal_context=society,
+                        title=f"Manifold · {profile} · {arch} · {society}",
+                        write_artifacts=True,
+                    )
+                    print(engine.format_report(report))
+                    log_event(
+                        f"manifold profile={profile} arch={arch} society={society} "
+                        f"ar={report.ar['mode']} spatial={report.spatial['resonance_mode']}"
+                    )
+
+        elif command == "cocoon" or command.startswith("cocoon "):
+            from brain.cocoon_transcendent import TranscendentCocoonV3
+
+            parts = command.split()
+            if len(parts) >= 1 and parts[0] == "cocoon" and len(parts) > 1 and parts[1] == "resonance":
+                pass  # handled below as cocoon-resonance
+            spin = float(parts[1]) if len(parts) > 1 else 0.62
+            energize = float(parts[2]) if len(parts) > 2 else 0.85
+            cocoon = TranscendentCocoonV3()
+            result = cocoon.execute_post_synthesis(
+                spin_rate=spin,
+                energize=energize,
+                write_artifacts=True,
+            )
+            print(
+                cocoon._render_inverse_physics_report(
+                    result["simulation"],
+                    {"residual_to_target": result["retro"]["residual_to_target"]},
+                    result["determination"],
+                )
+            )
+            if result.get("artifact_paths"):
+                print("\nArtifacts:")
+                for k, v in result["artifact_paths"].items():
+                    print(f"  {k}: {v}")
+            log_event(
+                f"cocoon_v3 status={result['determination']['status']} "
+                f"aesthetic={result['simulation']['scores']['aesthetic_dominance']:.3f}"
+            )
+
+        elif command in {"cocoon-resonance", "cocoon resonance"}:
+            from brain.cocoon_transcendent import TranscendentCocoonV3
+
+            test = TranscendentCocoonV3().neural_resonance_test()
+            print(json.dumps(test, indent=2))
+            log_event("cocoon_neural_resonance_test")
+
+        elif command == "autonomy" or command.startswith("autonomy "):
+            from brain.autonomy_os import AutonomyOS
+
+            parts = command.split()
+            seconds = float(parts[1]) if len(parts) > 1 else 2.0
+            max_ticks = int(parts[2]) if len(parts) > 2 else 250
+            aos = AutonomyOS(hz=50.0, max_ticks=max_ticks)
+            print("Starting Autonomy OS (simulation)...")
+            summary = aos.run_for(seconds=seconds)
+            print(json.dumps(summary, indent=2))
+            print("\n--- Event Log (last 8) ---")
+            for event in aos.replay_log()[-8:]:
+                print(event)
+            log_event(
+                f"autonomy_os ticks={summary.get('ticks')} "
+                f"safe={summary.get('safe')} reason={summary.get('stop_reason')}"
+            )
 
         elif command == "blueprint" or command.startswith("blueprint "):
             name = command.removeprefix("blueprint").strip() or "Custom AI Brand Blueprint Pack"

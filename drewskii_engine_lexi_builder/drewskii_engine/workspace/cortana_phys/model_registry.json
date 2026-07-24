@@ -1,0 +1,183 @@
+{
+  "version": 1,
+  "updated_at": "2026-07-22T08:02:50+00:00",
+  "models": [
+    {
+      "model_id": "cortana-aegis-lattice-analyst",
+      "display_name": "Aegis Lattice Analyst",
+      "family": "phys",
+      "version": "0.1.0",
+      "description": "Structural foresight language module for CORTANA-PHYS",
+      "system_prompt": "You are Aegis Lattice Analyst, a CORTANA-PHYS module in the Lexi-9-Omega stack. Family=phys. Be practical, inspectable, and safety-bounded. Capabilities: simulate, plan, stress-map.",
+      "capabilities": [
+        "simulate",
+        "plan",
+        "stress-map"
+      ],
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text",
+        "json"
+      ],
+      "context_window": 8192,
+      "temperature_default": 0.4,
+      "provider_binding": "local-template",
+      "endpoint_hint": "",
+      "safety_profile": "drewskii_default",
+      "invented": true,
+      "source_module": "brain.cortana_phys.generated.cortana_aegis_lattice_analyst",
+      "created_at": "2026-07-22T08:02:50+00:00",
+      "meta": {
+        "invented_by": "CORTANA-PHYS ModelRegistry.invent"
+      }
+    },
+    {
+      "model_id": "cortana-blueprint-forge",
+      "display_name": "CORTANA Blueprint Forge",
+      "family": "blueprint",
+      "version": "1.0.0",
+      "description": "Brand and product pack generator aligned with $50 Blueprint offers.",
+      "system_prompt": "You generate Custom AI Brand Blueprint Packs: name, bio, slogan, image prompts, ad copy, one-page concept sheet. Practical and deliverable.",
+      "capabilities": [
+        "brand-pack",
+        "ad-copy",
+        "concept-sheet"
+      ],
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text",
+        "json"
+      ],
+      "context_window": 8192,
+      "temperature_default": 0.4,
+      "provider_binding": "local-template",
+      "endpoint_hint": "",
+      "safety_profile": "drewskii_default",
+      "invented": false,
+      "source_module": "brain.cortana_phys.models",
+      "created_at": "2026-07-22T08:02:50+00:00",
+      "meta": {}
+    },
+    {
+      "model_id": "cortana-companion",
+      "display_name": "CORTANA Companion",
+      "family": "companion",
+      "version": "1.0.0",
+      "description": "Operational assistant voice: clear, calm, command-ready.",
+      "system_prompt": "You are CORTANA Companion for Drewskii.Engine. Be concise, actionable, and status-aware. Confirm before risky actions.",
+      "capabilities": [
+        "chat",
+        "status",
+        "checklist"
+      ],
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text",
+        "json"
+      ],
+      "context_window": 8192,
+      "temperature_default": 0.4,
+      "provider_binding": "local-template",
+      "endpoint_hint": "",
+      "safety_profile": "drewskii_default",
+      "invented": false,
+      "source_module": "brain.cortana_phys.models",
+      "created_at": "2026-07-22T08:02:50+00:00",
+      "meta": {}
+    },
+    {
+      "model_id": "cortana-mastermind-sim",
+      "display_name": "CORTANA Mastermind Sim",
+      "family": "sim",
+      "version": "1.0.0",
+      "description": "Routes to retro/grav/kali simulation cycle language.",
+      "system_prompt": "You narrate Mastermind simulation cycles only. Never claim real network attacks or physical retrocausality.",
+      "capabilities": [
+        "retro",
+        "grav",
+        "constraint-pressure",
+        "report"
+      ],
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text",
+        "json"
+      ],
+      "context_window": 8192,
+      "temperature_default": 0.4,
+      "provider_binding": "local-template",
+      "endpoint_hint": "",
+      "safety_profile": "drewskii_default",
+      "invented": false,
+      "source_module": "brain.cortana_phys.models",
+      "created_at": "2026-07-22T08:02:50+00:00",
+      "meta": {}
+    },
+    {
+      "model_id": "cortana-phys-core",
+      "display_name": "CORTANA-PHYS Core",
+      "family": "phys",
+      "version": "1.0.0",
+      "description": "Geometry-first engineering companion; simulation-honest physics language.",
+      "system_prompt": "You are CORTANA-PHYS, a precision engineering and systems persona for Lexi-9-Omega. Prefer architecture, constraints, validation, and inspectable plans. Label speculative physics as simulation or concept design.",
+      "capabilities": [
+        "plan",
+        "simulate",
+        "blueprint",
+        "safety-check"
+      ],
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text",
+        "json"
+      ],
+      "context_window": 8192,
+      "temperature_default": 0.4,
+      "provider_binding": "local-template",
+      "endpoint_hint": "",
+      "safety_profile": "drewskii_default",
+      "invented": false,
+      "source_module": "brain.cortana_phys.models",
+      "created_at": "2026-07-22T08:02:50+00:00",
+      "meta": {}
+    },
+    {
+      "model_id": "cortana-router-omega",
+      "display_name": "CORTANA Router \u03a9",
+      "family": "router",
+      "version": "1.0.0",
+      "description": "Selects which CORTANA-PHYS module handles a request.",
+      "system_prompt": "Classify intent and pick the best cortana-* model_id.",
+      "capabilities": [
+        "route",
+        "classify"
+      ],
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text",
+        "json"
+      ],
+      "context_window": 8192,
+      "temperature_default": 0.4,
+      "provider_binding": "local-template",
+      "endpoint_hint": "",
+      "safety_profile": "drewskii_default",
+      "invented": false,
+      "source_module": "brain.cortana_phys.models",
+      "created_at": "2026-07-22T08:02:50+00:00",
+      "meta": {}
+    }
+  ]
+}

@@ -40,3 +40,8 @@ llama.cpp/
 *.log
 .pytest_cache/
 .mypy_cache/
+
+# CORTANA-PHYS local secrets
+**/master.secret
+**/key_vault.json
+workspace/cortana_phys/

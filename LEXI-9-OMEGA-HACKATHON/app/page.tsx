@@ -195,7 +195,11 @@ export default function Home() {
             <span>
               SOURCE POLICY <b>Primary preferred</b>
             </span>
-            <span className="demo-label">LOCAL LIVE ENGINE · OPTIONAL BRIGHT DATA LATER</span>
+            <span className="demo-label">
+              {activeRun.mode === "bright-data-live"
+                ? "BRIGHT DATA LIVE · SEARCH RESULTS ATTACHED"
+                : "LOCAL FALLBACK · LIVE SEARCH UNAVAILABLE"}
+            </span>
           </div>
           {error ? (
             <p role="alert" style={{ color: "#ff5c35", marginTop: 14, fontFamily: "var(--font-mono)", fontSize: 12 }}>
@@ -261,7 +265,11 @@ export default function Home() {
               <br />
               INGESTED
             </span>
-            <b>{activeRun.primaryCount} PRIMARY</b>
+            <b>
+              {activeRun.mode === "bright-data-live"
+                ? "BRIGHT DATA LIVE"
+                : `${activeRun.primaryCount} PRIMARY`}
+            </b>
           </div>
           <div className="sources">
             {(showEvidence ? activeRun.evidence : activeRun.evidence.slice(0, 3)).map((source) => (
@@ -271,7 +279,14 @@ export default function Home() {
                   <time>{source.age}</time>
                 </div>
                 <h3>{source.title}</h3>
-                <p>{source.domain} ↗</p>
+                {source.snippet && <p>{source.snippet}</p>}
+                {source.url ? (
+                  <a href={source.url} target="_blank" rel="noreferrer">
+                    {source.domain} ↗
+                  </a>
+                ) : (
+                  <p>{source.domain}</p>
+                )}
               </article>
             ))}
           </div>
@@ -299,7 +314,7 @@ export default function Home() {
           <article>
             <p>SOURCES PROCESSED</p>
             <strong>{metrics.sources}</strong>
-            <span>local live ledger</span>
+            <span>live + fallback ledger</span>
           </article>
           <article>
             <p>ACTIONS PRODUCED</p>

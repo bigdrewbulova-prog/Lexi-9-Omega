@@ -1,0 +1,29 @@
+{
+  "forge": "Blueprint Forge",
+  "version": "1.0.0",
+  "title": "BEGIN SYNTHESIS_CORE. INIT_TOPOLOGY { geometry: 'Klein-Riemann_Variant', dimensions: 4, euclidian_override: TRUE }; SET_VARS { nodal_ratio: 1.53, flux_density: 10000, material: 'Carbyne-Lattice' }; INVOKE_DISPLACEMENT(VACUUM_STATE); COMMIT_MANIFOLD",
+  "brand_name": "BEGIN SYNTHESISCORE INITTOPOLOGY  geometry KleinRiemannVariant dimensions 4 euclidianoverride TRUE  SETVARS  nodalratio 153 fluxdensity 10000 material CarbyneLattice  INVOKEDISPLACEMENTVACUUMSTATE COMMITMANIFOLD",
+  "price_starting_usd": 50,
+  "cta": "BLUEPRINT",
+  "paths": {
+    "markdown": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-045435-BEGIN_SYNTHESIS_CORE_INIT_TOPOLOGY_geometry_Klein_Riemann_Variant_dimensions_4_e.md",
+    "json": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-045435-BEGIN_SYNTHESIS_CORE_INIT_TOPOLOGY_geometry_Klein_Riemann_Variant_dimensions_4_e.json",
+    "html": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-045435-BEGIN_SYNTHESIS_CORE_INIT_TOPOLOGY_geometry_Klein_Riemann_Variant_dimensions_4_e.html",
+    "code_python": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260723-045435-BEGIN_SYNTHESISCORE_INITTOPOLOGY_geometry_KleinRiemannVariant_dimensions_4_eucli/brand_pack.py",
+    "code_landing": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260723-045435-BEGIN_SYNTHESISCORE_INITTOPOLOGY_geometry_KleinRiemannVariant_dimensions_4_eucli/landing.html",
+    "code_readme": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260723-045435-BEGIN_SYNTHESISCORE_INITTOPOLOGY_geometry_KleinRiemannVariant_dimensions_4_eucli/README.md",
+    "code_dir": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260723-045435-BEGIN_SYNTHESISCORE_INITTOPOLOGY_geometry_KleinRiemannVariant_dimensions_4_eucli"
+  },
+  "includes_code": true,
+  "review_gate": [
+    "Customer reviews name/slogan/bio",
+    "Confirm vibe and audience",
+    "Export HTML or PDF for delivery",
+    "Starter code is optional template only"
+  ],
+  "boundaries": [
+    "Customer-facing identity pack only",
+    "Not a claim of finished AGI or exotic hardware"
+  ],
+  "summary": "Blueprint Forge pack for BEGIN SYNTHESISCORE INITTOPOLOGY  geometry KleinRiemannVariant dimensions 4 euclidianoverride TRUE  SETVARS  nodalratio 153 fluxdensity 10000 material CarbyneLattice  INVOKEDISPLACEMENTVACUUMSTATE COMMITMANIFOLD"
+}

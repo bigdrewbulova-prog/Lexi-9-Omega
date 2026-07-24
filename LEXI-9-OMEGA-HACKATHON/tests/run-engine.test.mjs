@@ -41,3 +41,53 @@ test("seed runs are available for the demo ledger", async () => {
   assert.ok(mod.seedRuns.length >= 2);
   assert.equal(mod.seedRuns[0].id, "LX-091");
 });
+
+test("live Bright Data evidence upgrades a local run without claiming verification", async () => {
+  const mod = await import(`${enginePath.href}?t=${Date.now()}`);
+  const local = mod.synthesizeRun("industrial maintenance evidence");
+  const live = mod.attachLiveEvidence(local, [{
+    domain: "nist.gov",
+    age: "live",
+    title: "A live search result",
+    kind: "LIVE",
+    url: "https://www.nist.gov/example",
+    snippet: "Search-result snippet",
+    rank: 1,
+  }], new Date("2026-07-24T12:00:00Z"));
+
+  assert.equal(live.mode, "bright-data-live");
+  assert.equal(live.sources, 1);
+  assert.match(live.engine, /bright-data/);
+  assert.match(live.truthBoundary, /not independently verified/i);
+});
+
+test("Bright Data adapter sends server-side bearer auth and parses organic results", async () => {
+  const adapterPath = new URL("../app/lib/bright-data.ts", import.meta.url);
+  const mod = await import(`${adapterPath.href}?t=${Date.now()}`);
+  let request;
+  const fakeFetch = async (url, init) => {
+    request = { url, init };
+    return new Response(JSON.stringify({
+      organic: [
+        {
+          link: "https://example.com/report",
+          title: "Current report",
+          description: "Fresh source description",
+          global_rank: 1,
+        },
+      ],
+    }), { status: 200, headers: { "content-type": "application/json" } });
+  };
+
+  const results = await mod.searchBrightData(
+    "current industrial AI evidence",
+    { token: "test-token", zone: "test-zone", country: "us", language: "en" },
+    fakeFetch,
+  );
+
+  assert.equal(request.url, "https://api.brightdata.com/request");
+  assert.equal(request.init.headers.authorization, "Bearer test-token");
+  assert.match(request.init.body, /test-zone/);
+  assert.equal(results[0].kind, "LIVE");
+  assert.equal(results[0].url, "https://example.com/report");
+});

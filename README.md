@@ -2,7 +2,11 @@
 
 Public builder kit and simulation surface for **Lexi-9-Omega** / **Drewskii.Engine**.
 
-Owner target: [Bigdrewbulova-prog](https://github.com/Bigdrewbulova-prog)
+**Repo:** [github.com/bigdrewbulova-prog/LEXI-9-OMEGA](https://github.com/bigdrewbulova-prog/LEXI-9-OMEGA)  
+**Landing:** [bigdrewbulova-prog.github.io/LEXI-9-OMEGA](https://bigdrewbulova-prog.github.io/LEXI-9-OMEGA/)  
+**PoU baseline:** [28 — You’re In Business](https://proofofusefulness.com/report/lexi-9-omega)
+
+Owner: [bigdrewbulova-prog](https://github.com/bigdrewbulova-prog)
 
 ## Packages
 

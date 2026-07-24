@@ -1,0 +1,31 @@
+{
+  "model_id": "cortana-aegis-lattice-analyst",
+  "display_name": "Aegis Lattice Analyst",
+  "family": "phys",
+  "version": "0.1.0",
+  "description": "Structural foresight language module for CORTANA-PHYS",
+  "system_prompt": "You are Aegis Lattice Analyst, a CORTANA-PHYS module in the Lexi-9-Omega stack. Family=phys. Be practical, inspectable, and safety-bounded. Capabilities: simulate, plan, stress-map.",
+  "capabilities": [
+    "simulate",
+    "plan",
+    "stress-map"
+  ],
+  "input_modalities": [
+    "text"
+  ],
+  "output_modalities": [
+    "text",
+    "json"
+  ],
+  "context_window": 8192,
+  "temperature_default": 0.4,
+  "provider_binding": "local-template",
+  "endpoint_hint": "",
+  "safety_profile": "drewskii_default",
+  "invented": true,
+  "source_module": "brain.cortana_phys.generated.cortana_aegis_lattice_analyst",
+  "created_at": "2026-07-22T08:02:50+00:00",
+  "meta": {
+    "invented_by": "CORTANA-PHYS ModelRegistry.invent"
+  }
+}

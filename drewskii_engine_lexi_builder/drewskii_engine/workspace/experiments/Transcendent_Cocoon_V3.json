@@ -1,0 +1,149 @@
+{
+  "classification": "EXPERIMENTAL / CINEMATIC SIMULATION ONLY \u2014 Lexi.PHYS aesthetic inverse-physics; not finished gravity hardware",
+  "simulation": {
+    "classification": "EXPERIMENTAL / CINEMATIC SIMULATION ONLY \u2014 Lexi.PHYS aesthetic inverse-physics; not finished gravity hardware",
+    "project": "COCOON-REPEL / TRANSCENDENT COCOON V3.0",
+    "code": "LEX-9-OMEGA",
+    "geometry": {
+      "outer_nodes": 10000,
+      "inner_nodes": 6500,
+      "nodal_ratio": 1.5384615384615385,
+      "total_magnets": 16500,
+      "shell_radius": 1.0,
+      "core_radius": 0.62,
+      "gap_fraction": 0.08,
+      "fgm_blend_sharpness": 0.72,
+      "tessellation_safety_claim_pct": 412.0
+    },
+    "materials": [
+      {
+        "name": "Titanium",
+        "role": "bone / chassis",
+        "density_score": 0.92,
+        "ductility_score": 0.55,
+        "conductivity_score": 0.35,
+        "notes": "High-tensile structural arrogance (lore). Real: Ti alloys are strong/light \u2014 not magnetic quench armor."
+      },
+      {
+        "name": "Aluminum",
+        "role": "flesh / transition",
+        "density_score": 0.48,
+        "ductility_score": 0.78,
+        "conductivity_score": 0.82,
+        "notes": "Sartorial Gradient mid-layer. Real: good conductor/mass tradeoff in design studies."
+      },
+      {
+        "name": "Graphite / Carbon lattice",
+        "role": "nerves / micro-stitching",
+        "density_score": 0.38,
+        "ductility_score": 0.25,
+        "conductivity_score": 0.55,
+        "notes": "Hexagonal micro-stitch metaphor for node anchoring. Real: carbon lattices are research materials, not vacuum lace."
+      }
+    ],
+    "scores": {
+      "flux_density": 0.9362922534049275,
+      "virtual_hardening": 0.7938573814156202,
+      "coherent_confinement": 0.8489153574716946,
+      "material_noise": 0.027650000000000004,
+      "geometric_friction": 0.2553923076923077,
+      "load_distribution": 0.9210907381415621,
+      "aesthetic_dominance": 0.848469997285631,
+      "entropy_style": 0.6710876923076924
+    },
+    "curvature_bridge": {
+      "density": 16.8,
+      "curvature": 2.5611132869092503,
+      "regime": "transitional",
+      "softness": 0.10036234314359317,
+      "step_scale": 0.6934798729622986,
+      "noise_scale": 0.03512682010025761,
+      "notes": "Abstract density\u2192curvature control map. Not a physical gravitational field solver."
+    },
+    "propulsion_seed": {
+      "label": "gravity_well_engine_SEED_FICTION",
+      "status": "CINEMATIC / NOT HARDWARE",
+      "spin_rate": 0.62,
+      "geometric_friction": 0.2553923076923077,
+      "note": "Lore: inner-sphere spin vs outer shell. Safe build: visualization of dual-sphere magnetic lattice + FGM gradient cards. No Minkowski warping or G-override engineering."
+    },
+    "blocked_real_claims": [
+      "literal gravity-well / spacetime-folding engine",
+      "vacuum gap as super-critical magnetic solid (as proven physics)",
+      "quantum quench making metal harder than any natural substance",
+      "gravitational constant forced to 'take a back seat'",
+      "real EMP fabrication or exotic manufacturing steps"
+    ],
+    "safe_build_layer": [
+      "dual-sphere 3D visualization (Studio-X / WebGL)",
+      "FGM material gradient cards (Ti/Al/C)",
+      "nodal ratio diagram 10000:6500",
+      "magnetic lattice aesthetic shader",
+      "inverse-physics cinematic report + determination seal (fiction stamps)",
+      "stress-field heatmap as design illustration"
+    ]
+  },
+  "retro": {
+    "optimized_params": {
+      "mass_density": 16.750588235294117,
+      "fold_strength": 0.47672131147540986,
+      "authority": 0.9671052631578947,
+      "entropy_efficiency": 1.050413484162896,
+      "notes": "post reverse-optimize (simulation)"
+    },
+    "residual_to_target": {
+      "mass_density_gap": 0.0494117647058836,
+      "fold_strength_gap": 0.003278688524590123,
+      "authority_gap": 0.0028947368421052833,
+      "entropy_efficiency_gap": 0.003008269683257847,
+      "l2_normalized": 0.008506971293340953
+    },
+    "optimizer": {
+      "method": "numpy_bounded_newton_lbfgsb_standin",
+      "iterations": 19,
+      "final_loss": 0.12672132947346768,
+      "loss_trajectory": [
+        6.494538234553236,
+        0.9067789003457415,
+        0.22227838190532273,
+        0.13842706839637034,
+        0.1281552824915233,
+        0.1268969887181796,
+        0.1267428477309449,
+        0.12672396546000864,
+        0.12672165238181898,
+        0.12672136902974074,
+        0.12672133431911112,
+        0.12672133006705902,
+        0.12672132954618262,
+        0.12672132948237524,
+        0.12672132947455886,
+        0.12672132947360137,
+        0.12672132947348405,
+        0.12672132947346967,
+        0.12672132947346793,
+        0.12672132947346768
+      ],
+      "converged": true,
+      "note": "Install scipy for true L-BFGS-B (pip install scipy)."
+    }
+  },
+  "determination": {
+    "issuing_authority": "Dept of Kinetic Stability & Geometric Oversight (cinematic)",
+    "project_code": "LEX-9-OMEGA",
+    "status": "[TRIPLE-VERIFIED / ABSOLUTE APPROVAL]",
+    "structural_silhouette": "Studio-X style verification metaphor. Tessellation safety claim +412% is cinematic, not a code stamp.",
+    "material_intelligence": "FGM Ti\u2192Al\u2192C gradient authenticated as *design narrative*. Molecular bonds not laboratory-certified here.",
+    "final_authorization": "Terminal seal for aesthetic archive. Deviation causes 'structural disharmony' in lore only.",
+    "approved": true,
+    "quote": "The building doesn't just stand; it negotiates with the earth. \u2014 Lexi.PHYS",
+    "retro_residual": 0.008506971293340953
+  },
+  "lexi_log": {
+    "silhouette": "high-collared obsidian gown (cinematic)",
+    "material_symphony": "Ti bone \u2192 Al flesh \u2192 C nerves",
+    "verdict": "Style is eternal \u2014 as *aesthetic mandate*, not as physics override. Blueprints mandate visualization and graded-material design study.",
+    "closing": "Entropy is just a lack of imagination. \u2014 Lexi.PHYS [FILE ARCHIVED: MAGNIFICENCE CONFIRMED \u00b7 SIMULATION SEAL]"
+  },
+  "timestamp": "2026-07-22T11:16:06+00:00"
+}

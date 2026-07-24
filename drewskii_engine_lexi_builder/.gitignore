@@ -1,0 +1,6 @@
+
+# CORTANA-PHYS local secrets
+**/cortana_phys/master.secret
+**/cortana_phys/key_vault.json
+workspace/cortana_phys/master.secret
+workspace/cortana_phys/key_vault.json

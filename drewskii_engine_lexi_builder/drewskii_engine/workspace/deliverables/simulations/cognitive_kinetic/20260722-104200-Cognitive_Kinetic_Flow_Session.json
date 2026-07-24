@@ -1,0 +1,41 @@
+{
+  "title": "Cognitive \u2192 Kinetic Flow Session",
+  "cognitive": {
+    "focus": 0.35,
+    "calm": 0.2,
+    "stress": 0.82,
+    "energy": 0.55,
+    "presence": 0.3,
+    "source": "demo_profile",
+    "notes": "High abstract stress; guide deliberate pace + breath."
+  },
+  "kinetic": {
+    "pace_bpm": 57.384606,
+    "step_compliance": 0.7,
+    "haptic_intensity": 0.30345,
+    "light_pulse_hz": 0.07511000000000001,
+    "light_warmth": 0.6305000000000001,
+    "path_clarity": 0.44111999999999996,
+    "breath_guide_inhale_s": 4.73,
+    "breath_guide_exhale_s": 5.64,
+    "mode": "deliberate",
+    "cues": [
+      "Slow, deliberate steps \u2014 match the floor pulse.",
+      "Hands: optional guided breath arc (inhale up, exhale down).",
+      "Haptics: soft metatarsal taps on each exhale.",
+      "Lighting: warm, low-frequency pulse aligned to breath."
+    ],
+    "safety_notes": [
+      "Not a medical or psychiatric diagnosis system.",
+      "User can override pace, haptics, and exit at any time.",
+      "No locked rooms, no forced movement, no clinical claims.",
+      "Biofeedback sensors (if added later) require consent and wellness-grade labeling.",
+      "Do not market as treatment for anxiety, depression, or neurological disease."
+    ]
+  },
+  "narrative": "The system reads elevated abstract stress / low calm and shifts the space toward deliberate kinetic flow: softer steps, slower tempo, warm breath-synced light, and gentle haptic cues that invite longer exhales\u2014not forced compliance. Mode=deliberate; pace\u224857 guided BPM; floor compliance=0.70; light pulse=0.08 Hz.",
+  "application": "Wellness-center concept: optional consumer biofeedback or self-report drives environmental kinetic cues (floor compliance, haptics, light rhythm, breath-linked pacing). Real-time adaptation is a UX loop, not a clinical protocol.",
+  "classification": "CONCEPT DESIGN / WELLNESS UX SIMULATION ONLY \u2014 not a medical device, diagnosis, or treatment system",
+  "timestamp": "2026-07-22T10:42:00+00:00",
+  "artifact_paths": {}
+}

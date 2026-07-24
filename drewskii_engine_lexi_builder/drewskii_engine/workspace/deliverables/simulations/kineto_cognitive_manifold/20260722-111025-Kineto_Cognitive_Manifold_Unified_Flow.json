@@ -1,0 +1,132 @@
+{
+  "title": "Kineto-Cognitive Manifold \u00b7 Unified Flow",
+  "cognitive": {
+    "focus": 0.35,
+    "calm": 0.2,
+    "stress": 0.82,
+    "energy": 0.55,
+    "presence": 0.3,
+    "source": "demo_profile",
+    "notes": "High abstract stress; guide deliberate pace + breath."
+  },
+  "movement": {
+    "speed": 0.43479999999999996,
+    "interaction": 0.42,
+    "attention": 0.5425,
+    "path_entropy": 0.48168750000000005
+  },
+  "personal_kinetic": {
+    "pace_bpm": 57.384606,
+    "step_compliance": 0.7,
+    "haptic_intensity": 0.30345,
+    "light_pulse_hz": 0.07511000000000001,
+    "light_warmth": 0.6305000000000001,
+    "path_clarity": 0.44111999999999996,
+    "breath_guide_inhale_s": 4.73,
+    "breath_guide_exhale_s": 5.64,
+    "mode": "deliberate",
+    "cues": [
+      "Slow, deliberate steps \u2014 match the floor pulse.",
+      "Hands: optional guided breath arc (inhale up, exhale down).",
+      "Haptics: soft metatarsal taps on each exhale.",
+      "Lighting: warm, low-frequency pulse aligned to breath."
+    ],
+    "safety_notes": [
+      "Not a medical or psychiatric diagnosis system.",
+      "User can override pace, haptics, and exit at any time.",
+      "No locked rooms, no forced movement, no clinical claims.",
+      "Biofeedback sensors (if added later) require consent and wellness-grade labeling.",
+      "Do not market as treatment for anxiety, depression, or neurological disease."
+    ]
+  },
+  "spatial": {
+    "scale_factor": 1.1,
+    "openness": 0.5,
+    "intimacy": 0.4,
+    "wall_color_temp_k": 4000.0,
+    "acoustic_absorption": 0.45,
+    "floor_texture": 0.4,
+    "partition_mobility": 0.35000000000000003,
+    "exploration_invite": 0.4,
+    "resonance_mode": "hold",
+    "archetype": "creative",
+    "cues": [
+      "Stable envelope; micro-adjust atmosphere only.",
+      "Hold geometry while cognitive state settles."
+    ],
+    "safety_notes": [
+      "Intimacy and constrict modes must preserve visible exits and user override.",
+      "Scale factors are design scores for media/robotic scenery \u2014 not unreviewed structural moves.",
+      "No biometric identification required; prefer opt-in aggregate or self-report signals.",
+      "Public spaces: prioritize accessibility, crowd safety, and non-coercive cues.",
+      "Not a medical or therapeutic device claim."
+    ]
+  },
+  "ar": {
+    "visual_complexity": 0.2525,
+    "task_difficulty": 0.3025,
+    "world_tint_warmth": 0.7,
+    "motion_parallax": 0.5174,
+    "enemy_or_challenge_density": 0.15,
+    "simplify_on_stress": true,
+    "mode": "stress_soften",
+    "cues": [
+      "AR simplifies overlays; hide non-critical HUD chrome.",
+      "Tasks soft-fail into guidance mode; calmer palette.",
+      "Physical walk still drives world position; cognitive load reduced."
+    ]
+  },
+  "bci": {
+    "intent_gain": 0.460425,
+    "filter_noise": 0.751,
+    "action_complexity": 0.42935999999999996,
+    "latency_budget_ms": 100.08,
+    "consent_required": true,
+    "mode_label": "conceptual_intent_to_virtual_motion",
+    "cues": [
+      "Mental intent maps to virtual effector gain, not forced body actuation.",
+      "Complexity of available virtual actions scales with focus and calm.",
+      "Stress increases smoothing / reduces accidental triggers."
+    ],
+    "boundaries": [
+      "No invasive implant instructions or medical BCI claims.",
+      "Consumer research BCI only with explicit consent and off-switch.",
+      "Never map BCI to real-world actuators without separate safety engineering.",
+      "Not a substitute for clinical neurorehabilitation devices."
+    ]
+  },
+  "societal": {
+    "context": "collab_workspace",
+    "collective_openness": 0.675,
+    "focus_intimacy": 0.33999999999999997,
+    "collaboration_radius": 0.6975,
+    "interactive_wall_gain": 0.46799999999999997,
+    "minimalism": 0.35,
+    "engagement_boost": 0.55,
+    "cues": [
+      "Team engagement high \u2192 open collaborative field expands.",
+      "Shared walls become writable / projection-active.",
+      "Solo pods remain available at edges for recovery."
+    ],
+    "ethics": [
+      "Aggregate or opt-in signals preferred; no secret cognitive ranking of workers/students.",
+      "Individuals can pin personal envelope (do-not-adapt).",
+      "Accessibility and egress always preserved.",
+      "Optimize well-being and performance claims carefully \u2014 no pseudoscience certificates."
+    ]
+  },
+  "unified_flow": {
+    "loop": "mind \u2194 body \u2194 room \u2194 AR/BCI \u2194 social envelope",
+    "personal_mode": "deliberate",
+    "spatial_mode": "hold",
+    "ar_mode": "stress_soften",
+    "bci_gain": 0.460425,
+    "societal_context": "collab_workspace",
+    "principle": "Mind and motion are inseparable in real-time feedback; environments amplify both without coercion."
+  },
+  "narrative": "Across the kineto-cognitive manifold, the user coexists with nested layers: body cues in deliberate mode, room envelope hold at scale \u00d71.10, AR in stress_soften (complexity 0.25), conceptual BCI intent gain 0.46, and societal frame collab_workspace with openness 0.68.",
+  "conclusion": "Conclusion \u2014 A Unified Flow of Mind and Body: the Kineto-Cognitive Manifold is a vision where architecture, interfaces, and social systems respond to cognition and movement in a continuous loop, amplifying well-being and performance while preserving consent, exit, and human override.",
+  "classification": "KINETO-COGNITIVE MANIFOLD VISION / SIMULATION ONLY \u2014 not medical BCI, not covert surveillance, not coercive architecture",
+  "timestamp": "2026-07-22T11:10:25+00:00",
+  "artifact_paths": {}
+}

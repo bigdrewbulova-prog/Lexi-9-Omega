@@ -1,0 +1,23 @@
+{
+  "classification": "CONTROL SIMULATION ONLY \u2014 not a certified vehicle/robot runtime",
+  "ticks": 65,
+  "total_events": 67,
+  "final_state": {
+    "pose": 3.4021568850704167,
+    "velocity": 1.8999999999999995,
+    "covariance": 0.0035647932250560204,
+    "temperature": 26.47499999999998,
+    "safe": true,
+    "tick": 65,
+    "last_action": 0.0,
+    "stop_reason": ""
+  },
+  "safe": true,
+  "stop_reason": "completed",
+  "hz": 50,
+  "max_ticks": 120,
+  "timestamp": "2026-07-22T11:21:26+00:00",
+  "pose_min": 0.0014411971155239966,
+  "pose_max": 3.4021568850704167,
+  "temp_max": 26.47499999999998
+}

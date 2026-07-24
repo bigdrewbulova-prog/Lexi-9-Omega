@@ -1,15 +1,21 @@
 {
-  "id": 12,
-  "category": "template",
-  "subject": "blueprint:telemetry Acquisiton",
-  "score": 0.85,
-  "notes": "Quick brand blueprint pack generated",
+  "id": 22,
+  "category": "deliverable",
+  "subject": "blueprint_forge:Pull request instructions",
+  "score": 0.9,
+  "notes": "Generated multi-format brand pack via Blueprint Forge",
   "payload": {
     "paths": {
-      "markdown": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-012639-telemetry_Acquisiton.md",
-      "json": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-012639-telemetry_Acquisiton.json",
-      "html": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-012639-telemetry_Acquisiton.html"
-    }
+      "markdown": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-232820-Pull_request_instructions.md",
+      "json": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-232820-Pull_request_instructions.json",
+      "html": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-232820-Pull_request_instructions.html",
+      "code_python": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260723-232820-Pull_request_instructions/brand_pack.py",
+      "code_landing": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260723-232820-Pull_request_instructions/landing.html",
+      "code_readme": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260723-232820-Pull_request_instructions/README.md",
+      "code_dir": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260723-232820-Pull_request_instructions",
+      "forge_manifest": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-232820-Pull_request_instructions-forge-manifest.json"
+    },
+    "include_code": true
   },
-  "created_at": "2026-07-22T01:26:39+00:00"
+  "created_at": "2026-07-23T23:28:20+00:00"
 }

@@ -2,6 +2,115 @@
   "recent_deliverables": [
     {
       "kind": "brand_blueprint",
+      "title": "Pull request instructions",
+      "paths": {
+        "markdown": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-232820-Pull_request_instructions.md",
+        "json": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-232820-Pull_request_instructions.json",
+        "html": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-232820-Pull_request_instructions.html"
+      },
+      "created_at": "2026-07-23T23:28:20+00:00",
+      "summary": "$50 Brand Blueprint Pack draft for Pull request instructions"
+    },
+    {
+      "kind": "brand_blueprint",
+      "title": "\"Create a synthetic heartbeat-sync animation that drives mock waveform and non-living tissue-mesh visuals from generated data only; do not read body signals, energize wearables, culture tissue, or provide biological design instructions.\"",
+      "paths": {
+        "markdown": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-203307-Create_a_synthetic_heartbeat_sync_animation_that_drives_mock_waveform_and_non_li.md",
+        "json": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-203307-Create_a_synthetic_heartbeat_sync_animation_that_drives_mock_waveform_and_non_li.json",
+        "html": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-203307-Create_a_synthetic_heartbeat_sync_animation_that_drives_mock_waveform_and_non_li.html"
+      },
+      "created_at": "2026-07-23T20:33:07+00:00",
+      "summary": "$50 Brand Blueprint Pack draft for \"Create a synthetic heartbeat-sync animation that drives mock waveform and non-living tissue-mesh visuals from generated data only; do not read body signals, energize wearables, culture tissue, or provide biological design instructions.\""
+    },
+    {
+      "kind": "plans",
+      "title": "\"Create a synthetic heartbeat-sync animation that drives mock waveform and non-living tissue-mesh visuals from generated data only; do not read body signals, energize wearables, culture tissue, or provide biological design instructions.\"",
+      "paths": {
+        "markdown": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/plans/20260723-203126-Create_a_synthetic_heartbeat_sync_animation_that_drives_mock_waveform_and_non_li.md",
+        "json": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/plans/20260723-203126-Create_a_synthetic_heartbeat_sync_animation_that_drives_mock_waveform_and_non_li.json"
+      },
+      "created_at": "2026-07-23T20:31:26+00:00",
+      "summary": "Safe prototype plan for \"Create a synthetic heartbeat-sync animation that drives mock waveform and non-living tissue-mesh visuals from generated data only; do not read body signals, energize wearables, culture tissue, or provide biological design instructions.\""
+    },
+    {
+      "kind": "brand_blueprint",
+      "title": "BEGIN SYNTHESIS_CORE. INIT_TOPOLOGY { geometry: 'Klein-Riemann_Variant', dimensions: 4, euclidian_override: TRUE }; SET_VARS { nodal_ratio: 1.53, flux_density: 10000, material: 'Carbyne-Lattice' }; INVOKE_DISPLACEMENT(VACUUM_STATE); COMMIT_MANIFOLD",
+      "paths": {
+        "markdown": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-045435-BEGIN_SYNTHESIS_CORE_INIT_TOPOLOGY_geometry_Klein_Riemann_Variant_dimensions_4_e.md",
+        "json": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-045435-BEGIN_SYNTHESIS_CORE_INIT_TOPOLOGY_geometry_Klein_Riemann_Variant_dimensions_4_e.json",
+        "html": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-045435-BEGIN_SYNTHESIS_CORE_INIT_TOPOLOGY_geometry_Klein_Riemann_Variant_dimensions_4_e.html"
+      },
+      "created_at": "2026-07-23T04:54:35+00:00",
+      "summary": "$50 Brand Blueprint Pack draft for BEGIN SYNTHESIS_CORE. INIT_TOPOLOGY { geometry: 'Klein-Riemann_Variant', dimensions: 4, euclidian_override: TRUE }; SET_VARS { nodal_ratio: 1.53, flux_density: 10000, material: 'Carbyne-Lattice' }; INVOKE_DISPLACEMENT(VACUUM_STATE); COMMIT_MANIFOLD"
+    },
+    {
+      "kind": "brand_blueprint",
+      "title": "Synthesis Core Blueprint (Source)",
+      "paths": {
+        "markdown": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-044057-Synthesis_Core_Blueprint_Source.md",
+        "json": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-044057-Synthesis_Core_Blueprint_Source.json",
+        "html": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-044057-Synthesis_Core_Blueprint_Source.html"
+      },
+      "created_at": "2026-07-23T04:40:57+00:00",
+      "summary": "$50 Brand Blueprint Pack draft for Synthesis Core Blueprint (Source)"
+    },
+    {
+      "kind": "brand_blueprint",
+      "title": "Last Retro-Causal Update:",
+      "paths": {
+        "markdown": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-050911-Last_Retro_Causal_Update.md",
+        "json": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-050911-Last_Retro_Causal_Update.json",
+        "html": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-050911-Last_Retro_Causal_Update.html"
+      },
+      "created_at": "2026-07-22T05:09:11+00:00",
+      "summary": "$50 Brand Blueprint Pack draft for Last Retro-Causal Update:"
+    },
+    {
+      "kind": "brand_blueprint",
+      "title": "ENTROPICALLY ACTIVE / 104% EFFICIENCY",
+      "paths": {
+        "markdown": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-050845-ENTROPICALLY_ACTIVE_104_EFFICIENCY.md",
+        "json": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-050845-ENTROPICALLY_ACTIVE_104_EFFICIENCY.json",
+        "html": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-050845-ENTROPICALLY_ACTIVE_104_EFFICIENCY.html"
+      },
+      "created_at": "2026-07-22T05:08:45+00:00",
+      "summary": "$50 Brand Blueprint Pack draft for ENTROPICALLY ACTIVE / 104% EFFICIENCY"
+    },
+    {
+      "kind": "brand_blueprint",
+      "title": "LIVE SELF-UPDATING KNOWLEDGE LATTICE",
+      "paths": {
+        "markdown": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-050818-LIVE_SELF_UPDATING_KNOWLEDGE_LATTICE.md",
+        "json": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-050818-LIVE_SELF_UPDATING_KNOWLEDGE_LATTICE.json",
+        "html": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-050818-LIVE_SELF_UPDATING_KNOWLEDGE_LATTICE.html"
+      },
+      "created_at": "2026-07-22T05:08:18+00:00",
+      "summary": "$50 Brand Blueprint Pack draft for LIVE SELF-UPDATING KNOWLEDGE LATTICE"
+    },
+    {
+      "kind": "brand_blueprint",
+      "title": "LEXI.KALI-LINUX-MASTERMIND",
+      "paths": {
+        "markdown": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-050753-LEXI_KALI_LINUX_MASTERMIND.md",
+        "json": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-050753-LEXI_KALI_LINUX_MASTERMIND.json",
+        "html": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-050753-LEXI_KALI_LINUX_MASTERMIND.html"
+      },
+      "created_at": "2026-07-22T05:07:53+00:00",
+      "summary": "$50 Brand Blueprint Pack draft for LEXI.KALI-LINUX-MASTERMIND"
+    },
+    {
+      "kind": "brand_blueprint",
+      "title": "Lexi.PHYS_Autonomous_Research",
+      "paths": {
+        "markdown": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-044111-Lexi_PHYS_Autonomous_Research.md",
+        "json": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-044111-Lexi_PHYS_Autonomous_Research.json",
+        "html": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-044111-Lexi_PHYS_Autonomous_Research.html"
+      },
+      "created_at": "2026-07-22T04:41:12+00:00",
+      "summary": "$50 Brand Blueprint Pack draft for Lexi.PHYS_Autonomous_Research"
+    },
+    {
+      "kind": "brand_blueprint",
       "title": "telemetry Acquisiton",
       "paths": {
         "markdown": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260722-012639-telemetry_Acquisiton.md",
@@ -165,12 +274,12 @@
       "summary": "$50 Brand Blueprint Pack draft for NOVA THREAD Music Brand"
     }
   ],
-  "updated_at": "2026-07-21T20:26:39",
+  "updated_at": "2026-07-23T18:28:20",
   "system": "Drewskii.Engine / Lexi-9-Omega",
   "stats": {
     "memory_keys": 0,
-    "plans": 1,
-    "deliverables": 18,
-    "eval_logs": 11
+    "plans": 2,
+    "deliverables": 32,
+    "eval_logs": 22
   }
 }

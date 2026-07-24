@@ -1,0 +1,29 @@
+{
+  "forge": "Blueprint Forge",
+  "version": "1.0.0",
+  "title": "\"Create a synthetic heartbeat-sync animation that drives mock waveform and non-living tissue-mesh visuals from generated data only; do not read body signals, energize wearables, culture tissue, or provide biological design instructions.\"",
+  "brand_name": "Create a synthetic heartbeatsync animation that drives mock waveform and nonliving tissuemesh visuals from generated data only do not read body signals energize wearables culture tissue or provide biological design instructions",
+  "price_starting_usd": 50,
+  "cta": "BLUEPRINT",
+  "paths": {
+    "markdown": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-203307-Create_a_synthetic_heartbeat_sync_animation_that_drives_mock_waveform_and_non_li.md",
+    "json": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-203307-Create_a_synthetic_heartbeat_sync_animation_that_drives_mock_waveform_and_non_li.json",
+    "html": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/20260723-203307-Create_a_synthetic_heartbeat_sync_animation_that_drives_mock_waveform_and_non_li.html",
+    "code_python": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260723-203307-Create_a_synthetic_heartbeatsync_animation_that_drives_mock_waveform_and_nonlivi/brand_pack.py",
+    "code_landing": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260723-203307-Create_a_synthetic_heartbeatsync_animation_that_drives_mock_waveform_and_nonlivi/landing.html",
+    "code_readme": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260723-203307-Create_a_synthetic_heartbeatsync_animation_that_drives_mock_waveform_and_nonlivi/README.md",
+    "code_dir": "/Users/BigDaddyDrew/Desktop/drewskii_engine_lexi_builder/drewskii_engine/workspace/deliverables/blueprints/code/20260723-203307-Create_a_synthetic_heartbeatsync_animation_that_drives_mock_waveform_and_nonlivi"
+  },
+  "includes_code": true,
+  "review_gate": [
+    "Customer reviews name/slogan/bio",
+    "Confirm vibe and audience",
+    "Export HTML or PDF for delivery",
+    "Starter code is optional template only"
+  ],
+  "boundaries": [
+    "Customer-facing identity pack only",
+    "Not a claim of finished AGI or exotic hardware"
+  ],
+  "summary": "Blueprint Forge pack for Create a synthetic heartbeatsync animation that drives mock waveform and nonliving tissuemesh visuals from generated data only do not read body signals energize wearables culture tissue or provide biological design instructions"
+}

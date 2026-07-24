@@ -1,10 +1,13 @@
-export type SourceKind = "PRIMARY" | "SECONDARY" | "METHOD";
+export type SourceKind = "PRIMARY" | "SECONDARY" | "METHOD" | "LIVE";
 
 export type SourceCard = {
   domain: string;
   age: string;
   title: string;
   kind: SourceKind;
+  url?: string;
+  snippet?: string;
+  rank?: number;
 };
 
 export type ActionItem = {
@@ -29,9 +32,10 @@ export type RunResult = {
   actionItems: ActionItem[];
   evidence: SourceCard[];
   primaryCount: number;
-  mode: "local-live";
+  mode: "local-live" | "bright-data-live";
   engine: string;
   truthBoundary: string;
+  fetchedAt?: string;
 };
 
 type Theme = {
@@ -228,6 +232,29 @@ export function synthesizeRun(
     engine: `local-theme:${theme.key}`,
     truthBoundary:
       "This is a local live synthesis from the objective text and theme library. It is not a live web scrape. Production runs must attach real source URLs and timestamps.",
+  };
+}
+
+export function attachLiveEvidence(
+  run: RunResult,
+  evidence: SourceCard[],
+  fetchedAt = new Date(),
+): RunResult {
+  const liveEvidence = evidence.filter(
+    (source) => source.kind === "LIVE" && source.url?.startsWith("https://"),
+  );
+  if (liveEvidence.length === 0) return run;
+
+  return {
+    ...run,
+    evidence: liveEvidence,
+    sources: liveEvidence.length,
+    primaryCount: 0,
+    mode: "bright-data-live",
+    engine: "bright-data:serp-api:parsed-light",
+    fetchedAt: fetchedAt.toISOString(),
+    truthBoundary:
+      "These are live search-result records returned by Bright Data SERP API. Titles and snippets are discovery evidence, not independently verified facts. Open the source URL before relying on a claim.",
   };
 }
 

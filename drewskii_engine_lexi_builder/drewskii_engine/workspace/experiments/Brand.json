@@ -1,0 +1,32 @@
+{
+  "title": "Brand",
+  "slug": "Brand",
+  "created_at": "2026-07-22T21:26:23",
+  "system": "Lexi.PHYS",
+  "source_command": "/experimental",
+  "classification": {
+    "tier": "EXPERIMENTAL / CINEMATIC SIMULATION ONLY",
+    "guidance": "Preserve the concept as Lexi.PHYS worldbuilding and convert it into software artifacts: material cards, stress-field visualizations, repair-state simulations, and pitch visuals. Do not present it as literal vacuum engineering or completed quantum hardware.",
+    "matched_speculative_terms": [],
+    "matched_prototype_terms": []
+  },
+  "validation_boundary": [
+    "This archive is not a scientific validation, medical-device assessment, patent search, or procurement recommendation."
+  ],
+  "concept": "Brand **Blueprint Forge** (name, bio, slogan, ads, concept sheet + starter code)",
+  "prototype_conversion": {
+    "real_build_layer": [
+      "metamaterial material-card generator",
+      "stress-vector field visualization",
+      "self-repair state-machine simulation",
+      "adaptive hull dashboard mockup",
+      "pitch-ready concept sheet"
+    ],
+    "blocked_claims": [
+      "literal structure draped into the vacuum",
+      "weightless and indestructible physical material",
+      "real-time quantum entanglement manufacturing"
+    ],
+    "first_safe_demo": "Create a 2D stress-grid simulation where cells change stiffness, damage state, and repair progress in response to external force vectors."
+  }
+}

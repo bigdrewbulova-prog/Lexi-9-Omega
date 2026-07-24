@@ -1,0 +1,65 @@
+{
+  "title": "Gallery public flow demo",
+  "cognitive": {
+    "focus": 0.7,
+    "calm": 0.4,
+    "stress": 0.45,
+    "energy": 0.85,
+    "presence": 0.65,
+    "source": "demo_profile",
+    "notes": "Goal-oriented kinetic cues; clearer path, higher tempo."
+  },
+  "movement": {
+    "speed": 0.8,
+    "interaction": 0.3,
+    "attention": 0.4,
+    "path_entropy": 0.7
+  },
+  "envelope": {
+    "scale_factor": 1.1838568948131483,
+    "openness": 0.64,
+    "intimacy": 0.35,
+    "wall_color_temp_k": 4320.0,
+    "acoustic_absorption": 0.46,
+    "floor_texture": 0.55,
+    "partition_mobility": 0.3919284474065741,
+    "exploration_invite": 0.74,
+    "resonance_mode": "drift",
+    "archetype": "gallery",
+    "cues": [
+      "Public flow: subtle wall hue and floor grain shift with pace.",
+      "High-attention dwell zones soften acoustics locally.",
+      "Fast traverse keeps brighter, clearer corridors."
+    ],
+    "safety_notes": [
+      "Intimacy and constrict modes must preserve visible exits and user override.",
+      "Scale factors are design scores for media/robotic scenery \u2014 not unreviewed structural moves.",
+      "No biometric identification required; prefer opt-in aggregate or self-report signals.",
+      "Public spaces: prioritize accessibility, crowd safety, and non-coercive cues.",
+      "Not a medical or therapeutic device claim."
+    ]
+  },
+  "feedback_loop": {
+    "loop_gain": 0.4935427579252593,
+    "coexistence": "environment co-adapts; user retains override",
+    "mind_nudge": "Gallery pacing: allow dwell without FOMO pressure.",
+    "body_nudge": "Speed-sensitive corridor brightness only.",
+    "inputs": {
+      "cognitive_energy": 0.85,
+      "cognitive_focus": 0.7,
+      "movement_speed": 0.8,
+      "movement_attention": 0.4,
+      "path_entropy": 0.7
+    },
+    "outputs": {
+      "scale_factor": 1.1838568948131483,
+      "openness": 0.64,
+      "acoustic_absorption": 0.46
+    }
+  },
+  "narrative": "Public flow resonates with pace and dwell: walls, acoustics, and floor grain shift subtly (attention=0.40, speed=0.80) so the gallery coexists with visitors rather than only housing them.",
+  "application": "Adaptive rooms and public cultural spaces that co-resonate with movement and self-reported or opt-in wellness signals\u2014expanding for creative energy, gently intimating for deep focus, and drifting atmosphere in galleries. Implementation path: media architecture, kinetic scenery, lighting/audio systems with explicit user override\u2014not unreviewed structural transformation.",
+  "classification": "ARCHITECTURAL CONCEPT / IMMERSIVE UX SIMULATION ONLY \u2014 not medical, not forced enclosure, not unreviewed structural morphing",
+  "timestamp": "2026-07-22T10:59:46+00:00",
+  "artifact_paths": {}
+}
