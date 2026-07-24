@@ -4,13 +4,13 @@
 | Asset | URL | Status |
 |---|---|---|
 | GitHub | https://github.com/bigdrewbulova-prog/Lexi-9-Omega | LIVE |
+| Demo | https://lexi-9-omega.bigdrewbulova.chatgpt.site | LIVE · PUBLIC |
 | Landing | https://bigdrewbulova-prog.github.io/Lexi-9-Omega/ | LIVE |
-| Local demo | http://127.0.0.1:3000 | LIVE (when server running) |
 | PoU report | https://proofofusefulness.com/report/lexi-9-omega | 28 baseline |
 
 ## Enter both
 1. Publish blog: `/Users/BigDaddyDrew/Desktop/LEXI-9-OMEGA-Documentary/launch/hackernoon-decentralize-ai-blog.md` on HackerNoon
-2. Update PoU submission with repo + landing
+2. Update PoU submission with repo + public demo
 3. Claim Nosana if eligible: https://decentralizeai.tech
 4. Social paste (see task status)
 

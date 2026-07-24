@@ -1,7 +1,7 @@
 id,hackathon,step,action,url,priority,status,owner,notes
 1,both,0,Public repo live,https://github.com/bigdrewbulova-prog/Lexi-9-Omega,P0,done,Curator,Pushed monorepo
-2,both,1,Public landing live,https://bigdrewbulova-prog.github.io/Lexi-9-Omega/,P0,done,Curator,GitHub Pages
-3,both,2,Local demo running,http://127.0.0.1:3000,P0,done,Curator,vinext start port 3000
+2,both,1,Public demo live,https://lexi-9-omega.bigdrewbulova.chatgpt.site,P0,done,Curator,Production Sites deployment
+3,both,2,Public landing live,https://bigdrewbulova-prog.github.io/Lexi-9-Omega/,P0,done,Curator,GitHub Pages
 4,decentralize-ai,3,Publish Decentralize AI blog on HackerNoon,hackernoon-decentralize-ai-blog.md,P0,todo,Curator,User publishes
 5,proof-of-usefulness,4,Update PoU report with repo+landing,https://proofofusefulness.com/report/lexi-9-omega,P0,todo,Curator,Score 28 baseline
 6,decentralize-ai,5,Claim Nosana credits,https://decentralizeai.tech,P1,todo,Curator,If eligible

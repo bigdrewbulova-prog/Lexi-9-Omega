@@ -9,6 +9,7 @@
 
 **Live links (public proof):**
 - Repo: https://github.com/bigdrewbulova-prog/Lexi-9-Omega
+- Demo: https://lexi-9-omega.bigdrewbulova.chatgpt.site
 - Landing: https://bigdrewbulova-prog.github.io/Lexi-9-Omega/
 - PoU report (baseline 28): https://proofofusefulness.com/report/lexi-9-omega
 
