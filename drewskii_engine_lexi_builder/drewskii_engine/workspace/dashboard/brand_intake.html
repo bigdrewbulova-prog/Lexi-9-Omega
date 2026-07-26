@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lexi · Brand Blueprint Intake</title>
+  <style>
+    :root {
+      --ink: #080b0a; --paper: #e7e5dc; --acid: #c8ff35; --muted: #8e958d;
+      --line: rgba(231,229,220,.16); --mono: ui-monospace, SFMono-Regular, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; font-family: system-ui, sans-serif;
+      background: var(--ink); color: var(--paper);
+      background-image:
+        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .wrap { max-width: 640px; margin: 0 auto; padding: 48px 20px 80px; }
+    .badge {
+      display: inline-block; font: 11px var(--mono); letter-spacing: .16em;
+      color: var(--acid); border: 1px solid rgba(200,255,53,.4);
+      padding: 6px 10px; border-radius: 999px;
+    }
+    h1 { font-size: clamp(32px, 5vw, 44px); letter-spacing: -.04em; margin: 16px 0 8px; }
+    h1 span { color: var(--acid); }
+    .lede { color: var(--muted); line-height: 1.55; margin-bottom: 28px; }
+    label { display: block; font: 10px var(--mono); letter-spacing: .14em; color: var(--muted); margin: 16px 0 8px; }
+    input, select, textarea {
+      width: 100%; background: #0b0e0c; border: 1px solid var(--line); color: var(--paper);
+      border-radius: 10px; padding: 12px 14px; font: 15px system-ui, sans-serif;
+    }
+    textarea { min-height: 72px; resize: vertical; }
+    button {
+      margin-top: 28px; width: 100%; border: 0; border-radius: 12px; padding: 16px;
+      background: var(--acid); color: #111; font: 800 12px var(--mono); letter-spacing: .12em;
+      cursor: pointer;
+    }
+    button:disabled { opacity: .55; cursor: wait; }
+    .price { margin-top: 12px; font: 11px var(--mono); color: var(--muted); }
+    .foot { margin-top: 32px; font: 11px var(--mono); color: var(--muted); line-height: 1.5; }
+    .err { color: #ff5c35; font: 12px var(--mono); margin-top: 12px; display: none; }
+    .nav { margin: 0 0 24px; }
+    .nav a {
+      color: var(--paper); text-decoration: none; border: 1px solid var(--line);
+      padding: 10px 12px; border-radius: 10px; font: 11px var(--mono);
+      margin-right: 8px; display: inline-block;
+    }
+    .nav a:hover, .nav a.active { border-color: var(--acid); color: var(--acid); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="badge">STAGE 1 · LOCAL INTAKE · USER-SPACE</div>
+    <h1>Brand Blueprint <span>Pack</span></h1>
+    <p class="lede">
+      Guided intake for Lexi-9-Omega Custom AI Brand Blueprint Packs.
+      Generates local MD/JSON/HTML + a customer ZIP. No cloud required.
+    </p>
+    <div class="nav">
+      <a class="active" href="/">New pack</a>
+      <a href="/library">Pack library</a>
+      <a href="/api/packs">JSON API</a>
+    </div>
+
+    <form id="pack-form" method="post" action="/api/pack" accept-charset="utf-8">
+      <input type="hidden" name="format" value="html" />
+
+      <label for="project_type">PROJECT TYPE</label>
+      <select id="project_type" name="project_type">
+        <option value="personal brand">Personal brand</option>
+        <option value="music page">Music page</option>
+        <option value="gaming brand">Gaming brand</option>
+        <option value="clothing">Clothing</option>
+        <option value="small business">Small business</option>
+        <option value="AI character">AI character</option>
+        <option value="AI product" selected>AI product</option>
+      </select>
+
+      <label for="name">BRAND / PROJECT NAME *</label>
+      <input id="name" name="name" required maxlength="120" placeholder="e.g. Nova Thread" />
+
+      <label for="vibe">VIBE *</label>
+      <input id="vibe" name="vibe" required maxlength="500" placeholder="dark, clean, futuristic, premium" value="dark, clean, futuristic" />
+
+      <label for="audience">AUDIENCE *</label>
+      <input id="audience" name="audience" required maxlength="500" placeholder="who is this for?" value="creators and small businesses" />
+
+      <label for="offer">OFFER *</label>
+      <textarea id="offer" name="offer" required maxlength="500" placeholder="what do you sell or share?">Custom AI Brand Blueprint Packs starting at $50</textarea>
+
+      <label for="colors">COLORS</label>
+      <input id="colors" name="colors" maxlength="500" value="void black · blueprint white · ultraviolet · acid green" />
+
+      <button type="submit" id="submit">GENERATE PACK →</button>
+      <p class="price">Starting at $50 · CTA: BLUEPRINT · Local only · Quality checklist enforced</p>
+      <p class="err" id="err"></p>
+    </form>
+
+    <p class="foot">
+      Promotion gate still applies before native app / payments.
+      Speculative physics claims are not product features.
+      API: <code>POST /api/pack</code> · Library: <code>GET /library</code> ·
+      List: <code>GET /api/packs</code> · Health: <code>GET /api/health</code>
+    </p>
+  </div>
+  <script>
+    const form = document.getElementById('pack-form');
+    const btn = document.getElementById('submit');
+    const err = document.getElementById('err');
+    form.addEventListener('submit', () => {
+      btn.disabled = true;
+      btn.textContent = 'GENERATING…';
+      err.style.display = 'none';
+    });
+  </script>
+</body>
+</html>

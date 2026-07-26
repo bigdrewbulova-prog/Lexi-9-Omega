@@ -62,8 +62,16 @@ Use: `stack promote <feature>` with evidence checklist.
 stack pack Nova Thread | midnight ultraviolet | late-night creators | identity + ads
 # → Customer ZIP ready: workspace/deliverables/blueprints/packages/...-brand-pack.zip
 ```
+**Guided HTML intake + local library (Stage-2 slice, local-only):**
+```text
+stack serve
+# → http://127.0.0.1:8787/         form → generate → Download ZIP
+# → http://127.0.0.1:8787/library  pack history + re-download
+# → GET /api/packs                 JSON list of local ZIPs
+```
 **ZIP contents:** README, brand_pack.md/html/json, optional starter code  
-**Official app later:** guided intake UI → history → export/share → payments  
+**Library:** scans `workspace/deliverables/blueprints/packages/*-brand-pack.zip` + SQLite deliverables  
+**Official app later:** native intake UI → history → export/share → payments  
 
 ## Blocked
 Hidden accounts · password collection · security bypass · background surveillance · OS control outside official APIs · speculative physics as finished hardware

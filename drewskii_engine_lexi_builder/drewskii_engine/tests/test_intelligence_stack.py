@@ -20,6 +20,31 @@ class BrandIntakeTests(unittest.TestCase):
         self.assertTrue(any("name" in e for e in intake.validate()))
 
 
+class PackServerPathTests(unittest.TestCase):
+    def test_form_html_renders(self) -> None:
+        from brain.pack_server import _render_form
+
+        html = _render_form()
+        self.assertIn("Brand Blueprint", html)
+        self.assertIn('action="/api/pack"', html)
+        self.assertIn('name="name"', html)
+        self.assertIn("/library", html)
+
+    def test_list_brand_packs_and_library_html(self) -> None:
+        from brain.pack_server import _render_library, list_brand_packs
+
+        items = list_brand_packs(limit=10)
+        self.assertIsInstance(items, list)
+        html = _render_library()
+        self.assertIn("Pack", html)
+        self.assertIn("/library", html)
+        self.assertIn("New pack", html)
+        if items:
+            self.assertIn("Download", html)
+            self.assertTrue(items[0].get("download_url", "").startswith("/download/"))
+            self.assertTrue(items[0].get("filename", "").endswith(".zip") or "zip" in (items[0].get("zip") or ""))
+
+
 class BrandPackProductTests(unittest.TestCase):
     def test_brand_pack_creates_zip(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

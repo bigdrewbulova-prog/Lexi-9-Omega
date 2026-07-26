@@ -75,6 +75,7 @@ Commands:
   stack run                    Full Stage-1 automation pipeline
   stack brand <name|vibe|aud|offer>
   stack pack <name|vibe|aud|offer>   Alias: brand pack + ZIP path
+  stack serve [port]           Intake UI + pack library → ZIP download
   stack rules                  Operating rules + promotion gate
   stack promote <feature>      Promotion gate checklist
   blueprint [name]             Quick Brand Blueprint Pack (MD/JSON/HTML)
@@ -625,6 +626,19 @@ def main() -> None:
                 feature = rest.removeprefix("promote").strip() or "brand_pack"
                 # empty evidence shows what's missing
                 print(json.dumps(stack.promotion_review(feature), indent=2))
+            elif rest == "serve" or rest.startswith("serve "):
+                from brain.pack_server import serve as pack_serve
+
+                parts = rest.split()
+                port = int(parts[1]) if len(parts) > 1 else 8787
+                print(f"Opening guided Brand Pack intake on port {port}…")
+                try:
+                    import webbrowser
+
+                    webbrowser.open(f"http://127.0.0.1:{port}/")
+                except Exception:
+                    pass
+                pack_serve(host="127.0.0.1", port=port)
             else:
                 print(
                     "Usage:\n"
@@ -632,6 +646,7 @@ def main() -> None:
                     "  stack run [brand name]\n"
                     "  stack brand <name> | <vibe> | <audience> | <offer>\n"
                     "  stack pack  <name> | <vibe> | <audience> | <offer>\n"
+                    "  stack serve [port]   # default 8787 — intake + /library\n"
                     "  stack rules\n"
                     "  stack promote <feature>\n"
                 )
