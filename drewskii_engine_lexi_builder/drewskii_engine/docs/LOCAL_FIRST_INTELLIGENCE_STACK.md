@@ -56,7 +56,13 @@ A feature promotes only with:
 Use: `stack promote <feature>` with evidence checklist.
 
 ## First Product Path — $50 Brand Blueprint Packs
-**Prototype:** intake → generate → save local → quality checklist  
+**Prototype:** intake → generate → save local → quality checklist → **ZIP package**  
+**CLI:**
+```text
+stack pack Nova Thread | midnight ultraviolet | late-night creators | identity + ads
+# → Customer ZIP ready: workspace/deliverables/blueprints/packages/...-brand-pack.zip
+```
+**ZIP contents:** README, brand_pack.md/html/json, optional starter code  
 **Official app later:** guided intake UI → history → export/share → payments  
 
 ## Blocked

@@ -74,6 +74,7 @@ Commands:
   stack                        Local-first Intelligence Model Stack (Stage 1)
   stack run                    Full Stage-1 automation pipeline
   stack brand <name|vibe|aud|offer>
+  stack pack <name|vibe|aud|offer>   Alias: brand pack + ZIP path
   stack rules                  Operating rules + promotion gate
   stack promote <feature>      Promotion gate checklist
   blueprint [name]             Quick Brand Blueprint Pack (MD/JSON/HTML)
@@ -594,8 +595,8 @@ def main() -> None:
                     if once:
                         print(f"\n[one-time API key — store now]\n{once}\n")
                 print(json.dumps(result, indent=2, default=str))
-            elif rest.startswith("brand "):
-                raw = rest.removeprefix("brand").strip()
+            elif rest.startswith("brand ") or rest.startswith("pack "):
+                raw = rest.split(" ", 1)[1].strip() if " " in rest else ""
                 parts = [p.strip() for p in raw.split("|")]
                 while len(parts) < 4:
                     parts.append("")
@@ -605,13 +606,21 @@ def main() -> None:
                     audience=parts[2] or "creators and small businesses",
                     offer=parts[3] or "identity pack starting at $50",
                 )
-                out = stack.brand_pack(intake)
-                print(json.dumps({
-                    "quality_checklist": out["quality_checklist"],
-                    "paths": out["pack"]["paths"],
-                    "brand_name": out["pack"]["data"].get("brand_name"),
-                    "promotion_ready_checklist": out["promotion_ready"],
-                }, indent=2))
+                try:
+                    out = stack.brand_pack(intake)
+                except ValueError as exc:
+                    print(f"Intake error: {exc}")
+                else:
+                    print(json.dumps({
+                        "brand_name": out["pack"]["data"].get("brand_name"),
+                        "quality_checklist": out["quality_checklist"],
+                        "zip": out.get("zip"),
+                        "delivery": out.get("delivery"),
+                        "paths": out["pack"]["paths"],
+                        "promotion_ready_checklist": out["promotion_ready"],
+                    }, indent=2))
+                    if out.get("zip"):
+                        print(f"\nCustomer ZIP ready: {out['zip']}")
             elif rest.startswith("promote "):
                 feature = rest.removeprefix("promote").strip() or "brand_pack"
                 # empty evidence shows what's missing
@@ -622,6 +631,7 @@ def main() -> None:
                     "  stack\n"
                     "  stack run [brand name]\n"
                     "  stack brand <name> | <vibe> | <audience> | <offer>\n"
+                    "  stack pack  <name> | <vibe> | <audience> | <offer>\n"
                     "  stack rules\n"
                     "  stack promote <feature>\n"
                 )

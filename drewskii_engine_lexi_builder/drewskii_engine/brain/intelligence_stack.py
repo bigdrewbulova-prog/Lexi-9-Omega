@@ -86,6 +86,26 @@ class BrandIntake:
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
+    def validate(self) -> list[str]:
+        """Return list of validation errors (empty = ok)."""
+        errors: list[str] = []
+        name = (self.name or "").strip()
+        if not name:
+            errors.append("name is required")
+        elif len(name) > 120:
+            errors.append("name must be 120 characters or fewer")
+        if not (self.vibe or "").strip():
+            errors.append("vibe is required")
+        if not (self.audience or "").strip():
+            errors.append("audience is required")
+        if not (self.offer or "").strip():
+            errors.append("offer is required")
+        for field_name in ("vibe", "audience", "offer", "colors", "project_type"):
+            val = getattr(self, field_name) or ""
+            if len(val) > 500:
+                errors.append(f"{field_name} must be 500 characters or fewer")
+        return errors
+
 
 @dataclass
 class QualityChecklist:
@@ -184,6 +204,9 @@ class LocalFirstIntelligenceStack:
         elif isinstance(intake, dict):
             intake = BrandIntake(**{k: intake[k] for k in BrandIntake.__dataclass_fields__ if k in intake})
 
+        errors = intake.validate()
+        if errors:
+            raise ValueError("Invalid intake: " + "; ".join(errors))
         if is_blocked(json.dumps(intake.to_dict())):
             raise PermissionError("Intake crosses a blocked safety boundary.")
 
@@ -196,6 +219,8 @@ class LocalFirstIntelligenceStack:
             memory=self.memory,
         )
         data = result["data"]
+        paths = result["paths"]
+        zip_ok = bool(paths.get("zip") and Path(paths["zip"]).is_file())
         checklist = QualityChecklist(
             has_name=bool(data.get("brand_name")),
             has_bio=bool(data.get("bio")),
@@ -204,28 +229,46 @@ class LocalFirstIntelligenceStack:
             has_ad_copy=bool(data.get("ad_copy")),
             has_concept_sheet=bool(data.get("concept_sheet")),
             claim_boundary_ok=True,
-            local_files_saved=bool(result.get("paths")),
-            notes=["Stage-1 prototype quality gate for $50 pack path"],
+            local_files_saved=bool(paths) and zip_ok,
+            notes=[
+                "Stage-1 prototype quality gate for $50 pack path",
+                "ZIP package included for customer delivery",
+            ],
         )
         self.memory.set(
             f"brand_intake_{data.get('brand_name', 'pack')}",
-            json.dumps({"intake": intake.to_dict(), "paths": result["paths"]}, ensure_ascii=True),
+            json.dumps(
+                {
+                    "intake": intake.to_dict(),
+                    "paths": paths,
+                    "zip": paths.get("zip"),
+                    "checklist": checklist.to_dict(),
+                },
+                ensure_ascii=True,
+            ),
         )
         log_evaluation(
             self.memory,
             category="product",
             subject=f"brand_pack:{data.get('brand_name')}",
-            notes="Stage-1 brand pack generated with quality checklist",
+            notes="Stage-1 brand pack generated with quality checklist + ZIP",
             score=1.0 if checklist.passed else 0.6,
-            payload={"checklist": checklist.to_dict(), "paths": result["paths"]},
+            payload={"checklist": checklist.to_dict(), "paths": paths, "zip": paths.get("zip")},
         )
-        log_event(f"stack_brand_pack passed={checklist.passed} name={data.get('brand_name')}")
+        log_event(f"stack_brand_pack passed={checklist.passed} name={data.get('brand_name')} zip={zip_ok}")
         return {
             "intake": intake.to_dict(),
             "pack": result,
             "quality_checklist": checklist.to_dict(),
+            "zip": paths.get("zip"),
             "promotion_ready": checklist.passed,  # still needs gate review for Stage 2
             "stage": 1,
+            "delivery": {
+                "format": "zip",
+                "price_starting_usd": 50,
+                "cta": "BLUEPRINT",
+                "customer_files": ["README.md", "brand_pack.md", "brand_pack.html", "brand_pack.json"],
+            },
         }
 
     def full_stage1_run(
@@ -263,6 +306,8 @@ class LocalFirstIntelligenceStack:
         report["steps"]["brand_pack"] = {
             "quality": pack["quality_checklist"],
             "paths": pack["pack"]["paths"],
+            "zip": pack.get("zip"),
+            "delivery": pack.get("delivery"),
         }
 
         # 3. Documentary + offer maps
