@@ -62,6 +62,7 @@
     <div class="nav">
       <a class="active" href="/">New pack</a>
       <a href="/library">Pack library</a>
+      <a href="/orders">Orders</a>
       <a href="/api/packs">JSON API</a>
     </div>
 
@@ -94,8 +95,17 @@
       <label for="colors">COLORS</label>
       <input id="colors" name="colors" maxlength="500" value="void black · blueprint white · ultraviolet · acid green" />
 
+      <label for="customer_name">CUSTOMER NAME (order log)</label>
+      <input id="customer_name" name="customer_name" maxlength="200" placeholder="optional — who is this for / paying?" />
+
+      <label for="customer_note">ORDER NOTE</label>
+      <input id="customer_note" name="customer_note" maxlength="500" placeholder="optional — Discord, IG, invoice ref…" />
+
+      <label for="amount_usd">AMOUNT USD</label>
+      <input id="amount_usd" name="amount_usd" type="number" min="0" max="100000" step="1" value="50" />
+
       <button type="submit" id="submit">GENERATE PACK →</button>
-      <p class="price">Starting at $50 · CTA: BLUEPRINT · Local only · Quality checklist enforced</p>
+      <p class="price">Starting at $50 · CTA: BLUEPRINT · Local order row · No payment processor</p>
       <p class="err" id="err"></p>
     </form>
 
@@ -103,7 +113,7 @@
       Promotion gate still applies before native app / payments.
       Speculative physics claims are not product features.
       API: <code>POST /api/pack</code> · Library: <code>GET /library</code> ·
-      List: <code>GET /api/packs</code> · Health: <code>GET /api/health</code>
+      Orders: <code>GET /orders</code> · List: <code>GET /api/orders</code>
     </p>
   </div>
   <script>

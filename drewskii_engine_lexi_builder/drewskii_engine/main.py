@@ -75,7 +75,9 @@ Commands:
   stack run                    Full Stage-1 automation pipeline
   stack brand <name|vibe|aud|offer>
   stack pack <name|vibe|aud|offer>   Alias: brand pack + ZIP path
-  stack serve [port]           Intake UI + pack library → ZIP download
+  stack serve [port]           Intake UI + library + order ledger
+  stack orders                 Local $50 pack order ledger
+  stack order <id> <status>    Set order status (paid_manual, delivered, …)
   stack rules                  Operating rules + promotion gate
   stack promote <feature>      Promotion gate checklist
   blueprint [name]             Quick Brand Blueprint Pack (MD/JSON/HTML)
@@ -639,6 +641,22 @@ def main() -> None:
                 except Exception:
                     pass
                 pack_serve(host="127.0.0.1", port=port)
+            elif rest == "orders" or rest.startswith("orders"):
+                print(json.dumps(stack.list_orders(limit=30), indent=2, ensure_ascii=True))
+            elif rest.startswith("order "):
+                # stack order <id> <status> [note...]
+                bits = rest.removeprefix("order ").split()
+                if len(bits) < 2:
+                    print("Usage: stack order <id> <status> [optional note]")
+                    print(f"Statuses: {sorted(Memory.VALID_ORDER_STATUSES)}")
+                else:
+                    try:
+                        oid = int(bits[0])
+                        status = bits[1]
+                        note = " ".join(bits[2:]) if len(bits) > 2 else ""
+                        print(json.dumps(stack.set_order_status(oid, status, note=note), indent=2))
+                    except (ValueError, TypeError) as exc:
+                        print(f"Order update error: {exc}")
             else:
                 print(
                     "Usage:\n"
@@ -646,7 +664,9 @@ def main() -> None:
                     "  stack run [brand name]\n"
                     "  stack brand <name> | <vibe> | <audience> | <offer>\n"
                     "  stack pack  <name> | <vibe> | <audience> | <offer>\n"
-                    "  stack serve [port]   # default 8787 — intake + /library\n"
+                    "  stack serve [port]   # default 8787 — intake + library + orders\n"
+                    "  stack orders\n"
+                    "  stack order <id> <status> [note]\n"
                     "  stack rules\n"
                     "  stack promote <feature>\n"
                 )

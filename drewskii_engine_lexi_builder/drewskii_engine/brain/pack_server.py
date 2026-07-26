@@ -1,12 +1,15 @@
 """
 Local Stage-2 slice: guided Brand Pack intake → generate → download ZIP
-+ local pack library (history / re-download).
++ local pack library (history / re-download)
++ local order ledger (customer / note / $50, manual status only).
 
-stdlib only. User-space. No cloud. No payments.
+stdlib only. User-space. No cloud. No payment processor.
   stack serve  →  http://127.0.0.1:8787
   /            form
   /library     pack history
-  /api/packs   JSON list
+  /orders      order ledger
+  /api/packs   JSON packs
+  /api/orders  JSON orders
 """
 from __future__ import annotations
 
@@ -169,8 +172,18 @@ class PackHandler(BaseHTTPRequestHandler):
             self._send(200, _render_library().encode("utf-8"))
             return
 
+        if path in {"/orders", "/ledger"}:
+            self._send(200, _render_orders().encode("utf-8"))
+            return
+
         if path == "/api/health":
             packs = list_brand_packs(limit=5)
+            try:
+                order_stats = Memory(
+                    PROJECT_ROOT / "memory" / "drewskii_memory.db"
+                ).pack_order_stats()
+            except Exception:
+                order_stats = {"orders": 0}
             self._send_json(
                 200,
                 {
@@ -180,13 +193,17 @@ class PackHandler(BaseHTTPRequestHandler):
                     "product": "Custom AI Brand Blueprint Packs",
                     "price_starting_usd": 50,
                     "library_count": len(list_brand_packs(limit=200)),
+                    "order_stats": order_stats,
                     "recent_pack": packs[0]["brand_name"] if packs else None,
                     "endpoints": [
                         "GET /",
                         "GET /library",
+                        "GET /orders",
                         "GET /api/health",
                         "GET /api/packs",
+                        "GET /api/orders",
                         "POST /api/pack",
+                        "POST /api/orders/status",
                         "GET /download/<path>",
                     ],
                 },
@@ -208,6 +225,31 @@ class PackHandler(BaseHTTPRequestHandler):
                     "packs": items,
                     "packages_dir": str(PACKAGES_DIR),
                     "stage": 1,
+                },
+            )
+            return
+
+        if path == "/api/orders":
+            qs = parse_qs(parsed.query or "")
+            try:
+                limit = int((qs.get("limit") or ["50"])[0])
+            except ValueError:
+                limit = 50
+            mem = Memory(PROJECT_ROOT / "memory" / "drewskii_memory.db")
+            orders = mem.recent_pack_orders(limit=limit)
+            for o in orders:
+                zp = o.get("zip_path") or ""
+                o["download_url"] = f"/download/{zp}" if zp else ""
+            self._send_json(
+                200,
+                {
+                    "ok": True,
+                    "count": len(orders),
+                    "orders": orders,
+                    "stats": mem.pack_order_stats(),
+                    "stage": 1,
+                    "payment_processor": None,
+                    "note": "Manual ledger only — mark paid_manual after external payment.",
                 },
             )
             return
@@ -239,9 +281,7 @@ class PackHandler(BaseHTTPRequestHandler):
 
     def do_POST(self) -> None:
         parsed = urlparse(self.path)
-        if parsed.path != "/api/pack":
-            self._send_json(404, {"error": "Not found"})
-            return
+        path = parsed.path
 
         length = int(self.headers.get("Content-Length", "0") or 0)
         raw = self.rfile.read(length) if length else b"{}"
@@ -251,11 +291,18 @@ class PackHandler(BaseHTTPRequestHandler):
             if "application/json" in content_type:
                 payload = json.loads(raw.decode("utf-8") or "{}")
             else:
-                # form-urlencoded
                 form = parse_qs(raw.decode("utf-8"), keep_blank_values=True)
                 payload = {k: (v[0] if v else "") for k, v in form.items()}
         except (json.JSONDecodeError, UnicodeDecodeError) as exc:
             self._send_json(400, {"error": f"Bad request body: {exc}"})
+            return
+
+        if path == "/api/orders/status":
+            self._post_order_status(payload)
+            return
+
+        if path != "/api/pack":
+            self._send_json(404, {"error": "Not found"})
             return
 
         intake = BrandIntake(
@@ -266,14 +313,26 @@ class PackHandler(BaseHTTPRequestHandler):
             offer=(payload.get("offer") or "").strip(),
             colors=(payload.get("colors") or "void black · blueprint white · ultraviolet").strip(),
         )
+        customer_name = (payload.get("customer_name") or "").strip()
+        customer_note = (payload.get("customer_note") or "").strip()
+        try:
+            amount_usd = float(payload.get("amount_usd") or 50)
+        except (TypeError, ValueError):
+            amount_usd = 50.0
 
-        if is_blocked(json.dumps(intake.to_dict())):
+        if is_blocked(json.dumps({**intake.to_dict(), "customer_name": customer_name, "customer_note": customer_note})):
             self._send_json(403, {"error": "Intake blocked by safety rules."})
             return
 
         try:
             stack = _stack()
-            out = stack.brand_pack(intake, include_code=True)
+            out = stack.brand_pack(
+                intake,
+                include_code=True,
+                customer_name=customer_name,
+                customer_note=customer_note,
+                amount_usd=amount_usd,
+            )
         except ValueError as exc:
             self._send_json(400, {"error": str(exc)})
             return
@@ -290,12 +349,8 @@ class PackHandler(BaseHTTPRequestHandler):
             return
 
         zip_path = out.get("zip") or ""
-        download = ""
-        if zip_path:
-            # Serve via absolute path under /download/
-            download = f"/download/{zip_path}"
+        download = f"/download/{zip_path}" if zip_path else ""
 
-        # HTML form posts expect redirect-friendly HTML response optional
         accept = (self.headers.get("Accept") or "").lower()
         wants_html = "text/html" in accept and "application/json" not in accept
 
@@ -308,6 +363,8 @@ class PackHandler(BaseHTTPRequestHandler):
             "download_url": download,
             "paths": out["pack"]["paths"],
             "delivery": out.get("delivery"),
+            "order_id": out.get("order_id"),
+            "order": out.get("order"),
             "price_starting_usd": 50,
             "cta": "BLUEPRINT",
             "stage": 1,
@@ -319,6 +376,32 @@ class PackHandler(BaseHTTPRequestHandler):
             return
 
         self._send_json(200, result)
+
+    def _post_order_status(self, payload: dict[str, Any]) -> None:
+        try:
+            order_id = int(payload.get("order_id") or payload.get("id") or 0)
+        except (TypeError, ValueError):
+            self._send_json(400, {"error": "order_id required"})
+            return
+        status = (payload.get("status") or "").strip()
+        note = (payload.get("note") or "").strip()
+        if not order_id or not status:
+            self._send_json(400, {"error": "order_id and status required"})
+            return
+        try:
+            stack = _stack()
+            updated = stack.set_order_status(order_id, status, note=note)
+        except ValueError as exc:
+            self._send_json(400, {"error": str(exc)})
+            return
+        accept = (self.headers.get("Accept") or "").lower()
+        if "text/html" in accept and "application/json" not in accept:
+            self.send_response(303)
+            self.send_header("Location", "/orders")
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+            return
+        self._send_json(200, {"ok": True, "order": updated})
 
 
 def _render_form() -> str:
@@ -349,13 +432,14 @@ a.ghost{{display:inline-block;margin:16px 12px 0 0;color:var(--paper);border:1px
 <h1>{result.get('brand_name')}</h1>
 <p class="muted">{result.get('slogan') or ''}</p>
 <p>Quality checklist: <strong class="{'ok' if passed else 'bad'}">{'PASSED' if passed else 'FAILED'}</strong></p>
-<p class="muted">Starting at $50 · CTA: BLUEPRINT</p>
+<p class="muted">Starting at $50 · CTA: BLUEPRINT · Order #{result.get('order_id') or '—'}</p>
 {'<a class="btn" href="'+dl+'">Download ZIP package →</a>' if zip_path else '<p class="bad">ZIP missing</p>'}
 <p style="margin-top:20px">
   <a class="ghost" href="/">← New pack</a>
   <a class="ghost" href="/library">Pack library</a>
+  <a class="ghost" href="/orders">Orders</a>
 </p>
-<p class="muted" style="margin-top:24px;font-size:12px">Saved under workspace deliverables (local only).</p>
+<p class="muted" style="margin-top:24px;font-size:12px">Saved under workspace deliverables + local order ledger (no payment processor).</p>
 <p><code>{zip_path}</code></p>
 </div></body></html>"""
 
@@ -411,6 +495,7 @@ a.dl{{color:#111;background:var(--acid);text-decoration:none;font:700 11px var(-
 <div class="nav">
   <a href="/">New pack</a>
   <a class="active" href="/library">Library</a>
+  <a href="/orders">Orders</a>
   <a href="/api/packs">JSON API</a>
 </div>
 <table>
@@ -420,6 +505,112 @@ a.dl{{color:#111;background:var(--acid);text-decoration:none;font:700 11px var(-
   </tbody>
 </table>
 <p class="meta">{len(items)} pack(s) · {PACKAGES_DIR} · GET /api/packs</p>
+</div></body></html>"""
+
+
+def _esc(text: Any) -> str:
+    return str(text if text is not None else "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def _render_orders() -> str:
+    mem = Memory(PROJECT_ROOT / "memory" / "drewskii_memory.db")
+    items = mem.recent_pack_orders(limit=50)
+    stats = mem.pack_order_stats()
+    rows = []
+    for o in items:
+        oid = o.get("id")
+        brand = _esc(o.get("brand_name"))
+        cust = _esc(o.get("customer_name") or "—")
+        note = _esc((o.get("customer_note") or "")[:120])
+        amount = o.get("amount_usd")
+        status = _esc(o.get("status"))
+        created = _esc((o.get("created_at") or "").replace("T", " ").replace("+00:00", " UTC"))
+        zp = o.get("zip_path") or ""
+        dl = f'<a class="dl" href="/download/{_esc(zp)}">ZIP</a>' if zp else "—"
+        rows.append(
+            f"""<tr>
+  <td class="muted">#{oid}</td>
+  <td><strong>{brand}</strong><div class="muted file">{note}</div></td>
+  <td>{cust}</td>
+  <td class="muted">${amount:g}</td>
+  <td><span class="st">{status}</span>
+    <form class="stform" method="post" action="/api/orders/status" accept-charset="utf-8">
+      <input type="hidden" name="order_id" value="{oid}" />
+      <select name="status">
+        <option value="generated">generated</option>
+        <option value="delivered">delivered</option>
+        <option value="paid_manual">paid_manual</option>
+        <option value="refunded_manual">refunded_manual</option>
+        <option value="cancelled">cancelled</option>
+        <option value="draft">draft</option>
+      </select>
+      <button type="submit">Set</button>
+    </form>
+  </td>
+  <td class="muted">{created}</td>
+  <td>{dl}</td>
+</tr>"""
+        )
+    body_rows = "\n".join(rows) if rows else (
+        '<tr><td colspan="7" class="muted">No orders yet. '
+        '<a href="/" style="color:var(--acid)">Generate a pack →</a></td></tr>'
+    )
+    by = stats.get("by_status") or {}
+    by_txt = " · ".join(f"{k}:{v}" for k, v in sorted(by.items())) or "none"
+    return f"""<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Order ledger — Lexi</title>
+<style>
+:root{{--ink:#080b0a;--paper:#e7e5dc;--acid:#c8ff35;--muted:#8e958d;--line:rgba(231,229,220,.16);--mono:ui-monospace,SFMono-Regular,monospace}}
+*{{box-sizing:border-box}}
+body{{margin:0;font-family:system-ui,sans-serif;background:var(--ink);color:var(--paper);
+background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:40px 40px}}
+.wrap{{max-width:1100px;margin:0 auto;padding:48px 20px 80px}}
+.badge{{display:inline-block;font:11px var(--mono);letter-spacing:.16em;color:var(--acid);border:1px solid rgba(200,255,53,.4);padding:6px 10px;border-radius:999px}}
+h1{{font-size:clamp(28px,4vw,40px);letter-spacing:-.04em;margin:16px 0 8px}}
+h1 span{{color:var(--acid)}}
+.lede{{color:var(--muted);line-height:1.55;margin-bottom:20px}}
+.nav a{{color:var(--paper);text-decoration:none;border:1px solid var(--line);padding:10px 12px;border-radius:10px;font:11px var(--mono);margin-right:8px;display:inline-block;margin-bottom:8px}}
+.nav a:hover,.nav a.active{{border-color:var(--acid);color:var(--acid)}}
+.muted{{color:var(--muted)}} .file{{font:11px var(--mono);margin-top:4px;word-break:break-all}}
+.stats{{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0}}
+.stat{{border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-width:120px}}
+.stat b{{display:block;font-size:20px;color:var(--acid)}}
+.stat span{{font:10px var(--mono);color:var(--muted);letter-spacing:.1em}}
+table{{width:100%;border-collapse:collapse;margin-top:16px;font-size:13px}}
+th,td{{text-align:left;padding:10px 6px;border-top:1px solid var(--line);vertical-align:top}}
+th{{font:10px var(--mono);letter-spacing:.12em;color:var(--muted)}}
+a.dl{{color:#111;background:var(--acid);text-decoration:none;font:700 11px var(--mono);padding:8px 10px;border-radius:8px;display:inline-block}}
+.st{{font:11px var(--mono);color:var(--acid)}}
+.stform{{margin-top:6px;display:flex;gap:4px;flex-wrap:wrap}}
+.stform select,.stform button{{font:11px var(--mono);background:#0b0e0c;color:var(--paper);border:1px solid var(--line);border-radius:6px;padding:4px 6px}}
+.stform button{{cursor:pointer;border-color:rgba(200,255,53,.4);color:var(--acid)}}
+.meta{{margin-top:20px;font:11px var(--mono);color:var(--muted)}}
+.warn{{border:1px solid rgba(255,92,53,.35);color:var(--muted);padding:12px 14px;border-radius:10px;font:12px var(--mono);margin-top:12px}}
+</style></head><body><div class="wrap">
+<div class="badge">STAGE 1 · LOCAL ORDER LEDGER · NO PAYMENTS API</div>
+<h1>Order <span>ledger</span></h1>
+<p class="lede">Customer + note + amount for each Brand Pack. Mark <code>paid_manual</code> only after you receive money outside this app. No card vault, no cloud checkout.</p>
+<div class="nav">
+  <a href="/">New pack</a>
+  <a href="/library">Library</a>
+  <a class="active" href="/orders">Orders</a>
+  <a href="/api/orders">JSON API</a>
+</div>
+<div class="stats">
+  <div class="stat"><b>{stats.get('orders', 0)}</b><span>ORDERS</span></div>
+  <div class="stat"><b>${stats.get('pipeline_usd', 0):g}</b><span>PIPELINE USD</span></div>
+  <div class="stat"><b>${stats.get('paid_manual_usd', 0):g}</b><span>PAID MANUAL USD</span></div>
+</div>
+<p class="muted" style="font:11px var(--mono)">By status: {by_txt}</p>
+<div class="warn">Payments stay external (Venmo/Cash App/invoice). This ledger is local evidence for PoU / ops — not a storefront.</div>
+<table>
+  <thead><tr><th>ID</th><th>BRAND / NOTE</th><th>CUSTOMER</th><th>$</th><th>STATUS</th><th>CREATED</th><th></th></tr></thead>
+  <tbody>
+{body_rows}
+  </tbody>
+</table>
+<p class="meta">GET /api/orders · POST /api/orders/status · stack orders</p>
 </div></body></html>"""
 
 
@@ -488,6 +679,7 @@ def _default_form_html() -> str:
     <div class="nav">
       <a class="active" href="/">New pack</a>
       <a href="/library">Pack library</a>
+      <a href="/orders">Orders</a>
       <a href="/api/packs">JSON API</a>
     </div>
 
@@ -520,8 +712,17 @@ def _default_form_html() -> str:
       <label for="colors">COLORS</label>
       <input id="colors" name="colors" maxlength="500" value="void black · blueprint white · ultraviolet · acid green" />
 
+      <label for="customer_name">CUSTOMER NAME (order log)</label>
+      <input id="customer_name" name="customer_name" maxlength="200" placeholder="optional — who is this for / paying?" />
+
+      <label for="customer_note">ORDER NOTE</label>
+      <input id="customer_note" name="customer_note" maxlength="500" placeholder="optional — Discord, IG, invoice ref…" />
+
+      <label for="amount_usd">AMOUNT USD</label>
+      <input id="amount_usd" name="amount_usd" type="number" min="0" max="100000" step="1" value="50" />
+
       <button type="submit" id="submit">GENERATE PACK →</button>
-      <p class="price">Starting at $50 · CTA: BLUEPRINT · Local only · Quality checklist enforced</p>
+      <p class="price">Starting at $50 · CTA: BLUEPRINT · Local order row · No payment processor</p>
       <p class="err" id="err"></p>
     </form>
 
@@ -529,7 +730,7 @@ def _default_form_html() -> str:
       Promotion gate still applies before native app / payments.
       Speculative physics claims are not product features.
       API: <code>POST /api/pack</code> · Library: <code>GET /library</code> ·
-      List: <code>GET /api/packs</code> · Health: <code>GET /api/health</code>
+      Orders: <code>GET /orders</code> · List: <code>GET /api/orders</code>
     </p>
   </div>
   <script>
@@ -554,11 +755,13 @@ def serve(host: str = DEFAULT_HOST, port: int = DEFAULT_PORT) -> None:
     if not FORM_HTML.exists():
         FORM_HTML.write_text(_default_form_html(), encoding="utf-8")
     httpd = ThreadingHTTPServer((host, port), PackHandler)
-    print("Lexi Brand Pack intake + library server")
+    print("Lexi Brand Pack intake + library + order ledger")
     print(f"  Guided form:  http://{host}:{port}/")
     print(f"  Pack library: http://{host}:{port}/library")
+    print(f"  Order ledger: http://{host}:{port}/orders")
     print(f"  API health:   http://{host}:{port}/api/health")
     print(f"  List packs:   http://{host}:{port}/api/packs")
+    print(f"  List orders:  http://{host}:{port}/api/orders")
     print(f"  POST pack:    http://{host}:{port}/api/pack")
     print("  Ctrl+C to stop")
     log_event(f"pack_server_start {host}:{port}")

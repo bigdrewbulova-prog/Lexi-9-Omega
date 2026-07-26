@@ -197,8 +197,13 @@ class LocalFirstIntelligenceStack:
         self,
         intake: BrandIntake | dict[str, str] | None = None,
         include_code: bool = True,
+        *,
+        customer_name: str = "",
+        customer_note: str = "",
+        amount_usd: float = 50.0,
+        order_status: str = "generated",
     ) -> dict[str, Any]:
-        """First product path: capture intake → forge pack → quality checklist → SQLite."""
+        """First product path: intake → forge pack → checklist → ZIP → local order row."""
         if intake is None:
             intake = BrandIntake()
         elif isinstance(intake, dict):
@@ -247,20 +252,45 @@ class LocalFirstIntelligenceStack:
                 ensure_ascii=True,
             ),
         )
+        order_id = self.memory.save_pack_order(
+            brand_name=str(data.get("brand_name") or intake.name),
+            customer_name=customer_name,
+            customer_note=customer_note,
+            amount_usd=amount_usd,
+            status=order_status if order_status in Memory.VALID_ORDER_STATUSES else "generated",
+            zip_path=str(paths.get("zip") or ""),
+            deliverable_id=result.get("deliverable_id"),
+            meta={
+                "quality_passed": checklist.passed,
+                "cta": "BLUEPRINT",
+                "source": "brand_pack",
+            },
+        )
+        order = self.memory.get_pack_order(order_id)
         log_evaluation(
             self.memory,
             category="product",
             subject=f"brand_pack:{data.get('brand_name')}",
-            notes="Stage-1 brand pack generated with quality checklist + ZIP",
+            notes="Stage-1 brand pack generated with quality checklist + ZIP + order log",
             score=1.0 if checklist.passed else 0.6,
-            payload={"checklist": checklist.to_dict(), "paths": paths, "zip": paths.get("zip")},
+            payload={
+                "checklist": checklist.to_dict(),
+                "paths": paths,
+                "zip": paths.get("zip"),
+                "order_id": order_id,
+            },
         )
-        log_event(f"stack_brand_pack passed={checklist.passed} name={data.get('brand_name')} zip={zip_ok}")
+        log_event(
+            f"stack_brand_pack passed={checklist.passed} name={data.get('brand_name')} "
+            f"zip={zip_ok} order_id={order_id}"
+        )
         return {
             "intake": intake.to_dict(),
             "pack": result,
             "quality_checklist": checklist.to_dict(),
             "zip": paths.get("zip"),
+            "order_id": order_id,
+            "order": order,
             "promotion_ready": checklist.passed,  # still needs gate review for Stage 2
             "stage": 1,
             "delivery": {
@@ -268,8 +298,30 @@ class LocalFirstIntelligenceStack:
                 "price_starting_usd": 50,
                 "cta": "BLUEPRINT",
                 "customer_files": ["README.md", "brand_pack.md", "brand_pack.html", "brand_pack.json"],
+                "order_ledger": "local SQLite pack_orders (no payment processor)",
             },
         }
+
+    def list_orders(self, limit: int = 50) -> dict[str, Any]:
+        return {
+            "orders": self.memory.recent_pack_orders(limit=limit),
+            "stats": self.memory.pack_order_stats(),
+            "stage": 1,
+            "note": "Manual ledger only — no card processing or cloud payments.",
+        }
+
+    def set_order_status(
+        self,
+        order_id: int,
+        status: str,
+        *,
+        note: str = "",
+    ) -> dict[str, Any]:
+        updated = self.memory.update_pack_order_status(order_id, status, note_append=note)
+        if not updated:
+            raise ValueError(f"Order {order_id} not found")
+        log_event(f"pack_order_status id={order_id} status={status}")
+        return updated
 
     def full_stage1_run(
         self,

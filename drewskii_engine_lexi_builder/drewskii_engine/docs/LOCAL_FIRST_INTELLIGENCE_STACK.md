@@ -62,15 +62,20 @@ Use: `stack promote <feature>` with evidence checklist.
 stack pack Nova Thread | midnight ultraviolet | late-night creators | identity + ads
 # → Customer ZIP ready: workspace/deliverables/blueprints/packages/...-brand-pack.zip
 ```
-**Guided HTML intake + local library (Stage-2 slice, local-only):**
+**Guided HTML intake + library + order ledger (Stage-2 slice, local-only):**
 ```text
 stack serve
-# → http://127.0.0.1:8787/         form → generate → Download ZIP
+# → http://127.0.0.1:8787/         form → generate → Download ZIP + order row
 # → http://127.0.0.1:8787/library  pack history + re-download
-# → GET /api/packs                 JSON list of local ZIPs
+# → http://127.0.0.1:8787/orders   customer / note / $50 ledger (manual status)
+# → GET /api/packs · GET /api/orders · POST /api/orders/status
+stack orders
+stack order <id> paid_manual Venmo received
 ```
 **ZIP contents:** README, brand_pack.md/html/json, optional starter code  
 **Library:** scans `workspace/deliverables/blueprints/packages/*-brand-pack.zip` + SQLite deliverables  
+**Orders:** SQLite `pack_orders` — statuses: draft, generated, delivered, paid_manual, refunded_manual, cancelled  
+**No payment processor** — mark `paid_manual` only after external money; Stage-2 payments stay gated  
 **Official app later:** native intake UI → history → export/share → payments  
 
 ## Blocked
